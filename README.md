@@ -1,7 +1,7 @@
 # Stone Giant Studio Skills
 
-Skills forged in production. Four tools we built for our own work, extracted
-and published because every developer deserves them.
+We use these every day. Four skills pulled from our private toolchain and
+published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
 
@@ -17,6 +17,8 @@ Or via [skills.sh](https://skills.sh) (works with 50+ agents):
 npx skills add stonegiantstudio/skills
 ```
 
+After installing, try `/stone-giant:score 90` on whatever you're working on.
+
 ## Commands
 
 ### /stone-giant:park — Stop Thinking About Work
@@ -26,11 +28,11 @@ that one bug you didn't get to, the conversation context you'll lose when
 this session ends. Psychologists call it the Zeigarnik Effect: unfinished
 tasks hijack your attention until you make a concrete plan to finish them.
 
-Park runs a 5-minute shutdown ritual grounded in that research. It surveys
-your branches and stashes, captures where you stopped, locks in tomorrow's
-first task, and preserves the decisions and discoveries from your current
-session. Everything goes into a structured parking receipt that the next
-session can read cold.
+Park runs a 5-minute shutdown ritual grounded in that research. It captures
+where you stopped, locks in tomorrow's first task, and writes a structured
+receipt that the next session can read cold. The debugging breakthrough, the
+architecture decision, the dead end you don't want to repeat: all of it
+survives the session boundary.
 
 The result: your brain lets go. Tomorrow morning, you pick up exactly where
 you left off.
@@ -70,8 +72,8 @@ month. Most developers make that bet on gut feel and star counts.
 Eval-npm makes it on data. It pulls maintenance health, download trends,
 bundle size, TypeScript support, and security posture for every candidate.
 It always expands your search: ask about one package, get a comparison
-against the top 2-3 alternatives. The output is a weighted scorecard with
-a clear recommendation, not a wall of stats to interpret yourself.
+against the top 2-3 alternatives with a weighted scorecard and a clear
+recommendation.
 
 ```
 /stone-giant:eval-npm date-fns vs dayjs vs moment
@@ -85,22 +87,21 @@ a clear recommendation, not a wall of stats to interpret yourself.
 `npm audit` catches yesterday's vulnerabilities. This skill catches today's.
 
 When eval-npm runs, it automatically triggers a security pre-check against
-Socket.dev and OSV.dev. But the real value is in Step 4: metadata anomaly
-detection that spots the signatures of a supply-chain attack during the
-0-to-72-hour window before threat feeds catch up. A version published 6
-hours ago by a new maintainer, with a `postinstall` script that didn't
-exist before? That's the pattern. This skill flags it before `npm audit`
-even knows there's a problem.
+Socket.dev and OSV.dev. But the real value is metadata anomaly detection
+that spots supply-chain attacks during the 0-to-72-hour window before
+threat feeds catch up. A version published 6 hours ago by a new maintainer,
+with a `postinstall` script that didn't exist before? That's the pattern.
+This skill flags it before `npm audit` even knows there's a problem.
 
 Covers 15 documented attack techniques, from lifecycle hook injection
 (event-stream, 2018) to stolen-token rapid republish (Shai-Hulud, 2025).
 
 ## What are skills?
 
-Skills are markdown files that give AI coding agents specialized capabilities.
-They work across Claude Code, Cursor, Codex, Gemini CLI, and 50+ other
-agents via the [agentskills.io](https://agentskills.io) spec. Install once,
-use everywhere.
+Skills are markdown files that teach AI coding agents how to do specific
+things well. No binaries, no build step, no runtime dependencies. They work
+across Claude Code, Cursor, Codex, Gemini CLI, and 50+ other agents via the
+[agentskills.io](https://agentskills.io) spec. Install once, use everywhere.
 
 ## License
 
