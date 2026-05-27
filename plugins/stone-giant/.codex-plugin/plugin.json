@@ -1,0 +1,12 @@
+{
+  "name": "stone-giant",
+  "description": "Production-tested skills from Stone Giant Studio — shutdown rituals, artifact scoring, npm evaluation, and security pre-checks",
+  "version": "1.0.0",
+  "author": {
+    "name": "Stone Giant Studio",
+    "url": "https://stonegiantstudio.com"
+  },
+  "repository": "https://github.com/stonegiantstudio/skills",
+  "license": "Apache-2.0",
+  "keywords": ["productivity", "code-quality", "npm", "security", "developer-tools"]
+}

@@ -1,0 +1,16 @@
+{
+  "marketplaceMetadata": {
+    "name": "Stone Giant Studio Skills",
+    "description": "Production-tested skills for Claude Code from Stone Giant Studio",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "id": "stone-giant",
+      "name": "Stone Giant Studio",
+      "description": "End-of-day shutdown ritual, artifact scoring, npm evaluation, and security pre-checks",
+      "source": "./plugins/stone-giant",
+      "version": "1.0.0"
+    }
+  ]
+}

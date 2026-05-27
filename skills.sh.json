@@ -1,0 +1,9 @@
+{
+  "groups": [
+    {
+      "name": "Stone Giant Studio",
+      "description": "Production-tested developer skills",
+      "skills": ["park", "score", "eval-npm", "npm-security-advisory"]
+    }
+  ]
+}
