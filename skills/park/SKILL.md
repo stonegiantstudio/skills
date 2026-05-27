@@ -28,15 +28,15 @@ Time: 5–10 minutes.
 ## Arguments
 
 ```text
-/stone-giant:park              → Full ritual (all phases)
-/stone-giant:park quick        → Skip reflection and session notes, abbreviated survey
-/stone-giant:park review       → Read most recent active receipt + cross-session summary
-/stone-giant:park review <id>  → Read a specific receipt (partial slug match, e.g. "auth-flow")
-/stone-giant:park log          → Show park index (active + completed)
-/stone-giant:park log --all    → Show all receipts including superseded/archived
-/stone-giant:park punch        → Show all open items across active receipts
-/stone-giant:park punch save   → Save punch list snapshot to .park/PUNCHLIST.md
-/stone-giant:park triage       → Walk through stale/flagged receipts, decide their fate
+/park              → Full ritual (all phases)
+/park quick        → Skip reflection and session notes, abbreviated survey
+/park review       → Read most recent active receipt + cross-session summary
+/park review <id>  → Read a specific receipt (partial slug match, e.g. "auth-flow")
+/park log          → Show park index (active + completed)
+/park log --all    → Show all receipts including superseded/archived
+/park punch        → Show all open items across active receipts
+/park punch save   → Save punch list snapshot to .park/PUNCHLIST.md
+/park triage       → Walk through stale/flagged receipts, decide their fate
 ```
 
 ## Interaction Budget
@@ -376,7 +376,7 @@ If saving:
 3. Write the receipt (frontmatter + body)
 4. Regenerate `.park/INDEX.md` (see [park-subcommands.md](../references/park-subcommands.md#index-regeneration))
 5. Run staleness detection on other active receipts. If any are flagged, note:
-   "You have N older active receipts that may be completed. Run `/stone-giant:park triage`
+   "You have N older active receipts that may be completed. Run `/park triage`
    to review."
 6. If `.gitignore` exists and doesn't already contain `.park`, append `.park/`
    (parking receipts are personal, not for the repo)

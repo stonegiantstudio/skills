@@ -120,7 +120,7 @@ in the footer.
 
 ## The `review` Subcommand
 
-When invoked as `/stone-giant:park review`:
+When invoked as `/park review`:
 
 1. Look for `.park/` directory in the project root. List and classify all
    receipts (Shared Operations > Listing receipts).
@@ -145,11 +145,11 @@ When invoked as `/stone-giant:park review`:
    - **Dashboard layout** (parked yesterday) — 3 open items
    - **Auth flow** (parked 2 days ago) — 1 item, blocked on external dep
 
-   Run `/stone-giant:park punch` for the combined view.
+   Run `/park punch` for the combined view.
    ```
 
 8. If any active receipts have staleness flags, mention triage: "1 older
-   receipt may be ready to close — run `/stone-giant:park triage` when you have a
+   receipt may be ready to close — run `/park triage` when you have a
    moment."
 9. After displaying, ask: **"Ready to pick up where you left off, or has the
    plan changed?"**
@@ -162,7 +162,7 @@ fresh.
 
 ### `review <id>` Variant
 
-When a specific receipt identifier is given (e.g., `/stone-giant:park review auth-flow`):
+When a specific receipt identifier is given (e.g., `/park review auth-flow`):
 
 1. Match the argument against receipt filenames — first try exact match, then
    match against the slug portion after the timestamp
@@ -177,22 +177,22 @@ When a specific receipt identifier is given (e.g., `/stone-giant:park review aut
 
 ## The `log` Subcommand
 
-When invoked as `/stone-giant:park log`:
+When invoked as `/park log`:
 
 1. Regenerate and read `.park/INDEX.md`
 2. Display the index grouped by status (Active, Completed)
 3. Show staleness flags inline for active receipts
 4. If the user asks about a specific date, read that receipt and display it
 
-When invoked as `/stone-giant:park log --all`:
+When invoked as `/park log --all`:
 
 - Include Superseded and Archived sections in the output
 
-If no index exists, say so and suggest running `/stone-giant:park` first.
+If no index exists, say so and suggest running `/park` first.
 
 ## The `punch` Subcommand
 
-When invoked as `/stone-giant:park punch`:
+When invoked as `/park punch`:
 
 1. List and classify all receipts (see Shared Operations > Listing receipts),
    then filter to `status: active` (includes legacy files, which are always
@@ -202,12 +202,12 @@ When invoked as `/stone-giant:park punch`:
 3. Group by source receipt, ordered by recency
 4. Display the punch list
 
-When invoked as `/stone-giant:park punch save`:
+When invoked as `/park punch save`:
 
 - Write the punch list to `.park/PUNCHLIST.md` (always overwrites — the punch
   list is a generated snapshot, not authored content)
 - Append a timestamp footer: `_Generated YYYY-MM-DD at H:MM PM. Run
-  /stone-giant:park punch save to refresh._`
+  /park punch save to refresh._`
 
 ### Punch List Format
 
@@ -225,7 +225,7 @@ _from 2026-05-26-170045-dashboard-layout.park.md_
 - [ ] Add empty state for no-data scenario
 
 ---
-_7 items across 3 sessions. Oldest: 2 days. Run `/stone-giant:park triage` to clean up._
+_7 items across 3 sessions. Oldest: 2 days. Run `/park triage` to clean up._
 ```
 
 **When the punch list is empty:** "No open items across any active receipts.
@@ -234,7 +234,7 @@ suggest triage.
 
 ## The `triage` Subcommand
 
-When invoked as `/stone-giant:park triage`:
+When invoked as `/park triage`:
 
 1. List and classify all receipts (Shared Operations > Listing receipts),
    filter to active, then run staleness detection (Shared Operations >
@@ -289,7 +289,7 @@ _From 2026-05-26-120030-auth-flow.park.md (superseded)_
 4. Apply the chosen transitions to each receipt's frontmatter
 5. Regenerate INDEX.md
 6. If `.park/PUNCHLIST.md` exists, note: "Your saved punch list is now out of
-   date. Run `/stone-giant:park punch save` to refresh."
+   date. Run `/park punch save` to refresh."
 7. Report: "Completed N, archived N. M active receipts remain."
 
 ## Legacy File Handling

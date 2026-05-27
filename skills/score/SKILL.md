@@ -12,15 +12,15 @@ Evaluate the current artifact — a plan, PRD, implementation, markdown document
 
 If `$ARGUMENTS` is `help`, display the usage guide and stop:
 
-> **`/stone-giant:score`** — Score the current artifact on a 1-100 rubric
+> **`/score`** — Score the current artifact on a 1-100 rubric
 >
 > **Usage:**
 >
-> - `/stone-giant:score` — score the most recent artifact, then ask if you want improvements
-> - `/stone-giant:score <file>` — score a specific file (e.g., `/stone-giant:score src/utils.ts`)
-> - `/stone-giant:score <target>` — score and auto-iterate until the target is reached (e.g., `/stone-giant:score 90`)
-> - `/stone-giant:score <target> <file>` — iterate a specific file to the target score (e.g., `/stone-giant:score 90 src/utils.ts`)
-> - `/stone-giant:score help` — show this help
+> - `/score` — score the most recent artifact, then ask if you want improvements
+> - `/score <file>` — score a specific file (e.g., `/score src/utils.ts`)
+> - `/score <target>` — score and auto-iterate until the target is reached (e.g., `/score 90`)
+> - `/score <target> <file>` — iterate a specific file to the target score (e.g., `/score 90 src/utils.ts`)
+> - `/score help` — show this help
 >
 > **Target score mode** automatically applies improvements and re-scores until the target is met (max 5 passes). Stops early on plateau or regression.
 
@@ -28,9 +28,9 @@ Otherwise, `$ARGUMENTS` may contain a **target score**, a **file path**, both, o
 
 **Parsing rules:**
 
-1. A bare integer between 1-100 is a **target score** (e.g., `/stone-giant:score 94`)
-2. A file path or description is the **artifact to score** (e.g., `/stone-giant:score src/utils.ts`)
-3. Both can be combined — leading integer is the target, remainder is the artifact (e.g., `/stone-giant:score 90 src/utils.ts`)
+1. A bare integer between 1-100 is a **target score** (e.g., `/score 94`)
+2. A file path or description is the **artifact to score** (e.g., `/score src/utils.ts`)
+3. Both can be combined — leading integer is the target, remainder is the artifact (e.g., `/score 90 src/utils.ts`)
 4. No arguments — infer the artifact from context (see below) and use manual mode
 
 The target score is consumed during parsing — it does not affect artifact identification. After extracting the target, use the remainder of `$ARGUMENTS` (if any) as the artifact specifier.
