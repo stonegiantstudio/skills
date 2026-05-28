@@ -107,12 +107,14 @@ across Claude Code, Cursor, Codex, Gemini CLI, and 50+ other agents via the
 
 This repo ships two formats from the same content:
 
-- **`plugins/stone-giant/`** for `claude plugin add` (Claude Code, Cursor, Codex)
+- **`plugins/stone-giant/skills/`** for `claude plugin add` (Claude Code, Cursor, Codex)
 - **`skills/`** for `npx skills add` ([agentskills.io](https://agentskills.io) spec, 50+ agents)
 
-When updating a skill, update both locations. The plugin commands use
-`/stone-giant:` prefixed invocations; the agentskills.io SKILL.md files
-use bare names (`/park`, `/score`, `/eval-npm`).
+Both use the `skills/<name>/SKILL.md` directory convention. When updating
+a skill, update both locations. The two copies differ intentionally:
+
+- **Invocations:** plugin uses `/stone-giant:park`; agentskills.io uses `/park`
+- **Frontmatter:** agentskills.io includes `name:` (required by spec); plugin omits it (Claude Code infers from directory). Description length and `allowed-tools` format may also differ between specs.
 
 ## License
 

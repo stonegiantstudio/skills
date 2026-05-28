@@ -5,7 +5,7 @@ description: Subcommand reference for the park shutdown ritual — review, log, 
 # Park Subcommands
 
 Reference documentation for the `review`, `log`, `punch`, and `triage`
-subcommands of the park skill. See [park.md](../commands/park.md) for the
+subcommands of the park skill. See [SKILL.md](../SKILL.md) for the
 main shutdown ritual.
 
 ## Shared Operations
