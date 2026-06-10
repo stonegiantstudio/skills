@@ -4,3 +4,7 @@
 *~
 .idea/
 .vscode/
+
+# Artifacts from test-installing our own skills via `npx skills add`
+.agents/
+skills-lock.json

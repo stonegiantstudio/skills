@@ -1,8 +1,8 @@
 ---
-name: npm-security-advisory
 description: Security advisory pre-check for npm packages using Socket.dev and OSV.dev. Triggers when installing, updating, evaluating, or adding npm packages. Use BEFORE any install, update, or evaluate operation to detect compromised, malicious, or vulnerable packages and their transitive dependencies.
-last_technique_review: 2026-05-18
-technique_stale_after_days: 30
+metadata:
+  last_technique_review: "2026-05-18"
+  technique_stale_after_days: "30"
 ---
 
 # npm Security Advisory Pre-Check
