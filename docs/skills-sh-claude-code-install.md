@@ -1,9 +1,11 @@
 # skills.sh + Claude Code install: investigation & plan
 
-**Status:** in progress — findings confirmed; README updated with per-agent
-install paths (PR #3); upstream duplicate-check done 2026-06-09: the bug is
-already reported (multiple open issues, see §2). Next: root-cause comment on
-vercel-labs/skills#1138 + reporting-fix PR.
+**Status:** complete — findings confirmed; README updated with per-agent
+install paths (PR #3); root-cause comment posted on
+[vercel-labs/skills#1138](https://github.com/vercel-labs/skills/issues/1138#issuecomment-4666649713);
+reporting-fix PR opened:
+[vercel-labs/skills#1405](https://github.com/vercel-labs/skills/pull/1405).
+Remaining: watch #1405 for maintainer response.
 **Date:** 2026-05-29 (updated 2026-06-09)
 **CLI under test:** `skills` (`npx skills`) **v1.5.9**
 **Context:** `npx skills add stonegiantstudio/skills` installs our four skills
@@ -182,15 +184,18 @@ open issues, none fixed, none with a code-level root cause:
   path")
 
 The tracker is flooded with listing/indexing requests, so another report won't
-move anything. Revised approach:
+move anything. Revised approach — **both done 2026-06-09:**
 
-1. **Comment on #1138** with our root-cause analysis (the `installer.ts:308-323`
-   skip, `add.ts:220` over-promising preview, `add.ts:276` silent result
-   filter) and the verified workarounds (`-g`, `--copy`, pre-existing
-   `.claude/`). No reporter has traced it to code yet.
-2. **Open the reporting-fix PR** referencing #1138, #1355, and #1045
-   ("Fixes #1138"). In a noisy tracker, a small ready-to-merge PR beats a
-   seventh report.
+1. **Comment on #1138** with our root-cause analysis and verified workarounds —
+   [posted](https://github.com/vercel-labs/skills/issues/1138#issuecomment-4666649713).
+2. **Reporting-fix PR** — opened as
+   [vercel-labs/skills#1405](https://github.com/vercel-labs/skills/pull/1405)
+   ("Fixes #1138", references #1355/#1045/#1385). Extracts the skip condition
+   into an exported `willSkipAgentSymlink()`, predicts the skip in the
+   pre-install summary, and prints `skipped: <agent> (no .claude in project —
+   use -g, --copy, or create the directory first)` in both summary and result.
+   Verified end-to-end against v1.5.10; skip behavior itself unchanged; 3
+   regression tests added; full-suite failure set identical to main.
 
 This cannot be fixed in our repo — it's the CLI's project-scope skip + UI. The
 fix is small and lives in their repo. Two parts:
@@ -246,16 +251,20 @@ Draft body (open with `Fixes #1138. Also addresses #1355, #1045.`):
       `!isGlobal`-gated.
 - [x] Project scope without `.claude/` — **confirmed skipped** (cause:
       `installer.ts:308-323`).
-- [ ] Does `skills experimental_sync -a claude-code` repair an existing
-      `.agents/skills/` install by creating the missing `.claude/skills/`
-      symlinks? (Possible no-reinstall fix for users already in this state.)
+- [x] Does `skills experimental_sync -a claude-code` repair an existing
+      `.agents/skills/` install? — **No (tested 2026-06-09).** It crawls
+      `node_modules` for skills (a different feature) and reports "No SKILL.md
+      files found in node_modules"; it never looks at `.agents/skills/`. The
+      only remedies remain `-g`, `--copy`, or pre-creating `.claude/`.
 - [x] Check open issues/PRs on `vercel-labs/skills` — **done 2026-06-09: it is
       a known, multiply-reported, unfixed bug.** Open duplicates: #1138 (exact
       match), #1355, #1045, global-scope variants #851/#693, symptom report
       #1385. None include a code-level root cause. Do not file a new issue —
       comment on #1138 and open the reporting-fix PR (see §2).
-- [ ] Decide README strategy: plugin-for-Claude-Code (status quo) vs.
-      skills.sh-`-g`-for-everything (now viable since global works).
+- [x] Decide README strategy — **decided and shipped 2026-06-09 (PR #3):**
+      plugin for Claude Code, skills.sh for everything else, explicit
+      pick-one-not-both guidance, `-g` documented as the working skills.sh
+      route for Claude Code.
 
 ---
 
