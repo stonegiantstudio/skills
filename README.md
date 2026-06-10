@@ -131,7 +131,13 @@ Both use the `skills/<name>/SKILL.md` directory convention. When updating
 a skill, update both locations. The two copies differ intentionally:
 
 - **Invocations:** plugin uses `/stone-giant:park`; agentskills.io uses `/park`
-- **Frontmatter:** agentskills.io includes `name:` (required by spec); plugin omits it (Claude Code infers from directory). Description length and `allowed-tools` format may also differ between specs.
+- **Frontmatter:** agentskills.io includes `name:` (required by spec); plugin omits it (Claude Code infers from directory). The `allowed-tools` format also differs between specs.
+
+To check the copies haven't drifted beyond those intentional differences:
+
+```bash
+diff -r skills plugins/stone-giant/skills
+```
 
 ## License
 

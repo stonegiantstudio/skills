@@ -1,5 +1,5 @@
 ---
-description: End-of-day shutdown ritual — park your work, clear your mind, start fresh tomorrow
+description: End-of-day shutdown ritual. Surveys branches and stashes, captures session context, locks in tomorrow's first task, and writes a structured parking receipt the next session can read cold. Grounded in Zeigarnik Effect research.
 ---
 
 # Park — Shutdown Ritual

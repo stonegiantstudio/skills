@@ -1,5 +1,5 @@
 ---
-description: Score any artifact on a 1-100 rubric. Pass a target score (e.g. /stone-giant:score 90) to auto-iterate until reached.
+description: Score any artifact on a 1-100 rubric with auto-iteration to a target score (e.g. /stone-giant:score 90). Builds a tailored rubric, identifies what would raise the score, and can auto-apply improvements. Built-in guardrails prevent gaming.
 ---
 
 # Score
