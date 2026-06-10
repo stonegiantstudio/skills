@@ -1,5 +1,5 @@
 ---
-description: End-of-day shutdown ritual — park your work, clear your mind, start fresh tomorrow
+description: End-of-day shutdown ritual. Surveys branches and stashes, captures session context, locks in tomorrow's first task, and writes a structured parking receipt the next session can read cold. Grounded in Zeigarnik Effect research.
 ---
 
 # Park — Shutdown Ritual
@@ -372,7 +372,7 @@ If saving:
 1. Create `.park/` directory if it doesn't exist
 2. Generate the filename using the convention above
 3. Write the receipt (frontmatter + body)
-4. Regenerate `.park/INDEX.md` (see [park-subcommands.md](../references/park-subcommands.md#index-regeneration))
+4. Regenerate `.park/INDEX.md` (see [park-subcommands.md](references/park-subcommands.md#index-regeneration))
 5. Run staleness detection on other active receipts. If any are flagged, note:
    "You have N older active receipts that may be completed. Run `/stone-giant:park triage`
    to review."
@@ -397,7 +397,7 @@ bridge between work and personal time. One sentence.
 ## Subcommands
 
 The `review`, `log`, `punch`, and `triage` subcommands are documented in
-[park-subcommands.md](../references/park-subcommands.md).
+[park-subcommands.md](references/park-subcommands.md).
 
 ## Design Principles
 
