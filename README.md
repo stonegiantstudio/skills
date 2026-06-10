@@ -7,17 +7,34 @@ Works with Claude Code, Cursor, Codex, and Gemini CLI.
 
 ## Install
 
+**Claude Code** — install the plugin:
+
 ```bash
 claude plugin add github:stonegiantstudio/skills
 ```
 
-Or via [skills.sh](https://skills.sh) (works with 50+ agents):
+Commands arrive namespaced: `/stone-giant:park`, `/stone-giant:score`,
+`/stone-giant:eval-npm`.
+
+**All other agents** — Cursor, Codex, Gemini CLI, Amp, Cline, and
+[50+ more](https://skills.sh) — install via skills.sh:
 
 ```bash
 npx skills add stonegiantstudio/skills
 ```
 
-After installing, try `/stone-giant:score 90` on whatever you're working on.
+Pick **one** path for Claude Code, not both: installing both ways gives you
+duplicate copies of every skill (`/stone-giant:park` *and* `/park`).
+
+> **Why not skills.sh for Claude Code?** A project-scope `npx skills add`
+> currently skips Claude Code silently when the repo has no `.claude/`
+> directory — the CLI reports a symlink it never creates
+> ([details](docs/skills-sh-claude-code-install.md)). If you prefer the
+> skills.sh route anyway, install globally with
+> `npx skills add stonegiantstudio/skills -g`, which works correctly.
+
+After installing, try `/stone-giant:score 90` (plugin) or `/score 90`
+(skills.sh) on whatever you're working on.
 
 ## Commands
 
@@ -37,7 +54,7 @@ survives the session boundary.
 The result: your brain lets go. Tomorrow morning, you pick up exactly where
 you left off.
 
-```
+```text
 /stone-giant:park              # Full shutdown ritual
 /stone-giant:park quick        # Abbreviated version
 /stone-giant:park review       # Resume where you left off
@@ -57,7 +74,7 @@ target. Built-in guardrails prevent gaming: an honest 93 beats a padded 96.
 
 Stop guessing. Set a target and let it iterate.
 
-```
+```text
 /stone-giant:score             # Score the current artifact
 /stone-giant:score 90          # Auto-iterate to 90/100
 /stone-giant:score 95 README.md  # Iterate a specific file
@@ -75,7 +92,7 @@ It always expands your search: ask about one package, get a comparison
 against the top 2-3 alternatives with a weighted scorecard and a clear
 recommendation.
 
-```
+```text
 /stone-giant:eval-npm date-fns vs dayjs vs moment
 /stone-giant:eval-npm audit my package.json
 ```
