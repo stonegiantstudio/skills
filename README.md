@@ -245,7 +245,9 @@ Everything else is **generated** — don't edit it by hand:
 - `plugins/stone-giant/skills/` (the plugin skill copies)
 - `.codex-plugin/` and `.cursor-plugin/` manifests (copies of the
   `.claude-plugin/` ones)
-- the skill list in `skills.sh.json` (derived from the `skills/` directories)
+- the skill list in `skills.sh.json` — sync owns this list and sorts it
+  **alphabetically** from the `skills/` directories, so don't hand-curate its
+  order (the group `name`/`description` remain yours to edit)
 
 Commit the regenerated files alongside your source change. To verify everything
 is in sync (e.g. in review or CI):

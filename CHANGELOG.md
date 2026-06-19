@@ -30,6 +30,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   namespaces `/skill` → `/stone-giant:skill`), the `.codex-plugin/` and
   `.cursor-plugin/` manifests from the canonical `.claude-plugin/` ones, and
   the `skills.sh.json` skill list (alphabetical, from the `skills/` directories)
+- `.github/workflows/sync-check.yml` — CI runs `sync:plugin-skills:check` on
+  every push and PR, so the source-of-truth invariant can't silently drift
 - Twenty-eight skills migrated from the private toolchain, each shipped in both
   the plugin and agentskills.io formats. Engineering & design:
   - **react-router-v7** — React Router v7 framework-mode and general React

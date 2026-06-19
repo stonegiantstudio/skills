@@ -1,0 +1,19 @@
+name: sync-check
+
+# Enforces the single-source-of-truth invariant: the generated plugin skills,
+# platform manifests, and skills.sh.json list must match what skills/ produces.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # No dependencies to install — the sync script is zero-dep Node.
+      - run: npm run sync:plugin-skills:check

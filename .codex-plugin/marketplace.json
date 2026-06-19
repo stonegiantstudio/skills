@@ -1,7 +1,7 @@
 {
   "marketplaceMetadata": {
     "name": "Stone Giant Studio Skills",
-    "description": "Production-tested skills for Claude Code from Stone Giant Studio",
+    "description": "Production-tested skills from Stone Giant Studio",
     "version": "1.1.0"
   },
   "plugins": [

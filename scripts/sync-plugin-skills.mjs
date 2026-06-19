@@ -98,8 +98,16 @@ function generate() {
     for (const t of to) files.set(t, canonical);
   }
 
-  // 4. skills.sh.json — regenerate the first group's skill list (alphabetical)
+  // 4. skills.sh.json — regenerate the first group's skill list (alphabetical).
+  // This generator owns the skill list and only manages a single group; guard
+  // so a future second group can't be silently clobbered.
   const conf = JSON.parse(readFileSync(join(ROOT, SKILLS_SH), "utf8"));
+  if (!Array.isArray(conf.groups) || conf.groups.length !== 1) {
+    throw new Error(
+      `skills.sh.json: expected exactly one group, found ${conf.groups?.length}. ` +
+        "Update sync-plugin-skills.mjs to handle multiple groups before adding one."
+    );
+  }
   conf.groups[0].skills = [...skillNames].sort();
   files.set(SKILLS_SH, Buffer.from(JSON.stringify(conf, null, 2) + "\n", "utf8"));
 
