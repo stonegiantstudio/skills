@@ -1,6 +1,6 @@
 ---
 name: score
-description: Score any artifact on a 1-100 rubric with auto-iteration to a target score. Builds a tailored rubric, identifies what would raise the score, and can auto-apply improvements. Built-in guardrails prevent gaming.
+description: Score any artifact on a 1-100 rubric with auto-iteration to a target score (e.g. /score 90). Builds a tailored rubric, identifies what would raise the score, and can auto-apply improvements. Built-in guardrails prevent gaming.
 ---
 
 

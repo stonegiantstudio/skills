@@ -1,13 +1,8 @@
 ---
 description: Evaluate npm packages for maintenance health, community adoption, security posture, and alternatives. Runs security pre-checks via Socket.dev and OSV.dev. Always expands single-package queries into comparisons.
-allowed-tools:
-  - Bash
-  - Read
-  - Grep
-  - Glob
-  - WebFetch
-  - WebSearch
+allowed-tools: Bash Read Grep Glob WebFetch WebSearch
 ---
+
 
 # NPM Package Evaluator
 

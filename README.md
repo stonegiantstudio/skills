@@ -218,20 +218,38 @@ across Claude Code, Cursor, Codex, Gemini CLI, and 50+ other agents via the
 
 This repo ships two formats from the same content:
 
-- **`plugins/stone-giant/skills/`** for `claude plugin add` (Claude Code, Cursor, Codex)
-- **`skills/`** for `npx skills add` ([agentskills.io](https://agentskills.io) spec, 50+ agents)
+- **`skills/`** — the **source of truth**. The agentskills.io format consumed by
+  `npx skills add` (Claude Code, Cursor, Codex, Gemini CLI, and 50+ agents).
+- **`plugins/stone-giant/skills/`** — **generated** plugin output for
+  `claude plugin add`. Do not edit by hand.
 
-Both use the `skills/<name>/SKILL.md` directory convention. When updating
-a skill, update both locations. The two copies differ intentionally:
+Both use the `skills/<name>/SKILL.md` directory convention.
 
-- **Invocations:** plugin uses `/stone-giant:park`; agentskills.io uses `/park`
-- **Frontmatter:** agentskills.io includes `name:` (required by spec); plugin omits it (Claude Code infers from directory). The `allowed-tools` format also differs between specs.
+### Contributing
 
-To check the copies haven't drifted beyond those intentional differences:
+**Edit only `skills/`.** Then regenerate the plugin copies:
 
 ```bash
-diff -r skills plugins/stone-giant/skills
+npm run sync:plugin-skills
 ```
+
+Commit the regenerated `plugins/stone-giant/skills/` alongside your `skills/`
+change. To verify the generated output is in sync (e.g. in review):
+
+```bash
+npm run sync:plugin-skills:check
+```
+
+The sync ([`scripts/sync-plugin-skills.mjs`](scripts/sync-plugin-skills.mjs),
+Node, no dependencies) copies every skill verbatim, then applies the two
+plugin-format transforms:
+
+- **Invocations** are namespaced: `/park` → `/stone-giant:park` (for every
+  skill name under `skills/`). Paths, URLs, and longer identifiers are left
+  untouched.
+- **Frontmatter** drops the top-level `name:` field (Claude Code infers the
+  name from the directory); `skills/` keeps it, as the agentskills.io spec
+  requires.
 
 ## License
 

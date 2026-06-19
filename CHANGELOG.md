@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- `skills/` is now the single source of truth; `plugins/stone-giant/skills/` is
+  generated from it and should not be edited by hand. Contributors edit
+  `skills/` and run the sync script
 - Migrated plugin from legacy `commands/*.md` to the `skills/<name>/SKILL.md`
   directory format (current Claude Code plugin convention)
 - README now documents per-agent install paths — Claude Code via the plugin,
@@ -19,6 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- `scripts/sync-plugin-skills.mjs` (Node, zero dependencies) plus
+  `npm run sync:plugin-skills` and `sync:plugin-skills:check` — generates the
+  plugin copies from `skills/` (strips frontmatter `name:`, namespaces
+  `/skill` invocations to `/stone-giant:skill`) and verifies they are in sync
 - Twenty-eight skills migrated from the private toolchain, each shipped in both
   the plugin and agentskills.io formats. Engineering & design:
   - **react-router-v7** — React Router v7 framework-mode and general React
