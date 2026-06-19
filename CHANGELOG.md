@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [1.1.0] — 2026-06-17
 
 ### Changed
 
@@ -19,6 +19,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Seven engineering and design skills migrated from the private toolchain,
+  each shipped in both the plugin and agentskills.io formats:
+  - **react-router-v7** — React Router v7 framework-mode and general React
+    patterns (loaders, actions, route modules, middleware, type-safe data)
+  - **js-ninja** — language-level JavaScript/TypeScript and Node patterns
+  - **zod-ninja** — Zod schema design for Conform / TanStack Form validation
+  - **testing-ninja** — pragmatic, behavioral JS/TS/React testing
+  - **design-ninja** — UI/UX patterns for hierarchy, type, color, and spacing
+  - **drizzle-migrations** — Drizzle + PostgreSQL multi-environment migrations
+  - **signup-signin** — auth UX (copy, error states, recovery) as a discipline
 - `docs/skills-sh-claude-code-install.md` — investigation of the upstream
   skills CLI bug that silently skips Claude Code on project-scope installs
   (vercel-labs/skills#1138), with root cause, verified workarounds, and the
@@ -40,4 +50,5 @@ Initial public release. Extracted from private `stone-giant-skills` repo.
 - **eval-npm** — NPM package evaluation
 - **npm-security-advisory** — Security pre-check for npm packages
 
+[1.1.0]: https://github.com/stonegiantstudio/skills/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/stonegiantstudio/skills/releases/tag/v1.0.0

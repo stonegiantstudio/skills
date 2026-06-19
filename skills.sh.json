@@ -3,7 +3,19 @@
     {
       "name": "Stone Giant Studio",
       "description": "Production-tested developer skills",
-      "skills": ["park", "score", "eval-npm", "npm-security-advisory"]
+      "skills": [
+        "park",
+        "score",
+        "eval-npm",
+        "npm-security-advisory",
+        "react-router-v7",
+        "js-ninja",
+        "zod-ninja",
+        "testing-ninja",
+        "design-ninja",
+        "drizzle-migrations",
+        "signup-signin"
+      ]
     }
   ]
 }

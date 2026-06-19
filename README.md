@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Four skills pulled from our private toolchain and
+We use these every day. Eleven skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -112,6 +112,59 @@ This skill flags it before `npm audit` even knows there's a problem.
 
 Covers 15 documented attack techniques, from lifecycle hook injection
 (event-stream, 2018) to stolen-token rapid republish (Shai-Hulud, 2025).
+
+## Engineering & Design Skills
+
+These load automatically when you're working in the matching context — editing
+a route module, writing a Zod schema, naming a test file. No command to
+remember; the right expertise shows up when it's relevant.
+
+### react-router-v7 — Framework-Mode React, Done Right
+
+React Router v7 (the Remix successor) plus the general React patterns that go
+with it: loaders and actions, route module shape, middleware, type-safe data
+flow, revalidation, error boundaries, and the thin-routes/fat-models
+architecture. Triggers on `react-router.config.ts`, route modules, and imports
+from `react-router` or `@react-router/*`.
+
+### js-ninja — Language-Level JS/TS Mastery
+
+Modern JavaScript and TypeScript at the language level: async patterns, the
+falsy gotchas, type narrowing, performance, and the battle-tested idioms that
+separate working code from robust code. Hands off React patterns to
+`react-router-v7` and schema design to `zod-ninja`.
+
+### zod-ninja — Schemas That Validate the Real World
+
+Zod schema design for form validation in React Router v7 apps using Conform or
+TanStack Form — including cross-field rules and the action-layer input
+validation that keeps bad data out of your handlers.
+
+### testing-ninja — Tests Worth Keeping
+
+Pragmatic testing for JS/TS, React, and React Router, optimized for
+confidence-to-effort ratio. Behavioral tests over implementation-detail tests,
+so your suite survives a refactor. Triggers on `*.test.ts(x)`, `*.spec.ts(x)`,
+and Vitest/Playwright configs.
+
+### design-ninja — Interfaces That Look Intentional
+
+UI/UX patterns for visual hierarchy, typography, color, and spacing. Reach for
+it when something "looks off" but you can't name why, or when you need a
+defensible spacing and type scale instead of guesses.
+
+### drizzle-migrations — Migrations Without the Foot-Guns
+
+Drizzle ORM migrations against PostgreSQL across local, staging, and production
+— schema syncing, `drizzle-kit` workflows, and the multi-environment discipline
+that keeps the three databases from drifting apart.
+
+### signup-signin — Auth UX as a Discipline
+
+Sign-up and sign-in as a design-and-copy problem, not just an integration one.
+Covers OTP, magic links, passkeys, forgot-password, recovery, and lockout —
+the copy, error states, and recovery affordances — while deferring the
+integration mechanics to your stack's auth skill.
 
 ## What are skills?
 
