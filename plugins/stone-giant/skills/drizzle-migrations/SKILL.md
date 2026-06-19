@@ -1,16 +1,17 @@
 ---
 description: Manages Drizzle ORM migrations with PostgreSQL for multi-environment setups (local/staging/production). Use when working with drizzle-kit, schema syncing, or migration workflows.
-triggers:
-  patterns:
-    - "drizzle.config.ts"
-    - "**/schema.ts"
-    - "drizzle/**/*.sql"
-  keywords:
-    - "drizzle"
-    - "drizzle-kit"
-    - "migration"
-    - "schema sync"
-    - "database sync"
+metadata:
+  triggers:
+    patterns:
+      - "drizzle.config.ts"
+      - "**/schema.ts"
+      - "drizzle/**/*.sql"
+    keywords:
+      - "drizzle"
+      - "drizzle-kit"
+      - "migration"
+      - "schema sync"
+      - "database sync"
 ---
 
 # Drizzle Migrations

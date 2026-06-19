@@ -14,7 +14,28 @@
         "testing-ninja",
         "design-ninja",
         "drizzle-migrations",
-        "signup-signin"
+        "signup-signin",
+        "agent-operating-standard",
+        "agent-philosophy",
+        "refactoring-legacy",
+        "relational-db-theory",
+        "postgresql",
+        "sql-server",
+        "sql-server-safety",
+        "sql-server-performance",
+        "kysely-orm",
+        "lambda",
+        "better-auth",
+        "resend",
+        "dates-and-times",
+        "writing-markdown",
+        "writing-marketing-copy",
+        "product-wisdom",
+        "zen-break",
+        "pdf",
+        "pdf-extract",
+        "pdf-create",
+        "pdf-charts"
       ]
     }
   ]

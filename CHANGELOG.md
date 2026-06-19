@@ -19,8 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- Seven engineering and design skills migrated from the private toolchain,
-  each shipped in both the plugin and agentskills.io formats:
+- Twenty-eight skills migrated from the private toolchain, each shipped in both
+  the plugin and agentskills.io formats. Engineering & design:
   - **react-router-v7** — React Router v7 framework-mode and general React
     patterns (loaders, actions, route modules, middleware, type-safe data)
   - **js-ninja** — language-level JavaScript/TypeScript and Node patterns
@@ -29,6 +29,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - **design-ninja** — UI/UX patterns for hierarchy, type, color, and spacing
   - **drizzle-migrations** — Drizzle + PostgreSQL multi-environment migrations
   - **signup-signin** — auth UX (copy, error states, recovery) as a discipline
+- Databases & data: **postgresql**, **sql-server**, **sql-server-safety**,
+  **sql-server-performance**, **kysely-orm**, **relational-db-theory**
+- Backend & infrastructure: **lambda** (AWS Lambda + CDK), **better-auth**,
+  **resend**
+- Agent discipline: **agent-operating-standard**, **agent-philosophy**,
+  **refactoring-legacy**
+- Writing, product & focus: **writing-markdown**, **writing-marketing-copy**,
+  **product-wisdom**, **dates-and-times**, **zen-break**
+- PDF: **pdf** (router), **pdf-extract**, **pdf-create**, **pdf-charts**
 - `docs/skills-sh-claude-code-install.md` — investigation of the upstream
   skills CLI bug that silently skips Claude Code on project-scope installs
   (vercel-labs/skills#1138), with root cause, verified workarounds, and the

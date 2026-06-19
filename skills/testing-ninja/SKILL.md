@@ -1,15 +1,16 @@
 ---
 name: testing-ninja
 description: Pragmatic testing guidance for JS/TS, React, and React Router. Focuses on confidence-to-effort ratio, behavioral testing, and avoiding brittle implementation-detail tests. Use when writing Vitest, Playwright, or React Testing Library code.
-triggers:
-  patterns:
-    - "*.test.ts"
-    - "*.test.tsx"
-    - "*.spec.ts"
-    - "*.spec.tsx"
-    - "vitest.config.ts"
-    - "playwright.config.ts"
-    - "tests/e2e/**/*"
+metadata:
+  triggers:
+    patterns:
+      - "*.test.ts"
+      - "*.test.tsx"
+      - "*.spec.ts"
+      - "*.spec.tsx"
+      - "vitest.config.ts"
+      - "playwright.config.ts"
+      - "tests/e2e/**/*"
 ---
 
 # JS Ninja: Testing Strategy

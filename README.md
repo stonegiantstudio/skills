@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Eleven skills pulled from our private toolchain and
+We use these every day. Thirty-two skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -165,6 +165,47 @@ Sign-up and sign-in as a design-and-copy problem, not just an integration one.
 Covers OTP, magic links, passkeys, forgot-password, recovery, and lockout —
 the copy, error states, and recovery affordances — while deferring the
 integration mechanics to your stack's auth skill.
+
+## More Skills
+
+The rest of the published set, also auto-triggered by context. Each is generic,
+production-tested knowledge — no stack-specific assumptions.
+
+**Databases & data**
+
+- **postgresql** — PostgreSQL schema design, types, indexing, and JSONB patterns
+- **sql-server** — SQL Server / Azure SQL design, T-SQL, temporal tables, masking
+- **sql-server-safety** — T-SQL patterns that prevent production incidents (division guards, transaction safety, injection)
+- **sql-server-performance** — query tuning: SARGability, the ESR index rule, parameter sniffing, execution plans
+- **kysely-orm** — type-safe SQL query building and migrations with Kysely
+- **relational-db-theory** — database-agnostic theory: normalization, keys, constraints, anti-patterns
+
+**Backend & infrastructure**
+
+- **lambda** — AWS Lambda + CDK: handlers, event sources, cold-start optimization, IaC patterns
+- **better-auth** — Better Auth integration: OAuth, sessions, adapters, security
+- **resend** — transactional email with Resend: sending, webhooks, templates, deliverability
+
+**Agent discipline**
+
+- **agent-operating-standard** — reliability and safety standard for autonomous coding agents
+- **agent-philosophy** — the CS-canon reasoning (Brooks, Dijkstra, Ousterhout) behind the standard
+- **refactoring-legacy** — test-first legacy refactoring: characterization tests, seams, Fowler's catalog
+
+**Writing, product & focus**
+
+- **writing-markdown** — lint-compliant, well-structured markdown
+- **writing-marketing-copy** — persuasive copy grounded in Ogilvy, Halbert, Schwartz, Bernbach
+- **product-wisdom** — PM frameworks and counterintuitive truths for prioritization and strategy
+- **dates-and-times** — correct date/time/timezone handling (NodaTime principles, TC39 Temporal)
+- **zen-break** — mindful breaks during long sessions
+
+**PDF**
+
+- **pdf** — router that delegates to the PDF sub-skills below
+- **pdf-extract** — extract content from PDFs with context, page refs, and pattern matching
+- **pdf-create** — professional PDF creation with typography and print-quality layout
+- **pdf-charts** — print-ready charts and data visualizations for PDF reports
 
 ## What are skills?
 
