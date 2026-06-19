@@ -227,22 +227,37 @@ Both use the `skills/<name>/SKILL.md` directory convention.
 
 ### Contributing
 
-**Edit only `skills/`.** Then regenerate the plugin copies:
+Edit only the **source-of-truth** files, then regenerate:
 
 ```bash
 npm run sync:plugin-skills
 ```
 
-Commit the regenerated `plugins/stone-giant/skills/` alongside your `skills/`
-change. To verify the generated output is in sync (e.g. in review):
+The sources you edit by hand are:
+
+- **`skills/<name>/SKILL.md`** — the skills themselves.
+- **`.claude-plugin/marketplace.json`** and
+  **`plugins/stone-giant/.claude-plugin/plugin.json`** — the canonical
+  manifests (e.g. for a version bump).
+
+Everything else is **generated** — don't edit it by hand:
+
+- `plugins/stone-giant/skills/` (the plugin skill copies)
+- `.codex-plugin/` and `.cursor-plugin/` manifests (copies of the
+  `.claude-plugin/` ones)
+- the skill list in `skills.sh.json` (derived from the `skills/` directories)
+
+Commit the regenerated files alongside your source change. To verify everything
+is in sync (e.g. in review or CI):
 
 ```bash
 npm run sync:plugin-skills:check
 ```
 
 The sync ([`scripts/sync-plugin-skills.mjs`](scripts/sync-plugin-skills.mjs),
-Node, no dependencies) copies every skill verbatim, then applies the two
-plugin-format transforms:
+Node, no dependencies) copies the platform manifests verbatim, rebuilds the
+`skills.sh.json` list alphabetically from the `skills/` directories, and copies
+every skill into the plugin tree with two plugin-format transforms:
 
 - **Invocations** are namespaced: `/park` → `/stone-giant:park` (for every
   skill name under `skills/`). Paths, URLs, and longer identifiers are left

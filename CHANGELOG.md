@@ -8,9 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-- `skills/` is now the single source of truth; `plugins/stone-giant/skills/` is
-  generated from it and should not be edited by hand. Contributors edit
-  `skills/` and run the sync script
+- Single-source-of-truth layout: contributors edit `skills/` and the canonical
+  `.claude-plugin/` manifests; the plugin skill copies, the `.codex-plugin/` and
+  `.cursor-plugin/` manifests, and the `skills.sh.json` skill list are all
+  generated and should not be edited by hand
 - Migrated plugin from legacy `commands/*.md` to the `skills/<name>/SKILL.md`
   directory format (current Claude Code plugin convention)
 - README now documents per-agent install paths — Claude Code via the plugin,
@@ -23,9 +24,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 - `scripts/sync-plugin-skills.mjs` (Node, zero dependencies) plus
-  `npm run sync:plugin-skills` and `sync:plugin-skills:check` — generates the
-  plugin copies from `skills/` (strips frontmatter `name:`, namespaces
-  `/skill` invocations to `/stone-giant:skill`) and verifies they are in sync
+  `npm run sync:plugin-skills` and `sync:plugin-skills:check` — generates all
+  derivable files from their source of truth and verifies they are in sync:
+  the plugin skill copies from `skills/` (strips frontmatter `name:`,
+  namespaces `/skill` → `/stone-giant:skill`), the `.codex-plugin/` and
+  `.cursor-plugin/` manifests from the canonical `.claude-plugin/` ones, and
+  the `skills.sh.json` skill list (alphabetical, from the `skills/` directories)
 - Twenty-eight skills migrated from the private toolchain, each shipped in both
   the plugin and agentskills.io formats. Engineering & design:
   - **react-router-v7** — React Router v7 framework-mode and general React
