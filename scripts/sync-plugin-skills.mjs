@@ -10,6 +10,8 @@
 //          (Claude Code infers the name from the directory).
 //        - Command references: `/park` -> `/stone-giant:park` for every root
 //          skill name. Paths, URLs, and longer identifiers are left alone.
+//        - `allowed-tools`: the space-separated source string -> a YAML list
+//          (the form the Claude Code plugin spec expects).
 //   2. .claude-plugin/marketplace.json  (canonical)
 //        -> .codex-plugin/marketplace.json, .cursor-plugin/marketplace.json
 //   3. plugins/stone-giant/.claude-plugin/plugin.json  (canonical)
@@ -64,20 +66,40 @@ function buildCommandRegex(skillNames) {
   return new RegExp("(^|[\\s`(*>\"'|])\\/(" + alt + ")(?![\\w/-])", "gm");
 }
 
+/** Split a SKILL.md into { fm, rest } at the closing `---` fence, or null.
+ *  Anchors on a full `---` line (followed by newline or EOF) so a frontmatter
+ *  value whose line merely starts with `---` can't truncate it early. */
+function splitFrontmatter(md) {
+  if (!md.startsWith("---\n")) return null;
+  const m = /\n---[ \t]*(?:\n|$)/.exec(md);
+  if (!m || m.index < 3) return null;
+  return { fm: md.slice(4, m.index), rest: md.slice(m.index) }; // rest begins "\n---"
+}
+
 /** Remove the top-level `name:` line from a SKILL.md's YAML frontmatter. */
 function stripName(md) {
-  if (!md.startsWith("---\n")) return md;
-  const end = md.indexOf("\n---", 4);
-  if (end === -1) return md;
-  const fm = md.slice(4, end);
-  const rest = md.slice(end); // begins with "\n---"
-  return "---\n" + fm.split("\n").filter((l) => !/^name:/.test(l)).join("\n") + rest;
+  const s = splitFrontmatter(md);
+  if (!s) return md;
+  return "---\n" + s.fm.split("\n").filter((l) => !/^name:/.test(l)).join("\n") + s.rest;
+}
+
+/** The Claude Code plugin spec wants `allowed-tools` as a YAML list; the
+ *  agentskills.io source uses a space-separated string. Convert the string
+ *  form (a list is left as-is). */
+function allowedToolsToList(md) {
+  const s = splitFrontmatter(md);
+  if (!s) return md;
+  const fm = s.fm.replace(/^allowed-tools:[ \t]+(\S.*)$/m, (_m, vals) => {
+    const items = vals.trim().split(/[\s,]+/).filter(Boolean);
+    return "allowed-tools:\n" + items.map((t) => `  - ${t}`).join("\n");
+  });
+  return "---\n" + fm + s.rest;
 }
 
 function transformSkillFile(relPath, buf, cmdRe) {
   if (!relPath.endsWith(".md")) return buf; // copy non-markdown verbatim
   let text = buf.toString("utf8").replace(cmdRe, (_m, pre, name) => `${pre}/${NS}:${name}`);
-  if (relPath.endsWith("SKILL.md")) text = stripName(text);
+  if (relPath.endsWith("SKILL.md")) text = allowedToolsToList(stripName(text));
   return Buffer.from(text, "utf8");
 }
 
@@ -92,7 +114,10 @@ function generate() {
     files.set(join("plugins", NS, "skills", rel), transformSkillFile(rel, readFileSync(join(SRC, rel)), cmdRe));
   }
 
-  // 2 & 3. platform manifest copies (verbatim from the canonical file)
+  // 2 & 3. platform manifest copies. Assumed byte-identical to the canonical
+  // .claude-plugin/ file — there is no per-destination override layer, so a
+  // platform-specific field would be overwritten by sync and its removal
+  // enforced by --check. Add an override step here if a platform ever diverges.
   for (const { from, to } of MANIFEST_COPIES) {
     const canonical = readFileSync(join(ROOT, from));
     for (const t of to) files.set(t, canonical);

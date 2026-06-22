@@ -38,7 +38,9 @@ const OrderSchema = z.object({
   quantity: z.coerce.number().int().positive(),
   price: z.coerce.number().positive(),
   date: z.coerce.date(),
-  enabled: z.coerce.boolean(), // "true"/"false" strings → boolean
+  // ⚠️ NOT z.coerce.boolean() — that is Boolean(value), so the string
+  // "false" coerces to `true`. Parse the string explicitly instead:
+  enabled: z.preprocess((v) => v === "true", z.boolean()),
 });
 ```
 
@@ -629,13 +631,21 @@ const schema = z.string()
 ### New v4 Features
 
 ```typescript
-// .exactOptional() - optional but cannot be undefined
-const schema = z.object({
-  nickname: z.string().exactOptional(), // key can be missing, but not undefined
-});
+// Top-level format schemas (v4) — preferred over the chained z.string().email()
+const Email = z.email();
+const Id = z.uuid();
+const Link = z.url();
 
-// .xor() - exclusive union (exactly one must match)
-const ContactMethod = z.string().email().xor(z.string().regex(/^\d{10}$/));
+// .overwrite() — like .transform(), but keeps the schema's type (stays a
+// ZodString), so it can still be chained and introspected
+const Trimmed = z.string().overwrite((s) => s.trim());
+
+// "exactly one of" is an object-level refinement, not a schema method:
+const ContactMethod = z
+  .object({ email: z.email().optional(), phone: z.string().regex(/^\d{10}$/).optional() })
+  .refine((v) => Boolean(v.email) !== Boolean(v.phone), {
+    message: "Provide exactly one of email or phone",
+  });
 ```
 
 ### Known Issues

@@ -58,6 +58,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- `zod-ninja`: replaced `z.coerce.boolean()` in the Form Data section (it is
+  `Boolean(value)`, so `"false"` → `true`) with an explicit parser, and
+  replaced the "New v4 Features" examples that cited non-existent APIs
+  (`.exactOptional()`, `.xor()`) with real Zod v4 features
+- Sync script now rewrites `allowed-tools` to the YAML-list form for the plugin
+  copy (the form the Claude Code spec expects), restoring `eval-npm`'s prior
+  tool scoping; frontmatter splitting anchors on a full `---` line
 - Removed and gitignored test-install artifacts (`.agents/`,
   `skills-lock.json`)
 

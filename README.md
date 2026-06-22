@@ -266,7 +266,8 @@ every skill into the plugin tree with two plugin-format transforms:
   untouched.
 - **Frontmatter** drops the top-level `name:` field (Claude Code infers the
   name from the directory); `skills/` keeps it, as the agentskills.io spec
-  requires.
+  requires. `allowed-tools` is also rewritten from the space-separated source
+  string into the YAML list the plugin spec expects.
 
 ## License
 
