@@ -1,6 +1,6 @@
 {
   "name": "stone-giant",
-  "description": "Production-tested skills from Stone Giant Studio — artifact scoring, shutdown rituals, npm evaluation and security, React Router v7, JavaScript/TypeScript, PostgreSQL/SQL Server/Drizzle/Kysely databases, testing, UI design, auth, AWS serverless, PDF generation, technical and marketing writing, and product strategy",
+  "description": "Production-tested skills from Stone Giant Studio — artifact scoring, shutdown rituals, npm evaluation and security, CI/CD speedups, React Router v7, JavaScript/TypeScript, PostgreSQL/SQL Server/Drizzle/Kysely databases, testing, UI design, auth, AWS serverless, PDF generation, technical and marketing writing, and product strategy",
   "version": "1.1.0",
   "author": {
     "name": "Stone Giant Studio",
@@ -14,6 +14,7 @@
     "npm",
     "security",
     "developer-tools",
+    "ci-cd",
     "react",
     "react-router",
     "typescript",

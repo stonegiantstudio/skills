@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Thirty-two skills pulled from our private toolchain and
+We use these every day. Thirty-three skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -112,6 +112,23 @@ This skill flags it before `npm audit` even knows there's a problem.
 
 Covers 15 documented attack techniques, from lifecycle hook injection
 (event-stream, 2018) to stolen-token rapid republish (Shai-Hulud, 2025).
+
+### ci-performance — Make CI Faster Without Guessing
+
+A slow pipeline taxes every push, all day. The reflex is to throw a bigger
+runner at it, which buys latency you pay for by the minute and usually changes
+nothing, because the bottleneck was never CPU.
+
+This skill measures the critical path first, then walks a
+stop-when-it-stops-paying ladder: cache dependencies, cancel superseded runs,
+split serial jobs, shard the suite, isolate per-shard state, right-size the
+runner, cache build and Docker layers, gate no-op work on a diff, run only
+affected tests, add a merge queue. Every rung says when it pays and when to
+stop, grounded in how Google, Meta, Uber, and Shopify run CI at scale.
+
+On a real Vitest + SQLite pipeline it cut code-gate feedback from ~3.4 min to
+~1.5 min by sharding and parallelizing, with the bigger runner explicitly
+rejected.
 
 ## Engineering & Design Skills
 
