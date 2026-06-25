@@ -15,10 +15,14 @@ research frontier or platform guidance moves. Each entry notes what it backs.
   <https://dl.acm.org/doi/10.1145/3637528.3671900>
   - Introduces the GEO framework + **GEO-Bench** (~10k queries) and measures 9
     content interventions via **Position-Adjusted Word Count (PAWC)** and
-    Subjective Impression. Backs the ladder's Tier-1 numbers: quotations
-    **+42.6%**, statistics **+32.8%**, fluency **+28.7%**, cite sources
-    **+27.7%**, and keyword-stuffing **−8.7%** (it hurts). Effects are
-    domain-dependent (citation/quote tactics dominate in fact-dense domains).
+    Subjective Impression. Backs the ladder's Tier-1 ranking: the paper's own
+    summary states its **top-performing methods — Cite Sources, Quotation
+    Addition, Statistics Addition — achieve a 30–40% relative improvement** on
+    PAWC (Quotation Addition strongest; Fluency Optimization also strong), while
+    **Keyword Stuffing is negative** (~−8%). Headline: "up to 40%" visibility.
+    Effects are domain-dependent (citation/quote tactics dominate in fact-dense
+    domains). Quote the paper's banded summary rather than single-row decimals
+    unless you have verified the exact Table-1 figure.
 - Follow-on literature (shows a growing peer-reviewed base, not one paper):
   **AutoGEO** (ICLR 2026), **C-SEO Bench** (2025, finds technical infrastructure
   can outweigh prose manipulation). Treat their headline numbers as newer and

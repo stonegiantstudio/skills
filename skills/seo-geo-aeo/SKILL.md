@@ -114,16 +114,20 @@ and tag the result **estimated**.
 low-effort moves; defer speculative ones. Each play carries an **evidence tier**
 so the user never over-invests in the unproven.
 
-**Tier 1 — evidence-backed** (the GEO paper, KDD 2024, quantified per-tactic
-lift in Position-Adjusted Word Count over a ~10k-query benchmark):
+**Tier 1 — evidence-backed** (the GEO paper, KDD 2024, measured tactic lift in
+**Position-Adjusted Word Count (PAWC)** over the GEO-Bench query set; headline
+"up to 40%" visibility). The paper's top-performing levers — quotations,
+statistics, and cited sources — each land a **30–40% relative improvement** on
+PAWC; numbers below are approximate (verify exact rows against the paper's
+Table 1):
 
-1. **Add direct quotations** from authoritative sources — **+42.6%**, the single
-   strongest lever.
-2. **Add statistics / concrete numbers** to claims — **+32.8%**.
-3. **Improve fluency / clarity** of the prose — **+28.7%**.
-4. **Cite credible sources** inline — **+27.7%**.
-5. **Do NOT keyword-stuff** — measurably *hurts* generative visibility
-   (**−8.7%**). The clean break from classic SEO instinct.
+1. **Add direct quotations** from authoritative sources — the **single strongest
+   lever** (~+40%).
+2. **Add statistics / concrete numbers** to claims — a top-three lever (~+30–35%).
+3. **Cite credible sources** inline — a top-three lever (~+30%).
+4. **Improve fluency / clarity** of the prose — strong (~+30%).
+5. **Do NOT keyword-stuff** — it measurably *hurts* generative visibility (~−8%).
+   The clean break from classic SEO instinct.
 6. **Domain-tailor:** quote/stat/cite tactics dominate in fact-dense domains;
    weight them there.
 
