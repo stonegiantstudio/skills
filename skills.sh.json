@@ -3,7 +3,40 @@
     {
       "name": "Stone Giant Studio",
       "description": "Production-tested developer skills",
-      "skills": ["park", "score", "eval-npm", "npm-security-advisory"]
+      "skills": [
+        "agent-operating-standard",
+        "agent-philosophy",
+        "better-auth",
+        "dates-and-times",
+        "design-ninja",
+        "drizzle-migrations",
+        "eval-npm",
+        "js-ninja",
+        "kysely-orm",
+        "lambda",
+        "npm-security-advisory",
+        "park",
+        "pdf",
+        "pdf-charts",
+        "pdf-create",
+        "pdf-extract",
+        "postgresql",
+        "product-wisdom",
+        "react-router-v7",
+        "refactoring-legacy",
+        "relational-db-theory",
+        "resend",
+        "score",
+        "signup-signin",
+        "sql-server",
+        "sql-server-performance",
+        "sql-server-safety",
+        "testing-ninja",
+        "writing-markdown",
+        "writing-marketing-copy",
+        "zen-break",
+        "zod-ninja"
+      ]
     }
   ]
 }

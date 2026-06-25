@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Four skills pulled from our private toolchain and
+We use these every day. Thirty-two skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -113,6 +113,100 @@ This skill flags it before `npm audit` even knows there's a problem.
 Covers 15 documented attack techniques, from lifecycle hook injection
 (event-stream, 2018) to stolen-token rapid republish (Shai-Hulud, 2025).
 
+## Engineering & Design Skills
+
+These load automatically when you're working in the matching context — editing
+a route module, writing a Zod schema, naming a test file. No command to
+remember; the right expertise shows up when it's relevant.
+
+### react-router-v7 — Framework-Mode React, Done Right
+
+React Router v7 (the Remix successor) plus the general React patterns that go
+with it: loaders and actions, route module shape, middleware, type-safe data
+flow, revalidation, error boundaries, and the thin-routes/fat-models
+architecture. Triggers on `react-router.config.ts`, route modules, and imports
+from `react-router` or `@react-router/*`.
+
+### js-ninja — Language-Level JS/TS Mastery
+
+Modern JavaScript and TypeScript at the language level: async patterns, the
+falsy gotchas, type narrowing, performance, and the battle-tested idioms that
+separate working code from robust code. Hands off React patterns to
+`react-router-v7` and schema design to `zod-ninja`.
+
+### zod-ninja — Schemas That Validate the Real World
+
+Zod schema design for form validation in React Router v7 apps using Conform or
+TanStack Form — including cross-field rules and the action-layer input
+validation that keeps bad data out of your handlers.
+
+### testing-ninja — Tests Worth Keeping
+
+Pragmatic testing for JS/TS, React, and React Router, optimized for
+confidence-to-effort ratio. Behavioral tests over implementation-detail tests,
+so your suite survives a refactor. Triggers on `*.test.ts(x)`, `*.spec.ts(x)`,
+and Vitest/Playwright configs.
+
+### design-ninja — Interfaces That Look Intentional
+
+UI/UX patterns for visual hierarchy, typography, color, and spacing. Reach for
+it when something "looks off" but you can't name why, or when you need a
+defensible spacing and type scale instead of guesses.
+
+### drizzle-migrations — Migrations Without the Foot-Guns
+
+Drizzle ORM migrations against PostgreSQL across local, staging, and production
+— schema syncing, `drizzle-kit` workflows, and the multi-environment discipline
+that keeps the three databases from drifting apart.
+
+### signup-signin — Auth UX as a Discipline
+
+Sign-up and sign-in as a design-and-copy problem, not just an integration one.
+Covers OTP, magic links, passkeys, forgot-password, recovery, and lockout —
+the copy, error states, and recovery affordances — while deferring the
+integration mechanics to your stack's auth skill.
+
+## More Skills
+
+The rest of the published set, also auto-triggered by context. Each is generic,
+production-tested knowledge — no stack-specific assumptions.
+
+**Databases & data**
+
+- **postgresql** — PostgreSQL schema design, types, indexing, and JSONB patterns
+- **sql-server** — SQL Server / Azure SQL design, T-SQL, temporal tables, masking
+- **sql-server-safety** — T-SQL patterns that prevent production incidents (division guards, transaction safety, injection)
+- **sql-server-performance** — query tuning: SARGability, the ESR index rule, parameter sniffing, execution plans
+- **kysely-orm** — type-safe SQL query building and migrations with Kysely
+- **relational-db-theory** — database-agnostic theory: normalization, keys, constraints, anti-patterns
+
+**Backend & infrastructure**
+
+- **lambda** — AWS Lambda + CDK: handlers, event sources, cold-start optimization, IaC patterns
+- **better-auth** — Better Auth integration: OAuth, sessions, adapters, security
+- **resend** — transactional email with Resend: sending, webhooks, templates, deliverability
+
+**Agent discipline**
+
+- **agent-operating-standard** — reliability and safety standard for autonomous coding agents
+- **agent-philosophy** — the CS-canon reasoning (Brooks, Dijkstra, Ousterhout) behind the standard
+- **refactoring-legacy** — test-first legacy refactoring: characterization tests, seams, Fowler's catalog
+
+**Writing, product & focus**
+
+- **writing-markdown** — lint-compliant, well-structured markdown
+- **writing-marketing-copy** — persuasive copy grounded in Ogilvy, Halbert, Schwartz, Bernbach
+- **product-wisdom** — PM frameworks and counterintuitive truths for prioritization and strategy
+- **dates-and-times** — correct date/time/timezone handling (NodaTime principles, TC39 Temporal)
+- **zen-break** — mindful breaks during long sessions
+
+**PDF**
+
+- **pdf** — router that delegates to the PDF sub-skills below
+- **pdf-extract** — extract content from PDFs with context, page refs, and pattern matching
+- **pdf-create** — professional PDF creation with typography and print-quality layout
+- **pdf-charts** — print-ready charts and data visualizations for PDF reports
+
 ## What are skills?
 
 Skills are markdown files that teach AI coding agents how to do specific
@@ -124,20 +218,56 @@ across Claude Code, Cursor, Codex, Gemini CLI, and 50+ other agents via the
 
 This repo ships two formats from the same content:
 
-- **`plugins/stone-giant/skills/`** for `claude plugin add` (Claude Code, Cursor, Codex)
-- **`skills/`** for `npx skills add` ([agentskills.io](https://agentskills.io) spec, 50+ agents)
+- **`skills/`** — the **source of truth**. The agentskills.io format consumed by
+  `npx skills add` (Claude Code, Cursor, Codex, Gemini CLI, and 50+ agents).
+- **`plugins/stone-giant/skills/`** — **generated** plugin output for
+  `claude plugin add`. Do not edit by hand.
 
-Both use the `skills/<name>/SKILL.md` directory convention. When updating
-a skill, update both locations. The two copies differ intentionally:
+Both use the `skills/<name>/SKILL.md` directory convention.
 
-- **Invocations:** plugin uses `/stone-giant:park`; agentskills.io uses `/park`
-- **Frontmatter:** agentskills.io includes `name:` (required by spec); plugin omits it (Claude Code infers from directory). The `allowed-tools` format also differs between specs.
+### Contributing
 
-To check the copies haven't drifted beyond those intentional differences:
+Edit only the **source-of-truth** files, then regenerate:
 
 ```bash
-diff -r skills plugins/stone-giant/skills
+npm run sync:plugin-skills
 ```
+
+The sources you edit by hand are:
+
+- **`skills/<name>/SKILL.md`** — the skills themselves.
+- **`.claude-plugin/marketplace.json`** and
+  **`plugins/stone-giant/.claude-plugin/plugin.json`** — the canonical
+  manifests (e.g. for a version bump).
+
+Everything else is **generated** — don't edit it by hand:
+
+- `plugins/stone-giant/skills/` (the plugin skill copies)
+- `.codex-plugin/` and `.cursor-plugin/` manifests (copies of the
+  `.claude-plugin/` ones)
+- the skill list in `skills.sh.json` — sync owns this list and sorts it
+  **alphabetically** from the `skills/` directories, so don't hand-curate its
+  order (the group `name`/`description` remain yours to edit)
+
+Commit the regenerated files alongside your source change. To verify everything
+is in sync (e.g. in review or CI):
+
+```bash
+npm run sync:plugin-skills:check
+```
+
+The sync ([`scripts/sync-plugin-skills.mjs`](scripts/sync-plugin-skills.mjs),
+Node, no dependencies) copies the platform manifests verbatim, rebuilds the
+`skills.sh.json` list alphabetically from the `skills/` directories, and copies
+every skill into the plugin tree with two plugin-format transforms:
+
+- **Invocations** are namespaced: `/park` → `/stone-giant:park` (for every
+  skill name under `skills/`). Paths, URLs, and longer identifiers are left
+  untouched.
+- **Frontmatter** drops the top-level `name:` field (Claude Code infers the
+  name from the directory); `skills/` keeps it, as the agentskills.io spec
+  requires. `allowed-tools` is also rewritten from the space-separated source
+  string into the YAML list the plugin spec expects.
 
 ## License
 

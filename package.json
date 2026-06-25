@@ -1,0 +1,12 @@
+{
+  "name": "stone-giant-skills",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Production-tested skills from Stone Giant Studio",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "sync:plugin-skills": "node scripts/sync-plugin-skills.mjs",
+    "sync:plugin-skills:check": "node scripts/sync-plugin-skills.mjs --check"
+  }
+}
