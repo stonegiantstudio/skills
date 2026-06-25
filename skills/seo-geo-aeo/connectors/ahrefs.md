@@ -17,7 +17,7 @@ Audit (technical crawl).
 - **Ahrefs API v3**, Site Explorer endpoints: domain-rating, backlinks,
   organic-keywords, plus Site Audit results.
   <https://docs.ahrefs.com/docs/api/reference/introduction>. Paid API plan
-  required; user supplies the key.
+  required; key from `AHREFS_API_TOKEN`; if unset, **ask** — do not hunt.
 
 ### 2. MCP (method=mcp)
 - Ahrefs MCP server (official) exposes keyword/backlink/competitive tools. Use

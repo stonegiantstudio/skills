@@ -71,13 +71,22 @@ read via API → MCP → pasted screenshot (degrades gracefully). Every metric i
 tagged measured vs estimated. Progress lives in docs/seo/.
 ```
 
-## Always establish provenance first
+## Establish provenance first — ask before assuming
 
-Before scoring anything, determine *how* each dimension's data will arrive, in
-this preference order — and **degrade gracefully**, never block:
+**Step 0 — ask, do not assume.** Before scoring, tell the user which sources
+would sharpen the assessment and **ask which they can provide credentials for.**
+A source is "unavailable" only after the user has been asked and declined or
+omitted it — *never* because a key did not happen to be in the environment
+already. Silently downgrading a source the user could have supplied is a bug, not
+graceful degradation. Present the list (GSC, GA4, PageSpeed, Semrush, Ahrefs,
+AI-visibility), note any already configured (see "Credentials & setup"), and ask
+about the rest.
+
+Then, for each dimension, determine *how* its data will arrive, in this
+preference order — and **degrade gracefully**, never block:
 
 1. **API** (ideal) — structured, dated, repeatable. The connector file names the
-   endpoint + scope.
+   endpoint + scope + its env var.
 2. **MCP** — if a server for that tool is already connected, call it.
 3. **Paste / screenshot / CSV export** — the connector file knows what each
    tool's key screen looks like and where the numbers sit, so a pasted image or
@@ -88,9 +97,27 @@ Record provenance per metric: `{value, source, method: api|mcp|screenshot|manual
 `track` only ever diffs **same-source** series — it will not compare a Semrush
 *estimated* position against a GSC *measured* one.
 
-**Secrets:** never grep env vars or read dotfiles to discover API keys (it leaks
-unrelated credentials). Use an already-connected MCP, ask the user to provide a
-key for the session, or fall back to paste. No credential discovery, ever.
+### Credentials & setup (.env)
+
+Credentials are read from **exact, documented environment variables** — set them
+once in the target project's `.env` (git-ignored) or your shell; `.env.example`
+in this skill lists every name. Standard names:
+
+| Source | Variable(s) |
+| --- | --- |
+| Google Search Console | `GSC_PROPERTY`, and `GSC_ACCESS_TOKEN` *or* `GSC_SERVICE_ACCOUNT_JSON` (path) |
+| Google Analytics 4 | `GA4_PROPERTY_ID`, and `GA4_ACCESS_TOKEN` *or* `GA4_SERVICE_ACCOUNT_JSON` (path) |
+| PageSpeed Insights | `PAGESPEED_API_KEY` (lifts the small anonymous quota — see lighthouse connector) |
+| Semrush | `SEMRUSH_API_KEY` |
+| Ahrefs | `AHREFS_API_TOKEN` |
+| AI-visibility (optional) | `OTTERLY_API_KEY` |
+
+**Security (non-negotiable).** Read each credential only by its **exact name**
+(e.g. `printenv SEMRUSH_API_KEY`). Never list, dump, or grep the environment to
+*discover* keys, and never `cat`/grep a `.env` to fish for them — that surfaces
+unrelated secrets. If a documented var is unset, **ask the user** (they may
+export it, add it to `.env`, or paste data instead); do not go looking. Never
+echo a key's value or write it into a scorecard.
 
 Connector specifics live in `connectors/<tool>.md` (loaded on demand): Google
 Search Console, GA4, Lighthouse/PageSpeed, schema validation are documented to

@@ -17,9 +17,9 @@ per-URL inspection. This is the truth other tools estimate.
   Body dimensions: `query`, `page`, `date`; metrics returned: clicks,
   impressions, ctr, position. <https://developers.google.com/webmaster-tools/v1/searchanalytics/query>
 - **URL Inspection:** `urlInspection.index.inspect` for index/coverage state of a URL.
-- Auth scope: `https://www.googleapis.com/auth/webmasters.readonly`. User
-  supplies an OAuth token or service-account with the property added — ask for
-  it; do not hunt for credentials.
+- Auth scope: `https://www.googleapis.com/auth/webmasters.readonly`. Credentials
+  from `GSC_PROPERTY` + `GSC_ACCESS_TOKEN` (or `GSC_SERVICE_ACCOUNT_JSON`). If
+  unset, **ask** the user — do not hunt the environment for keys.
 
 ### 2. MCP (method=mcp)
 - `ahonn/mcp-server-gsc` (`uvx mcp-server-gsc`) or `AminForou/mcp-gsc`. Tools

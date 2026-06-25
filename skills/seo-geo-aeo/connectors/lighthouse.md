@@ -12,17 +12,19 @@ category scores.
 
 ## Ingestion (preference order)
 
-### 1. API (method=api)
-- **PageSpeed Insights API v5:**
-  `GET https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=<URL>&category=seo&category=performance`.
-  Optional API key (free, ~25k req/day). No local Chrome needed.
-  <https://developers.google.com/speed/docs/insights/v5/get-started>
-- Read `lighthouseResult.categories.{performance,seo}.score` (0–1) and
-  `loadingExperience.metrics` for field CWV.
-
-### 2. CLI (method=api — local)
+### 1. CLI (method=api — local, most reliable free path)
 - `npx lighthouse <url> --output=json --only-categories=seo,performance,accessibility`.
-  Parse the same `categories.*.score` shape.
+  Read `categories.*.score`. **No quota** — prefer this for the free path.
+
+### 2. PageSpeed Insights API v5 (method=api)
+- `GET https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=<URL>&category=seo&category=performance&key=$PAGESPEED_API_KEY`.
+  Reads `lighthouseResult.categories.{performance,seo}.score` (0–1) +
+  `loadingExperience.metrics` (field CWV).
+  <https://developers.google.com/speed/docs/insights/v5/get-started>
+- **The anonymous quota (no key) is tiny and routinely exhausted** — set
+  `PAGESPEED_API_KEY` (free, ~25k/day) or use the CLI above. Field CWV only
+  exists for pages with enough CrUX traffic; low-traffic pages return none
+  (that is a data gap, not a failing score).
 
 ### 3. MCP (method=mcp)
 - `priyankark/lighthouse-mcp` or `danielsogl/lighthouse-mcp-server` wrap the

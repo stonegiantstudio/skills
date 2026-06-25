@@ -21,7 +21,8 @@ free proxy for GEO/AEO working.
 - Landing pages: dimension `landingPage`.
 - **AI referrals:** dimension `sessionSource`, then filter for `chatgpt.com`,
   `perplexity.ai`, `gemini.google.com`, `copilot.microsoft.com`, etc.
-- Auth: OAuth / service account with Analytics read access — user-supplied.
+- Auth: `GA4_PROPERTY_ID` + `GA4_ACCESS_TOKEN` (or `GA4_SERVICE_ACCOUNT_JSON`),
+  with Analytics read access. If unset, **ask** — do not hunt for keys.
 
 ### 2. MCP (method=mcp)
 - Community GA4 MCP servers expose `runReport`-style tools. Use if connected.
