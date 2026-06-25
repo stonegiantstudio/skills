@@ -41,14 +41,36 @@ sitemap URL, or a local site/repo path.
 | `playbook` | Turn the scorecard's gaps into a prioritized, evidence-weighted plan | a **playbook** |
 | `track` | Diff a fresh assessment against the last scorecard + open playbook items | updates **history** + playbook status |
 | `refresh` | Update *the skill's own knowledge* of the fast-moving GEO/AEO landscape | edits `reference.md` / `connectors/*` |
+| `help` | Print the usage block below and stop | — |
 
 `assess | playbook | track` operate on a **target site** and are **plan-only** —
 they audit, plan, and track; they never edit the site. Applying playbook items
 is a separate, explicit step the user drives. `refresh` operates on the skill
 itself (see "Staying current").
 
-If no mode is given: with no prior scorecard, run `assess`; with one present,
-offer `track`.
+Routing: on `help` (or `--help`/`-h`), print the usage block and stop. With no
+mode **and** no target, print the usage block, then offer to run `assess`. With
+a bare target and no mode: no prior scorecard → `assess`; one present → offer
+`track`.
+
+### Usage (`help`)
+
+```text
+/seo-geo-aeo — audit & improve search + AI-answer visibility (SEO/GEO/AEO)
+
+  /seo-geo-aeo assess <url|path>   Score current state → docs/seo/scorecard-<date>.md
+  /seo-geo-aeo playbook            Prioritized, evidence-tiered plan from the latest
+                                   scorecard (plan-only — never edits your site)
+  /seo-geo-aeo track               Diff a fresh assessment vs the last scorecard;
+                                   update playbook status + docs/seo/history.md
+  /seo-geo-aeo refresh             Web-sweep the volatile GEO/AEO landscape and
+                                   update the skill's own reference/connectors
+  /seo-geo-aeo help                Show this help
+
+Data sources: Google Search Console, GA4, Lighthouse, schema, Semrush, Ahrefs —
+read via API → MCP → pasted screenshot (degrades gracefully). Every metric is
+tagged measured vs estimated. Progress lives in docs/seo/.
+```
 
 ## Always establish provenance first
 
