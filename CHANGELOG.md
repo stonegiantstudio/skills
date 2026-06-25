@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+
+- **ci-performance** — Make a CI/CD pipeline faster: measure the critical
+  path, then climb a stop-when-it-stops-paying ladder (cache deps, parallel
+  jobs, shard tests, isolate per-shard resources, right-size runners, build +
+  Docker layer cache, test selection, merge queue), with a primary-source
+  reference file. Promoted from the private `stone-giant-skills` repo.
+
 ## [1.1.0] — 2026-06-17
 
 ### Changed
