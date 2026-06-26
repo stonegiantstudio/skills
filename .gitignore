@@ -1,9 +1,26 @@
+
+.env
+.env.*
+!.env.example
 .DS_Store
 *.swp
 *.swo
 *~
 .idea/
 .vscode/
+
+# Credentials & local SEO-assess testing artifacts (never commit). The skill
+# reads keys from .env and writes scorecards into a TARGET project's docs/seo/;
+# none of that belongs in this repo.
+*-sa.json
+*service-account*.json
+*-credentials.json
+*.key.json
+.venv/
+venv/
+*-venv/
+__pycache__/
+/docs/seo/
 
 # Artifacts from test-installing our own skills via `npx skills add`
 .agents/
