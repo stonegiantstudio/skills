@@ -97,6 +97,12 @@ Record provenance per metric: `{value, source, method: api|mcp|screenshot|manual
 `track` only ever diffs **same-source** series — it will not compare a Semrush
 *estimated* position against a GSC *measured* one.
 
+**Report grand totals, not summed top-N.** When a source exposes a property/grand
+total (GSC clicks & impressions, GA4 sessions), query *that*, not the sum of a
+top-N breakdown — a top-10 query sum silently omits the long tail and undercounts
+(a real GSC run: top-10 sum = 19 impressions vs the true total of 938). Pull
+breakdowns separately, with a high row limit, only when you need them.
+
 ### Credentials & setup (.env)
 
 Credentials are read from **exact, documented environment variables** — set them

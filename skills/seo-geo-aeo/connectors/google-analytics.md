@@ -1,7 +1,7 @@
 # Connector: Google Analytics 4 (GA4)
 
 ```
-last_verified: 2026-06-25
+last_verified: 2026-06-26
 feeds: outcomes (traffic, engagement, conversions) + AI-referral signal for dimension 6; track
 cost: free
 ```
@@ -14,15 +14,23 @@ free proxy for GEO/AEO working.
 ## Ingestion (preference order)
 
 ### 1. API (method=api)
-- **GA4 Data API v1** `properties.runReport`. Property ID required.
+
+**Auth — same service-account → token flow as GSC**, but scope
+`https://www.googleapis.com/auth/analytics.readonly`. One SA JSON can serve both
+GSC and GA4; mint a token per scope. **Gotcha:** the SA *email* must be added to
+the GA4 property (Admin → Property access management → Viewer), and you need the
+numeric **Property ID** (`GA4_PROPERTY_ID`, from Admin → Property details) — calls
+404/403 without both.
+
+- **GA4 Data API v1** `properties.runReport` → `POST
+  https://analyticsdata.googleapis.com/v1beta/properties/<GA4_PROPERTY_ID>:runReport`.
   <https://developers.google.com/analytics/devguides/reporting/data/v1>
-- Channel mix: dimension `sessionDefaultChannelGroup`, metric `sessions`,
-  `engagementRate`, `conversions`.
-- Landing pages: dimension `landingPage`.
-- **AI referrals:** dimension `sessionSource`, then filter for `chatgpt.com`,
-  `perplexity.ai`, `gemini.google.com`, `copilot.microsoft.com`, etc.
-- Auth: `GA4_PROPERTY_ID` + `GA4_ACCESS_TOKEN` (or `GA4_SERVICE_ACCOUNT_JSON`),
-  with Analytics read access. If unset, **ask** — do not hunt for keys.
+- Channel mix: dimension `sessionDefaultChannelGroup`, metrics `sessions`,
+  `engagementRate`, `conversions`. Landing pages: dimension `landingPage`.
+- **AI referrals:** dimension `sessionSource` with a `PARTIAL_REGEXP`
+  `dimensionFilter` for `chatgpt|perplexity|gemini|copilot|openai|claude`.
+- Credentials `GA4_PROPERTY_ID` + `GA4_SERVICE_ACCOUNT_JSON` (or
+  `GA4_ACCESS_TOKEN`). If unset, **ask** — do not hunt for keys.
 
 ### 2. MCP (method=mcp)
 - Community GA4 MCP servers expose `runReport`-style tools. Use if connected.
@@ -38,3 +46,7 @@ free proxy for GEO/AEO working.
 ## Provenance & freshness
 - `method=api`/`mcp` → **measured**. GA4 sampling can apply on large ranges —
   note it. AI-referral counts are a *proxy*, not a citation count; label as such.
+- **GA4 Organic ≠ GSC clicks** — they will diverge (e.g. GA4 Organic 32 vs GSC 8
+  clicks) and that is *not* an error: GA4 Organic spans all engines and uses
+  session attribution; GSC counts Google clicks only. Different sources — `track`
+  diffs each against itself, never one against the other.
