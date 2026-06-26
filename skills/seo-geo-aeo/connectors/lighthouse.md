@@ -36,18 +36,40 @@ category scores.
   and a **Core Web Vitals Assessment** (LCP / INP / CLS, Pass or Fail) from
   field data. Read gauge numbers and the pass/fail badges.
 
-## Diagnosing a slow LCP (for the playbook)
-- The PSI **API** often returns an empty `largest-contentful-paint-element`
-  audit. To see the actual element + its phase breakdown, run the **CLI**:
-  `npx lighthouse <url> --view`.
-- **If LCP ≈ FCP, the bottleneck is first-paint, not the element.** Fix FCP
-  (render-blocking CSS/JS, main-thread contention) rather than the image. A
-  common culprit is heavy third-party tags (GTM/GA/Ads) executing during render
-  — defer them (Partytown / load after first paint), which drops FCP and LCP
-  together. Check `server-response-time` (TTFB) first; if it's low, the cost is
-  client-side.
-- Lab LCP is noisy run-to-run (e.g. 2.6–3.2s) — optimize until lab is
-  *consistently* under target, then trust field CrUX once traffic populates it.
+## Diagnosing a slow LCP — read the phase breakdown (validated)
+
+The fix for a slow LCP depends entirely on **which of its four phases dominates**,
+so get the breakdown *before* recommending anything. The PSI **API** usually
+returns an empty `largest-contentful-paint-element` audit — run **local
+Lighthouse** and parse the JSON (don't rely on `--view`; that just opens a
+browser for a human):
+
+```
+npx lighthouse <url> --only-categories=performance --output=json --output-path=lh.json
+```
+
+Read `audits['largest-contentful-paint-element']` for the LCP element + its phase
+table. (A `--view` HTML report also works — it embeds the full JSON in a
+`<script id="__LIGHTHOUSE_JSON__">` tag you can extract.)
+
+**Map the dominant phase to the fix:**
+
+| Dominant phase | Meaning | Fix |
+| --- | --- | --- |
+| **TTFB** | server slow to respond | server/CDN; rare on modern hosts (check `server-response-time`) |
+| **Load Delay** | resource discovered late | preload it / raise priority (`fetchpriority="high"`) |
+| **Load Time** | resource is heavy | compress, modern format, right-size the image |
+| **Render Delay** | fetched but paints late — a *rendering* problem, not loading | `decoding="async"` on the LCP image (switch to `sync`), an entrance/opacity animation gating its paint, or the element only rendering after hydration |
+
+**Render Delay is the most misdiagnosed** — people preload an image that's already
+loaded. A real case: an LCP hero image that was already `eager` + `fetchpriority="high"`
+still had **78% render delay** because of `decoding="async"` + an entrance
+animation; preloading would have done nothing.
+
+Don't trust one PSI lab run — it's noisy (we saw the same page's LCP swing
+2.6–8.4s across runs/tools). Use **local** Lighthouse for a controlled read, take
+a median of a few, and treat **field CrUX** as the real arbiter once traffic
+populates it (low-traffic pages have none — that's a data gap, not a pass/fail).
 
 ## Provenance & freshness
 - API/CLI/MCP → **measured** (note lab vs field: lab is synthetic, field is real
