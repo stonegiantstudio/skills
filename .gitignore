@@ -21,6 +21,8 @@ venv/
 *-venv/
 __pycache__/
 /docs/seo/
+*.report.html
+.lighthouseci/
 
 # Artifacts from test-installing our own skills via `npx skills add`
 .agents/
