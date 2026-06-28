@@ -31,7 +31,7 @@ research frontier or platform guidance moves. Each entry notes what it backs.
 
 ## Platform guidance (the calibration / anti-hype base)
 
-- **Google — "Optimizing for Generative AI Features on Google Search"** (May
+- **Google — "Optimizing your website for generative AI features on Google Search"** (May
   2026): <https://developers.google.com/search/docs/fundamentals/ai-optimization-guide>
   (announcement: <https://developers.google.com/search/blog/2026/05/a-new-resource-for-optimizing>)
   - Backs the honesty rails: "AI search is still search"; no AI-specific files /
