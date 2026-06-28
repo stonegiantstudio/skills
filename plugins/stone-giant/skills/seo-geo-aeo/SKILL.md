@@ -114,6 +114,7 @@ in this skill lists every name. Standard names:
 | Google Search Console | `GSC_PROPERTY`, and `GSC_ACCESS_TOKEN` *or* `GSC_SERVICE_ACCOUNT_JSON` (path) |
 | Google Analytics 4 | `GA4_PROPERTY_ID`, and `GA4_ACCESS_TOKEN` *or* `GA4_SERVICE_ACCOUNT_JSON` (path) |
 | PageSpeed Insights | `PAGESPEED_API_KEY` (lifts the small anonymous quota — see lighthouse connector) |
+| DataForSEO (pay-per-use) | `DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD` — one account ≈ SERP + backlinks + volume + AI Overviews |
 | Semrush | `SEMRUSH_API_KEY` |
 | Ahrefs | `AHREFS_API_TOKEN` |
 | AI-visibility (optional) | `OTTERLY_API_KEY` |
