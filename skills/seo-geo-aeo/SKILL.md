@@ -199,6 +199,22 @@ chasing inauthentic mentions.
 A Tier-3 play never outranks a Tier-1/2 play in the playbook. When two plays tie
 on tier, break by reach (pages affected) ÷ effort.
 
+### Winnability — check who owns the SERP before targeting a keyword
+
+A high-volume term you rank #50 for is worthless if encyclopedic authorities
+(Wikipedia, RSC, gov) own page 1 — that's effort you can't convert. Before
+committing a keyword to the playbook, judge **winnability**: run a competitor
+keyword-gap (see `connectors/dataforseo.md`) or a SERP-ownership check, and
+prioritize terms where the page-1 set is **beatable** *and* matches your content
+type. Two cautions, both learned in practice:
+
+- **Gap only against topically-focused competitors.** A gap against high-overlap
+  *generalists* returns their whole catalog, not relevant opportunities.
+- **The most actionable gaps are mid-volume, niche-relevant terms you have an
+  asset for but don't rank.** (Real find: a site ranked nowhere for "interactive
+  periodic table" despite *having* an interactive periodic table — pure on-page
+  upside.) Mega head-terms owned by authorities are aspirational, not targets.
+
 ## Mode details & artifacts
 
 State lives in the **target repo** under `docs/seo/` (visible, reviewable in PRs):

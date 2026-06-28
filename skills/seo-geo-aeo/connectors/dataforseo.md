@@ -37,6 +37,31 @@ HTTP Basic auth: `Authorization: Basic <base64("$DATAFORSEO_LOGIN:$DATAFORSEO_PA
 - **LLM mentions** — `ai_optimization/*` LLM Mentions endpoints → GEO /
   AI-citation tracking (a paid alternative to the manual protocol).
 
+## Competitor keyword-gap (validated method)
+
+DataForSEO Labs finds competitors **even for small/new sites** where Semrush's
+finder returns `NOTHING FOUND` (confirmed in testing). Steps:
+
+1. `dataforseo_labs/google/competitors_domain/live` → competitor domains by
+   keyword overlap. (Or `serp_competitors/live` with a keyword list — keyword-
+   driven, also works on tiny sites.)
+2. `dataforseo_labs/google/ranked_keywords/live` for the **target** → its keyword set.
+3. Same per competitor, filtered to page 1
+   (`filters: [["ranked_serp_element.serp_item.rank_group","<=",10]]`,
+   `order_by: ["keyword_data.keyword_info.search_volume,desc"]`).
+4. Gap = competitor's page-1 keywords the target doesn't rank for (or ranks > 20).
+
+**Two rules, or the gap is garbage (learned the hard way):**
+- **Gap only against *topically-focused* competitors.** High-overlap *generalists*
+  (weebly, thoughtco, youtube, wikipedia) return their entire catalog — a real run
+  surfaced "angelina jolie" and "pirate ships" as "gaps." Drop generalists; keep
+  niche peers.
+- **Apply a niche keyword filter** (a regex of the target's topic terms) to each
+  competitor's keywords before gapping, as a second guard.
+- Mega head-terms are usually owned by encyclopedic authorities (Wikipedia/RSC/gov)
+  even when a niche peer also ranks — flag those **aspirational**, not targets.
+  The sweet spot is mid-volume, niche-relevant terms a beatable peer ranks for.
+
 ## MCP
 - Official `dataforseo/mcp-server-typescript`. Use it if connected instead of raw HTTP.
 
