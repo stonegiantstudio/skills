@@ -7,8 +7,13 @@
 schema_version: 1
 date: 2026-06-29
 target: https://example.com
+# Identity derived in step 1 — what the site IS. Drives discovery seeds + relevance.
+identity:
+  topic: "executive assistant staffing"
+  archetype: "EA staffing / recruiting firm"
+  terms: ["executive assistant staffing", "hire an executive assistant", "EA recruiting"]
 # Which discovery signals ran (depends on which keys exist).
-signals_used: [keyword_overlap, shared_backlinks, serp_cooccurrence]
+signals_used: [archetype_serp, keyword_overlap, shared_backlinks]
 niche_filter: "executive assistant|staffing|recruiting|EA hiring"   # the topic regex
 
 # Ranked best-first. class ∈ direct|content. winnable ∈ true|false (false = aspirational).

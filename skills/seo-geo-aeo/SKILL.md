@@ -386,50 +386,65 @@ the relevant example, then write the real artifact into the target's `docs/seo/`
 
 `competitors <target>` finds the target's **real** SEO/GEO rivals, filters out the
 noise, ranks them, and writes `competitors-<date>.md` — the input `compare`
-consumes. The hard part isn't finding candidates; it's **discarding the ones that
-aren't competitors**, a lesson the keyword-gap method already learned the hard way.
+consumes. The hard part isn't finding candidates; it's **knowing what the site is,
+so you can tell a competitor from a keyword collision.** Establish the identity
+first; then everything downstream is signal instead of noise.
 
 **Procedure:**
 
-1. **Multi-signal discovery (use whichever connector keys exist; blend the signals).**
-   Each angle is blind to what the others surface, so combine them:
+1. **Characterize the target first — what is this site, and what job does it do?**
+   (Skip this and the rest is noise.) From the Phase-1 crawl, derive:
+   - **Topic** — the subject (e.g. *chemistry*).
+   - **Archetype / job** — what it functionally *is* (e.g. *an interactive periodic
+     table*; *a chemistry-learning game*; *a how-to reference*; *an EA-staffing firm*).
+   - **Identity terms** — the topic + archetype phrases a real competitor would also
+     rank for (e.g. "interactive periodic table", "learn chemistry", "chemistry games").
+
+   Write it as a one-line identity. **A competitor does the *same job in the same
+   topic*** — for a chemistry periodic-table site that means other sites that teach
+   chemistry, teach it through games, or offer a periodic table — **not** any site
+   that merely shares a keyword.
+2. **Discover, seeded by that identity (use whichever keys exist; blend signals).**
+   - **Archetype SERP search (primary — especially for small/new sites)** — search
+     the identity terms from step 1 and collect who ranks page 1. A thin site's own
+     ranked-keyword set is too small and generic for the finders to mean much, so
+     *this* is what surfaces real peers (searching "interactive periodic table" finds
+     periodic-table tools; the keyword finder returned a nursing forum and a state
+     education department).
    - **Keyword overlap** — DataForSEO `dataforseo_labs/google/competitors_domain`
-     (or Semrush/Ahrefs competitor finders). Domains ranking for the same terms.
-   - **Shared backlinks** — DataForSEO `backlinks/competitors`. Sites with
-     overlapping referring-domain profiles. **Weight this signal below keyword
-     overlap for *offering* peers:** it skews to high-authority publishers and
-     marketplaces that link to everyone (a real run surfaced Forbes, HBR, Indeed,
-     even `esa.int` as top "competitors"). It's better at finding who shares your
-     *link sources* than who shares your *business*.
-   - **SERP co-occurrence** — `serp_competitors` with the target's core keywords,
-     **or the free fallback**: take the target's top queries (from GSC if available,
-     else its own keywords), run each SERP, and collect the domains that recur on
-     page 1. Works even on tiny/new sites where finders return nothing.
-2. **Filter the generalists out (non-negotiable).** High-overlap *generalists*
-   co-occur with everyone and are **not** competitors. Drop, by class:
+     (or Semrush/Ahrefs finders). Domains ranking for the same terms — **secondary,
+     and noisy on thin sites** (a real run on the chemistry site surfaced `nysed.gov`,
+     `allnurses.com`, `rsc.org` — collisions and authorities, not peers).
+   - **Shared backlinks** — DataForSEO `backlinks/competitors`. **Weight below the
+     above:** skews to publishers/marketplaces that link to everyone (Forbes, HBR,
+     Indeed, even `esa.int` surfaced as top "competitors").
+3. **Filter against the identity, not just a generalist blocklist.** Drop any
+   candidate that doesn't do the target's **job**, even when it shares keywords — a
+   state education department, a nursing forum, and a science-video journal all share
+   "chemistry/science/study" terms but none of them *is* what the target is. Then
+   also drop the usual high-overlap *generalists* that co-occur with everyone:
    - **Encyclopedic / reference:** Wikipedia, `.gov`, `.edu`, ThoughtCo, Quora.
-   - **Business publications:** Forbes, HBR, Entrepreneur, Inc, Medium — they rank
-     for and link to every niche (all surfaced in a real run; none are peers).
+   - **Business publications:** Forbes, HBR, Entrepreneur, Inc, Medium.
    - **Social / UGC / platforms:** Reddit, YouTube, Pinterest, Facebook, Spotify,
      Steam, site-builders (Weebly).
    - **Marketplaces / aggregators:** Indeed, ZipRecruiter, Amazon.
-   - **Name-collision domains:** different business sharing a brand token
-     (`projectkampfire.com` vs `projectcampfire.io`) — same name, unrelated; drop.
+   - **Name-collision domains:** same brand token, different business
+     (`projectkampfire.com` vs `projectcampfire.io`).
 
-   Then apply a **niche keyword filter** (a regex of the target's topic terms) so
-   only topically-relevant domains survive. **Log every exclusion with a reason** so
-   the cut is auditable (see `artifacts/competitors.example.md`).
-3. **Classify each survivor:** **direct** (same offering/business) vs **content**
+   **Log every exclusion with a reason** so the cut is auditable (see
+   `artifacts/competitors.example.md`).
+4. **Classify each survivor:** **direct** (same offering/business) vs **content**
    (ranks for your topics, different business) — both are valid `compare` targets,
    but label them.
-4. **Rank by relevance × winnability.** Relevance = overlap depth + topical fit;
-   winnability = is the page-1 set *beatable* (a peer you can out-rank) vs an
-   authority you can't. Mark unbeatable authorities **aspirational**, not targets
-   (same rule as the prioritization ladder's Winnability check).
-5. **Output** (`artifacts/competitors.example.md` is the contract): a ranked list,
-   each with the discovery signal(s) that surfaced it, direct/content class,
-   winnable/aspirational flag, and a one-line "why." Then **offer to pipe the top N
-   straight into `compare`** — that's the loop.
+5. **Rank by relevance × winnability.** Relevance = how closely it matches the
+   **identity** (same job + topic), *not* raw keyword-overlap count; winnability = is
+   the page-1 set *beatable* (a peer you can out-rank) vs an authority you can't. Mark
+   unbeatable authorities **aspirational**, not targets (same rule as the
+   prioritization ladder's Winnability check).
+6. **Output** (`artifacts/competitors.example.md` is the contract): record the
+   derived **identity**, then a ranked list — each with the discovery signal(s),
+   direct/content class, winnable/aspirational flag, and a one-line "why." Then
+   **offer to pipe the top N straight into `compare`** — that's the loop.
 
 Provenance: competitor sets are third-party/estimated (DataForSEO/Semrush/Ahrefs or
 SERP-derived); tag them so, and never present a discovered competitor as a measured
