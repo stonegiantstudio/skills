@@ -1,5 +1,5 @@
 ---
-description: Audit and improve a site's visibility in search and AI answer engines (SEO, GEO, AEO). Use when asked to assess SEO/GEO/AEO, check AI-search / AI-Overview visibility, generate an optimization playbook, or track ranking and citation progress over time. Runs as `/stone-giant:seo-geo-aeo assess|playbook|track|compare|refresh <target>` and reads data from Google Search Console, GA4, Lighthouse, DataForSEO (pay-per-use SERP/backlinks/AI-mentions), Semrush, Ahrefs and more via API, MCP, or pasted screenshots. Methodology grounded in the GEO paper (KDD 2024), Google's AI-search guidance, and the primary sources in reference.md.
+description: Audit and improve a site's visibility in search and AI answer engines (SEO, GEO, AEO). Use when asked to assess SEO/GEO/AEO, check AI-search / AI-Overview visibility, generate an optimization playbook, or track ranking and citation progress over time. Runs as `/stone-giant:seo-geo-aeo assess|playbook|track|competitors|compare|refresh <target>` and reads data from Google Search Console, GA4, Lighthouse, DataForSEO (pay-per-use SERP/backlinks/AI-mentions), Semrush, Ahrefs and more via API, MCP, or pasted screenshots. Methodology grounded in the GEO paper (KDD 2024), Google's AI-search guidance, and the primary sources in reference.md.
 metadata:
   last_technique_review: "2026-06-25"
   technique_stale_after_days: "14"
@@ -39,14 +39,18 @@ sitemap URL, or a local site/repo path.
 | `assess` | Audit current state across 7 scored dimensions | a dated **scorecard** |
 | `playbook` | Turn the scorecard's gaps into a prioritized, evidence-weighted plan | a **playbook** |
 | `track` | Diff a fresh assessment against the last scorecard + open playbook items | updates **history** + playbook status |
+| `competitors` | Discover the target's real SEO/GEO rivals (filtered, ranked), ready to feed `compare` | a dated **competitor list** |
 | `compare` | Score the target **and** one or more competitor URLs on the same 7 dimensions, side by side | a dated **comparison** |
 | `refresh` | Update *the skill's own knowledge* of the fast-moving GEO/AEO landscape | edits `reference.md` / `connectors/*` |
 | `help` | Print the usage block below and stop | — |
 
-`assess | playbook | track | compare` operate on a **target site** and are
-**plan-only** — they audit, plan, and track; they never edit the site (or the
-competitors'). Applying playbook items is a separate, explicit step the user
+`assess | playbook | track | competitors | compare` operate on a **target site**
+and are **plan-only** — they audit, plan, and track; they never edit the site (or
+the competitors'). Applying playbook items is a separate, explicit step the user
 drives. `refresh` operates on the skill itself (see "Staying current").
+
+The competitive loop is a pipeline: **`competitors` (discover) → `compare` (score
+head-to-head) → `playbook` (turn beatable gaps into items).**
 
 Routing: on `help` (or `--help`/`-h`), print the usage block and stop. With no
 mode **and** no target, print the usage block, then offer to run `assess`. With
@@ -58,10 +62,11 @@ a bare target and no mode: no prior scorecard → `assess`; one present → offe
 in this order: **explicit argument → the `target` in the latest `docs/seo/`
 scorecard under the cwd git root → ask.** This is how `playbook`/`track` know which
 repo's `docs/seo/` to read when the cwd is the *code* repo but the audited site is
-elsewhere; never guess — if no scorecard and no argument, ask. **`compare` needs a
-target plus at least one competitor URL** (`compare <target> <competitor…>`); if the
-target is omitted, resolve it like `track`, and if no competitor is given, offer to
-derive one from `connectors/dataforseo.md` competitor discovery, else ask.
+elsewhere; never guess — if no scorecard and no argument, ask. **`competitors`** takes
+the target the same way and needs no other argument. **`compare` needs a target plus
+at least one competitor**; resolve competitors in this order: **explicit URL
+arguments → the latest `docs/seo/competitors-<date>.md` → run `competitors` on the
+fly → ask.** That is the pipe: `competitors` writes the list, `compare` consumes it.
 
 ### Usage (`help`)
 
@@ -73,9 +78,13 @@ derive one from `connectors/dataforseo.md` competitor discovery, else ask.
                                    scorecard (plan-only — never edits your site)
   /stone-giant:seo-geo-aeo track               Diff a fresh assessment vs the last scorecard;
                                    update playbook status + docs/seo/history.md
-  /stone-giant:seo-geo-aeo compare <target> <competitor…>
+  /stone-giant:seo-geo-aeo competitors <url|path>
+                                   Discover real rivals (filtered, ranked) →
+                                   docs/seo/competitors-<date>.md (feeds compare)
+  /stone-giant:seo-geo-aeo compare <target> [competitor…]
                                    Score the target and competitor URLs on the same
                                    7 dimensions → docs/seo/comparison-<date>.md
+                                   (competitors default to the latest discovery list)
   /stone-giant:seo-geo-aeo refresh             Web-sweep the volatile GEO/AEO landscape and
                                    update the skill's own reference/connectors
   /stone-giant:seo-geo-aeo help                Show this help
@@ -321,6 +330,7 @@ docs/seo/
   scorecard-YYYY-MM-DD.md   # one per assess run; frontmatter = machine-readable scores
   playbook.md               # living plan; items have stable IDs + status
   history.md                # append-only trend log, one row per assess
+  competitors-YYYY-MM-DD.md # one per competitors run; ranked, filtered rival list
   comparison-YYYY-MM-DD.md  # one per compare run; target vs competitors, side by side
 ```
 
@@ -335,6 +345,9 @@ docs/seo/
   same-source series against the prior scorecard, marks playbook items
   done/in-progress/stale, appends a `history.md` row, and names the next-best
   move. Closes the loop: assess → playbook → (user applies) → track.
+- **`competitors`** → discovers, filters, and ranks the target's real rivals and
+  writes `competitors-<date>.md` (see "Competitor discovery mode"). Plan-only.
+  Contract: `artifacts/competitors.example.md`. Feeds `compare`.
 - **`compare`** → scores the target and each competitor URL on the same 7
   dimensions and writes `comparison-<date>.md` (see "Compare mode"). Plan-only —
   it never edits any site. Contract: `artifacts/comparison.example.md`.
@@ -358,12 +371,68 @@ The contracts are defined by example, in this skill's `artifacts/`:
 - **`history.md` row** — append one Markdown-table row per assess:
   `| date | overall grade | overall score | per-dim grades (1–7) | note |`.
   Append-only; never rewrite past rows.
+- **`artifacts/competitors.example.md`** — the `competitors` output: a ranked
+  `competitors` list (class, winnable flag, signals, overlap) plus an `excluded`
+  list recording *why* each generalist was dropped. `compare` reads the latest one.
 - **`artifacts/comparison.example.md`** — the `compare` output: a per-dimension
   `matrix` (target + each competitor) and a `beatable_gaps` list. Competitor cells
   use public/third-party sources only (no GSC/GA4).
 
 These examples live in the skill, not the target repo. On `assess`/`playbook`, read
 the relevant example, then write the real artifact into the target's `docs/seo/`.
+
+## Competitor discovery mode (find rivals to compare)
+
+`competitors <target>` finds the target's **real** SEO/GEO rivals, filters out the
+noise, ranks them, and writes `competitors-<date>.md` — the input `compare`
+consumes. The hard part isn't finding candidates; it's **discarding the ones that
+aren't competitors**, a lesson the keyword-gap method already learned the hard way.
+
+**Procedure:**
+
+1. **Multi-signal discovery (use whichever connector keys exist; blend the signals).**
+   Each angle is blind to what the others surface, so combine them:
+   - **Keyword overlap** — DataForSEO `dataforseo_labs/google/competitors_domain`
+     (or Semrush/Ahrefs competitor finders). Domains ranking for the same terms.
+   - **Shared backlinks** — DataForSEO `backlinks/competitors`. Sites with
+     overlapping referring-domain profiles. **Weight this signal below keyword
+     overlap for *offering* peers:** it skews to high-authority publishers and
+     marketplaces that link to everyone (a real run surfaced Forbes, HBR, Indeed,
+     even `esa.int` as top "competitors"). It's better at finding who shares your
+     *link sources* than who shares your *business*.
+   - **SERP co-occurrence** — `serp_competitors` with the target's core keywords,
+     **or the free fallback**: take the target's top queries (from GSC if available,
+     else its own keywords), run each SERP, and collect the domains that recur on
+     page 1. Works even on tiny/new sites where finders return nothing.
+2. **Filter the generalists out (non-negotiable).** High-overlap *generalists*
+   co-occur with everyone and are **not** competitors. Drop, by class:
+   - **Encyclopedic / reference:** Wikipedia, `.gov`, `.edu`, ThoughtCo, Quora.
+   - **Business publications:** Forbes, HBR, Entrepreneur, Inc, Medium — they rank
+     for and link to every niche (all surfaced in a real run; none are peers).
+   - **Social / UGC / platforms:** Reddit, YouTube, Pinterest, Facebook, Spotify,
+     Steam, site-builders (Weebly).
+   - **Marketplaces / aggregators:** Indeed, ZipRecruiter, Amazon.
+   - **Name-collision domains:** different business sharing a brand token
+     (`projectkampfire.com` vs `projectcampfire.io`) — same name, unrelated; drop.
+
+   Then apply a **niche keyword filter** (a regex of the target's topic terms) so
+   only topically-relevant domains survive. **Log every exclusion with a reason** so
+   the cut is auditable (see `artifacts/competitors.example.md`).
+3. **Classify each survivor:** **direct** (same offering/business) vs **content**
+   (ranks for your topics, different business) — both are valid `compare` targets,
+   but label them.
+4. **Rank by relevance × winnability.** Relevance = overlap depth + topical fit;
+   winnability = is the page-1 set *beatable* (a peer you can out-rank) vs an
+   authority you can't. Mark unbeatable authorities **aspirational**, not targets
+   (same rule as the prioritization ladder's Winnability check).
+5. **Output** (`artifacts/competitors.example.md` is the contract): a ranked list,
+   each with the discovery signal(s) that surfaced it, direct/content class,
+   winnable/aspirational flag, and a one-line "why." Then **offer to pipe the top N
+   straight into `compare`** — that's the loop.
+
+Provenance: competitor sets are third-party/estimated (DataForSEO/Semrush/Ahrefs or
+SERP-derived); tag them so, and never present a discovered competitor as a measured
+fact about the target.
 
 ## Compare mode (target vs competitors)
 

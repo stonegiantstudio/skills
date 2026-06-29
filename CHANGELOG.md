@@ -9,10 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 - **seo-geo-aeo** — Assess, plan, and track a site's visibility in search and
-  AI answer engines (SEO, GEO, AEO). Five modes (`assess` → scorecard,
-  `playbook` → prioritized plan, `track` → progress over time, `compare` →
-  target-vs-competitor matrix, `refresh` → self-update against the fast-moving
-  landscape), a measured-vs-estimated
+  AI answer engines (SEO, GEO, AEO). Six modes (`assess` → scorecard,
+  `playbook` → prioritized plan, `track` → progress over time, `competitors` →
+  discover/filter/rank rivals, `compare` → target-vs-competitor matrix, `refresh`
+  → self-update against the fast-moving landscape), a measured-vs-estimated
   provenance discipline, a site-discovery crawl phase, per-dimension grade bands,
   copy-this-shape artifact schemas (scorecard/playbook examples), and on-demand
   connectors for Google Search Console, GA4, Lighthouse, on-page parse, schema,
