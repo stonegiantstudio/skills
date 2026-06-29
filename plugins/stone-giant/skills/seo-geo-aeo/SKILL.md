@@ -1,5 +1,5 @@
 ---
-description: Audit and improve a site's visibility in search and AI answer engines (SEO, GEO, AEO). Use when asked to assess SEO/GEO/AEO, check AI-search / AI-Overview visibility, generate an optimization playbook, or track ranking and citation progress over time. Runs as `/stone-giant:seo-geo-aeo assess|playbook|track|refresh <target>` and reads data from Google Search Console, GA4, Lighthouse, Semrush, Ahrefs and more via API, MCP, or pasted screenshots. Methodology grounded in the GEO paper (KDD 2024), Google's AI-search guidance, and the primary sources in reference.md.
+description: Audit and improve a site's visibility in search and AI answer engines (SEO, GEO, AEO). Use when asked to assess SEO/GEO/AEO, check AI-search / AI-Overview visibility, generate an optimization playbook, or track ranking and citation progress over time. Runs as `/stone-giant:seo-geo-aeo assess|playbook|track|refresh <target>` and reads data from Google Search Console, GA4, Lighthouse, DataForSEO (pay-per-use SERP/backlinks/AI-mentions), Semrush, Ahrefs and more via API, MCP, or pasted screenshots. Methodology grounded in the GEO paper (KDD 2024), Google's AI-search guidance, and the primary sources in reference.md.
 metadata:
   last_technique_review: "2026-06-25"
   technique_stale_after_days: "14"
@@ -52,6 +52,13 @@ mode **and** no target, print the usage block, then offer to run `assess`. With
 a bare target and no mode: no prior scorecard → `assess`; one present → offer
 `track`.
 
+**Target resolution (all modes).** `assess` takes an explicit `<url|path>`.
+`playbook` and `track` operate on existing `docs/seo/` state and resolve the target
+in this order: **explicit argument → the `target` in the latest `docs/seo/`
+scorecard under the cwd git root → ask.** This is how `playbook`/`track` know which
+repo's `docs/seo/` to read when the cwd is the *code* repo but the audited site is
+elsewhere; never guess — if no scorecard and no argument, ask.
+
 ### Usage (`help`)
 
 ```text
@@ -66,9 +73,10 @@ a bare target and no mode: no prior scorecard → `assess`; one present → offe
                                    update the skill's own reference/connectors
   /stone-giant:seo-geo-aeo help                Show this help
 
-Data sources: Google Search Console, GA4, Lighthouse, schema, Semrush, Ahrefs —
-read via API → MCP → pasted screenshot (degrades gracefully). Every metric is
-tagged measured vs estimated. Progress lives in docs/seo/.
+Data sources: Google Search Console, GA4, Lighthouse, on-page parse, schema,
+DataForSEO (pay-per-use — no subscription needed), Semrush, Ahrefs — read via
+API → MCP → pasted screenshot (degrades gracefully). Every metric is tagged
+measured vs estimated. Progress lives in docs/seo/.
 ```
 
 ## Establish provenance first — ask before assuming
@@ -78,9 +86,21 @@ would sharpen the assessment and **ask which they can provide credentials for.**
 A source is "unavailable" only after the user has been asked and declined or
 omitted it — *never* because a key did not happen to be in the environment
 already. Silently downgrading a source the user could have supplied is a bug, not
-graceful degradation. Present the list (GSC, GA4, PageSpeed, Semrush, Ahrefs,
-AI-visibility), note any already configured (see "Credentials & setup"), and ask
-about the rest.
+graceful degradation. Present the list (GSC, GA4, PageSpeed, **DataForSEO**,
+Semrush, Ahrefs, AI-visibility), note any already configured (see "Credentials &
+setup"), and ask about the rest.
+
+- **DataForSEO is the pay-per-use default for competitor, backlink, and
+  AI-citation data** — it needs no Semrush/Ahrefs subscription (just a prepaid
+  wallet, cents per call), so for users *without* those seats it is the recommended
+  way to feed dimensions 4 and 6. Offer it first to subscription-less users;
+  it does not replace Semrush/Ahrefs for those who already have them (use whichever
+  key exists — see `connectors/dataforseo.md` for the two endpoints that need a
+  $100/mo activation vs the pay-per-use core).
+- **Set expectations on paid tools:** Semrush/Ahrefs are wired to **API/MCP only**;
+  without a key the user can still paste a screenshot/export, but there is no
+  silent fallback to scraping them. On-page signals and crawl data are always free
+  (local parse — no key).
 
 Then, for each dimension, determine *how* its data will arrive, in this
 preference order — and **degrade gracefully**, never block:
@@ -133,33 +153,88 @@ inherits the user's exported env; if still unset, **ask the user** — do not go
 Never write a key's value into a scorecard.
 
 Connector specifics live in `connectors/<tool>.md` (loaded on demand): Google
-Search Console, GA4, Lighthouse/PageSpeed, schema validation are documented to
-full API+MCP+screenshot depth; Semrush, Ahrefs, and AI-visibility tools to
-API/MCP depth. `connectors/_template.md` is the shape for adding a new one.
+Search Console, GA4, Lighthouse/PageSpeed, on-page parse, and schema validation are
+documented to full API+MCP+screenshot depth; DataForSEO, Semrush, Ahrefs, and
+AI-visibility tools to API/MCP depth. On-page and schema are **free local parses**
+(no key). `connectors/_template.md` is the shape for adding a new one.
+
+## Phase 1 — Site discovery (before scoring)
+
+**Never score a single landing page and call it a site audit.** A finding like
+"missing About page" or "no FAQ content" is only credible *after* a crawl proves
+the page genuinely isn't there. So `assess` discovers the site first, then scores
+over the page map:
+
+1. Fetch the target URL, then `/robots.txt` and `/sitemap.xml` (or the sitemap
+   named in robots.txt). Respect robots directives.
+2. Build a **page map** from nav, footer, and sitemap links (same-host only).
+3. Pick the scope:
+   - **`assess quick`** — homepage + up to ~6 highest-signal pages (services,
+     pricing, about, a flagship blog post). The 30-second smoke test.
+   - **`assess full`** (default) — all content pages; skip only legal, login, and
+     thank-you/utility pages.
+4. **Never mark a content type "missing" unless it's absent across the whole
+   crawl.** Tie dim-2/3/4 findings to specific crawled URLs.
+5. Record every visited page in the scorecard's `pages_audited` table (url, type,
+   note) — this is what makes a "missing X" finding defensible and lets `track`
+   diff coverage between runs.
+
+The on-page pass (`connectors/on-page.md`) runs over this page map, so sitewide
+patterns (duplicate titles, missing meta descriptions) surface instead of hiding
+in a one-URL view.
+
+## Grade bands (A–F, applied per dimension)
+
+Letter grades must mean the same thing across runs, or `track` diffs are noise.
+Anchor to observable thresholds where a metric exists; otherwise apply these bands:
+
+| Grade | Score | Meaning |
+| --- | --- | --- |
+| **A** | 90–100 | Exemplary — measured-strong, no material gaps for this dimension |
+| **B** | 75–89 | Strong — minor, low-effort gaps only |
+| **C** | 60–74 | Adequate — several real gaps; partial coverage |
+| **D** | 40–59 | Weak — major gaps; the dimension is underbuilt |
+| **F** | 0–39 | Absent or actively harmful (signal missing, or e.g. AI bots blocked unintentionally, CWV poor) |
+
+Anchor examples (prefer measured thresholds over vibes): **dim 1** A = all Core Web
+Vitals "good" *and* no unintended crawl blocks; F = CWV poor *or* indexable pages
+`noindex`'d / wanted AI bots blocked. **dim 6** A = brand cited across multiple
+engines on its core queries; F = zero citations anywhere with competitors owning
+them. When a dimension is scored from reasoning rather than a tool, the grade is
+tagged **estimated** alongside its band.
 
 ## The 7 assess dimensions
 
-Each is scored A–F with located findings and per-metric provenance. The
-connector(s) that can feed real data are noted; absent them, score by reasoning
-and tag the result **estimated**.
+Each is scored A–F (see "Grade bands") with located findings and per-metric
+provenance. The connector(s) that can feed real data are noted; absent them, score
+by reasoning and tag the result **estimated**.
 
-1. **Crawlability & technical** — robots.txt (including the major AI-crawler
-   user-agents — GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot, … —
-   are you blocking the ones you want indexed?), sitemap health, status codes,
-   render/hydration, and Core Web Vitals / page experience.
-   *Feeds: Lighthouse/PageSpeed, GSC (coverage, CWV), Ahrefs Site Audit.*
+1. **Crawlability, technical & on-page** — robots.txt (including the major
+   AI-crawler user-agents — GPTBot, ClaudeBot, PerplexityBot, Google-Extended,
+   CCBot, … — are you blocking the ones you want indexed?), sitemap health, status
+   codes, render/hydration, Core Web Vitals / page experience, **and the classic
+   on-page signals**: title tags (present/unique/length), meta descriptions,
+   canonical + robots meta, H1 singularity, Open Graph/Twitter cards, image alt
+   text, internal-link/anchor quality, and URL structure. *Feeds:
+   Lighthouse/PageSpeed, GSC (coverage, CWV), **on-page parse**, Ahrefs Site Audit.*
 2. **Content extractability** — front-loaded answers, clean heading hierarchy,
    **question-shaped headings** that mirror conversational queries, and
    lists/tables that chunk cleanly into a citable passage. This is the genuine
-   core of "AEO."
+   core of "AEO." Score it as a procedural checklist of **located findings**:
+   direct-answer paragraphs (40–60 words under a question heading), "X is…"
+   definition patterns, list/table snippet eligibility, FAQ/HowTo eligibility
+   (cross-ref dim 5 — weight as Tier 2/3, no schema hype), and a single clean H1
+   per page. *Feeds: on-page parse.*
 3. **Evidence density** — direct quotations, concrete statistics, and inline
    citations. The highest-leverage GEO levers (see the ladder); especially in
    fact-dense domains (health, law, finance).
 4. **Entity & authority** — Organization/Author identity, `sameAs` links to
    Wikipedia/LinkedIn/Crunchbase, topical authority, E-E-A-T signals, and
-   freshness (`dateModified`). Off-page authority (backlink rank, referring-domain
-   count, anchor health, **competitor link gap**) is the part GSC can't show.
-   *Feeds: DataForSEO Backlinks, Ahrefs, Semrush.*
+   freshness (`dateModified`). **Look for E-E-A-T on the Phase-1 page map** — About,
+   Team/author bios, Contact, consistent NAP (name/address/phone), testimonials —
+   rather than asserting it from the homepage alone. Off-page authority (backlink
+   rank, referring-domain count, anchor health, **competitor link gap**) is the
+   part GSC can't show. *Feeds: DataForSEO Backlinks, Ahrefs, Semrush, on-page parse.*
 5. **Structured data** — JSON-LD validity (FAQPage, HowTo, QAPage, Article,
    Organization). *Labeled honestly: helps SEO and non-Google engines, but
    **Google does not require it** for AI features.* *Feeds: schema validator.*
@@ -251,6 +326,25 @@ docs/seo/
 `schema_version` in the scorecard frontmatter lets `track` migrate older
 scorecards; prefer additive changes so old runs stay diffable.
 
+### Artifact schemas (copy the shape — don't improvise)
+
+Two agents must produce **compatible** artifacts or `track` diffs turn to noise.
+The contracts are defined by example, in this skill's `artifacts/`:
+
+- **`artifacts/scorecard.example.md`** — the scorecard frontmatter schema
+  (`schema_version`, `target`, `date`, `mode`, `overall`, a **`pages_audited`**
+  table, and per-dimension `grade`/`score`/`metrics[]` where each metric carries
+  `{key, value, source, method, date}` provenance). Copy it verbatim and fill in.
+- **`artifacts/playbook.example.md`** — the playbook item schema (**stable `id`**,
+  `dimension`, `tier`, `basis`, `pages`, `change`, `expected_signal`, `verify`,
+  `effort`, `status` enum). Never renumber an `id` — `track` keys off it.
+- **`history.md` row** — append one Markdown-table row per assess:
+  `| date | overall grade | overall score | per-dim grades (1–7) | note |`.
+  Append-only; never rewrite past rows.
+
+These examples live in the skill, not the target repo. On `assess`/`playbook`, read
+the relevant example, then write the real artifact into the target's `docs/seo/`.
+
 ## Honesty rails (calibration)
 
 Bake these into every assessment and playbook — they are the differentiator:
@@ -290,6 +384,21 @@ sweep over this **volatile-surfaces checklist**, updates `reference.md` /
 `refresh` only edits the volatile layer, **cites the source for every changed
 claim**, and produces a reviewable diff. An automated/scheduled refresh must open
 a **human-reviewed PR** — never auto-merge a knowledge change.
+
+**Run-context guard (do this before `refresh` edits anything).** `refresh` writes
+to `reference.md` / `connectors/*` — but only the skill's **source repo** should be
+edited; in a consumer install those files are plugin copies that get overwritten on
+the next update. Detect which you're in:
+
+1. `realpath` this `SKILL.md` (dereference symlinks — some users symlink a dev
+   checkout into `~/.claude/plugins/`).
+2. `git rev-parse --show-toplevel` for the cwd git root; `realpath` it too.
+3. **Source-repo mode** — `SKILL.md`'s realpath is inside the cwd git root: edits
+   persist to source control; proceed (edit `skills/` source, then run the sync).
+4. **Consumer-repo mode** (the safe default — any of: SKILL.md outside the git root,
+   cwd not a git repo, or the check errored): **do not edit the installed files.**
+   Surface the findings and the upstream repo URL (from the plugin manifest) so the
+   user can land the update there. When in doubt, treat the skill as read-only.
 
 ## Reference
 

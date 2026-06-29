@@ -107,7 +107,8 @@ It assesses your current state across seven scored dimensions, turns the gaps
 into a prioritized playbook — led by the moves a peer-reviewed study actually
 measured (adding quotations lifts AI visibility most; keyword-stuffing *hurts*)
 — and tracks progress across runs. It reads real data from Google Search
-Console, GA4, Lighthouse, Semrush, and Ahrefs via API, MCP, or a pasted
+Console, GA4, Lighthouse, DataForSEO (pay-per-use SERP, backlinks, and AI-answer
+citations — no subscription needed), Semrush, and Ahrefs via API, MCP, or a pasted
 screenshot, and labels every number measured or estimated so you never act on a
 guess. It stays honest where the field is hype: Google says structured data and
 llms.txt aren't required, and it tells you so.

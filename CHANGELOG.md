@@ -12,9 +12,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   AI answer engines (SEO, GEO, AEO). Four modes (`assess` → scorecard,
   `playbook` → prioritized plan, `track` → progress over time, `refresh` →
   self-update against the fast-moving landscape), a measured-vs-estimated
-  provenance discipline, and on-demand connectors for Google Search Console,
-  GA4, Lighthouse, schema, Semrush, and Ahrefs via API, MCP, or pasted
-  screenshots. Methodology grounded in the GEO paper (KDD 2024) and Google's
+  provenance discipline, a site-discovery crawl phase, per-dimension grade bands,
+  copy-this-shape artifact schemas (scorecard/playbook examples), and on-demand
+  connectors for Google Search Console, GA4, Lighthouse, on-page parse, schema,
+  DataForSEO (pay-per-use SERP, backlinks, and LLM-mention/AI-Overview citations),
+  Semrush, and Ahrefs via API, MCP, or pasted screenshots. Methodology grounded in
+  the GEO paper (KDD 2024) and Google's
   AI-search guidance.
 - **ci-performance** — Make a CI/CD pipeline faster: measure the critical
   path, then climb a stop-when-it-stops-paying ladder (cache deps, parallel

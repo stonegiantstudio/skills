@@ -3,7 +3,7 @@
 ```
 last_verified: 2026-06-29
 feeds: dim 1/4/6 + keyword volume + competitor SERP/backlinks/AI-citation —
-       the on-demand fill for everything GSC/GA4/Lighthouse/Bing-WMT can't reach
+       the on-demand fill for everything GSC/GA4/Lighthouse can't reach
 cost: pay-per-use wallet; two optional add-ons (Backlinks, LLM Mentions) each need
       a $100/mo activation — gate on it, fall back if absent (see Billing model)
 ```
