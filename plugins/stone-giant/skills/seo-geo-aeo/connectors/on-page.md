@@ -14,7 +14,7 @@ from the page HTML** the crawl already fetched (see "Phase 1 — Site discovery"
 `SKILL.md`); no API and no credential. Like `schema.md`, this is a parse, not a
 service.
 
-## Ingestion (method=api — local parse)
+## Ingestion (method=parse — local)
 
 For each crawled page, extract from the served HTML:
 
@@ -52,6 +52,6 @@ cheap gaps (a missing `<title>` is inexcusable), but don't sell meta tags as a G
 lever — they aren't one.
 
 ## Provenance & freshness
-- `method=api` (local parse of the page you fetched), tagged **measured** — it is
-  the page's own served markup, not a third-party estimate. Re-parse on each
-  `assess`; nothing is cached.
+- `method=parse` (local parse of the page you fetched), tagged **measured** — it is
+  the page's own served markup, not a third-party estimate or an external API. Re-parse
+  on each `assess`; nothing is cached.

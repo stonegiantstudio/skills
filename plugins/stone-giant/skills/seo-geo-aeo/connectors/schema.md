@@ -13,12 +13,12 @@ do not over-weight it.
 
 ## Ingestion (preference order)
 
-### 1. Parse the page directly (method=api — local)
+### 1. Parse the page directly (method=parse — local)
 - Extract every `<script type="application/ld+json">` block from the HTML and
   read the `@type` set (FAQPage, HowTo, QAPage, Article, Organization, Product…)
   and required-field completeness. No external call needed.
 
-### 2. Local validator (method=api)
+### 2. Local validator (method=parse)
 - **Adobe structured-data-validator** (JS library): validates JSON-LD /
   Microdata / RDFa against schema.org + Google's rich-result rules, locally.
   <https://github.com/adobe/structured-data-validator>. Fills the gap left by

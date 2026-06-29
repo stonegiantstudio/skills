@@ -19,7 +19,10 @@ pages_audited:
 
 # One block per dimension (1–7). grade A–F + score 0–100 (see Grade bands in
 # SKILL.md). metrics carry per-value provenance so `track` only diffs same-source.
-# method ∈ api|mcp|screenshot|manual|estimated
+# method ∈ api|mcp|parse|fetch|screenshot|manual|estimated
+#   api=external API/tool · mcp=MCP server · parse=local HTML/JSON-LD parse ·
+#   fetch=plain file fetch (llms.txt/robots) · screenshot=pasted · manual=hand-recorded ·
+#   estimated=reasoned. Everything EXCEPT estimated is *measured* (the trust axis).
 dimensions:
   - id: 1
     name: crawlability_technical
@@ -27,21 +30,21 @@ dimensions:
     score: 78
     metrics:
       - { key: lcp_ms,            value: 2900, source: lighthouse, method: api,       date: 2026-06-29 }
-      - { key: ai_bots_blocked,   value: 0,    source: robots_txt, method: api,       date: 2026-06-29 }
-      - { key: titles_unique_pct, value: 75,   source: on-page,    method: api,       date: 2026-06-29 }
+      - { key: ai_bots_blocked,   value: 0,    source: robots_txt, method: fetch,     date: 2026-06-29 }
+      - { key: titles_unique_pct, value: 75,   source: on-page,    method: parse,     date: 2026-06-29 }
   - id: 2
     name: content_extractability
     grade: C
     score: 60
     metrics:
-      - { key: question_headings, value: 2,    source: on-page,    method: api,       date: 2026-06-29 }
+      - { key: question_headings, value: 2,    source: on-page,    method: parse,     date: 2026-06-29 }
       - { key: direct_answer_paras, value: 1,  source: on-page,    method: estimated, date: 2026-06-29 }
   - id: 3
     name: evidence_density
     grade: B
     score: 80
     metrics:
-      - { key: inline_citations,  value: 9,    source: on-page,    method: api,       date: 2026-06-29 }
+      - { key: inline_citations,  value: 9,    source: on-page,    method: parse,     date: 2026-06-29 }
   - id: 4
     name: entity_authority
     grade: D
@@ -49,13 +52,13 @@ dimensions:
     metrics:
       - { key: referring_domains, value: 12,   source: dataforseo, method: api,       date: 2026-06-29 }
       - { key: backlinks_spam,    value: 22,   source: dataforseo, method: api,       date: 2026-06-29 }
-      - { key: sameas_links,      value: 0,    source: on-page,    method: api,       date: 2026-06-29 }
+      - { key: sameas_links,      value: 0,    source: on-page,    method: parse,     date: 2026-06-29 }
   - id: 5
     name: structured_data
     grade: C
     score: 55
     metrics:
-      - { key: jsonld_types,      value: ["Organization"], source: schema, method: api, date: 2026-06-29 }
+      - { key: jsonld_types,      value: ["Organization"], source: schema, method: parse, date: 2026-06-29 }
   - id: 6
     name: ai_surface_presence
     grade: D
@@ -68,7 +71,7 @@ dimensions:
     grade: F
     score: 0
     metrics:
-      - { key: present,           value: false, source: fetch,     method: api,       date: 2026-06-29 }
+      - { key: present,           value: false, source: llms_txt,  method: fetch,     date: 2026-06-29 }
 # ==========================================================================
 ---
 

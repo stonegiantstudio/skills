@@ -18,6 +18,10 @@ cost: free | api-key | paid SaaS
 - Endpoint / SDK and the exact call.
 - Auth scope (and how the user supplies it — never discover keys from env).
 - Metric → response field map.
+- *Local-only connectors:* if the data comes from a **local parse** of fetched
+  content (HTML/JSON-LD) use `method=parse`; from a **plain file fetch**
+  (llms.txt/robots.txt) use `method=fetch`. Reserve `method=api` for an external
+  structured API. (Full enum + meanings in `SKILL.md`.)
 
 ### 2. MCP (method=mcp)
 - Server repo + install, and the tool names to call.
@@ -29,5 +33,6 @@ cost: free | api-key | paid SaaS
 - Echo parsed values back to the user for confirmation before writing them.
 
 ## Provenance & freshness
-- Default `method` when this connector is used, and any caveat (e.g. estimated
-  vs measured, sampling, date lag).
+- Default `method` when this connector is used (`api|mcp|parse|fetch|screenshot|
+  manual|estimated` — see `SKILL.md`; everything except `estimated` is *measured*),
+  and any caveat (e.g. estimated vs measured, sampling, date lag).

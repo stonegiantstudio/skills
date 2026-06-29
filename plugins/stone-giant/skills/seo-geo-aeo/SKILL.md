@@ -129,7 +129,15 @@ preference order — and **degrade gracefully**, never block:
    export is parseable. This keeps every source usable with zero paid access.
 4. **Reason from the page** — last resort; the value is tagged **estimated**.
 
-Record provenance per metric: `{value, source, method: api|mcp|screenshot|manual|estimated, date}`.
+Record provenance per metric: `{value, source, method: api|mcp|parse|fetch|screenshot|manual|estimated, date}`.
+`method` records *how* the value was obtained, not *whether* it's trustworthy:
+**`api`** = external structured API or equivalent tool (GSC/GA4/PageSpeed/Lighthouse/
+DataForSEO/Semrush/Ahrefs); **`mcp`** = a connected MCP server; **`parse`** = a local
+parse of fetched page content (on-page HTML, JSON-LD); **`fetch`** = a plain HTTP
+fetch of a file's presence/content (llms.txt, robots.txt); **`screenshot`** = pasted
+image / CSV export; **`manual`** = hand-recorded (e.g. the AI-citation protocol);
+**`estimated`** = reasoned from the page. **Everything except `estimated` is
+*measured*** — that's the trust axis `track` honors; the rest of `method` is transport.
 `track` only ever diffs **same-source** series — it will not compare a Semrush
 *estimated* position against a GSC *measured* one.
 
