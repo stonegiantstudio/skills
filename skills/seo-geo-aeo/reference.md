@@ -71,7 +71,7 @@ its own `last_verified` date; `refresh` re-checks these.
 - Schema validation: schema.org validator <https://validator.schema.org/> · Google Rich Results Test <https://search.google.com/test/rich-results> (no documented public API) · Adobe structured-data-validator (local) <https://github.com/adobe/structured-data-validator>
 - Semrush API: <https://developer.semrush.com/api/> · hosted MCP `mcp.semrush.com`
 - Ahrefs API: <https://docs.ahrefs.com/docs/api/reference/introduction>
-- DataForSEO (pay-per-use aggregator) MCP: <https://github.com/dataforseo/mcp-server-typescript>
+- DataForSEO API docs: <https://docs.dataforseo.com/v3/> · Backlinks <https://docs.dataforseo.com/v3/backlinks/overview/> · AI Optimization / LLM Mentions <https://docs.dataforseo.com/v3/ai_optimization-llm_mentions-overview/> · MCP <https://github.com/dataforseo/mcp-server-typescript> (Backlinks API & LLM Mentions each need a $100/mo activation; rest is pay-per-use)
 
 ## Open-source prior art (study, don't copy)
 

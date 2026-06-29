@@ -114,17 +114,23 @@ in this skill lists every name. Standard names:
 | Google Search Console | `GSC_PROPERTY`, and `GSC_ACCESS_TOKEN` *or* `GSC_SERVICE_ACCOUNT_JSON` (path) |
 | Google Analytics 4 | `GA4_PROPERTY_ID`, and `GA4_ACCESS_TOKEN` *or* `GA4_SERVICE_ACCOUNT_JSON` (path) |
 | PageSpeed Insights | `PAGESPEED_API_KEY` (lifts the small anonymous quota — see lighthouse connector) |
-| DataForSEO (pay-per-use) | `DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD` — one account ≈ SERP + backlinks + volume + AI Overviews |
+| DataForSEO | `DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD` — one account ≈ SERP + keyword volume + competitor backlinks + LLM-mention/AI-Overview citations. Core is pay-per-use; **Backlinks API and LLM Mentions are optional add-ons that each need a $100/mo activation** — gate on it, fall back if absent (see the connector) |
 | Semrush | `SEMRUSH_API_KEY` |
 | Ahrefs | `AHREFS_API_TOKEN` |
 | AI-visibility (optional) | `OTTERLY_API_KEY` |
 
-**Security (non-negotiable).** Read each credential only by its **exact name**
-(e.g. `printenv SEMRUSH_API_KEY`). Never list, dump, or grep the environment to
-*discover* keys, and never `cat`/grep a `.env` to fish for them — that surfaces
-unrelated secrets. If a documented var is unset, **ask the user** (they may
-export it, add it to `.env`, or paste data instead); do not go looking. Never
-echo a key's value or write it into a scorecard.
+**Security (non-negotiable).** Credentials live in env vars and **their values must
+never enter the session.** Reference each var **by name** and let the shell expand
+it *inside* the request command (`curl -u "$SEMRUSH_API_KEY:"`, `--header
+"Authorization: Bearer $AHREFS_API_TOKEN"`), so the secret goes from the environment
+straight to the tool and never appears in any command's output or context. Do **not**
+`printenv`/`echo`/`cat` a value to inspect it — not even to "check" it. To confirm a
+var is present, test existence only and print a boolean: `[ -n "${VAR:-}" ] && echo
+set || echo unset`. Never list, dump, or grep the environment to *discover* keys, and
+never `cat`/grep a `.env` to fish for them — that surfaces unrelated secrets. If a var
+isn't in the shell, try running the request from a login shell (`zsh -lc '...'`) so it
+inherits the user's exported env; if still unset, **ask the user** — do not go looking.
+Never write a key's value into a scorecard.
 
 Connector specifics live in `connectors/<tool>.md` (loaded on demand): Google
 Search Console, GA4, Lighthouse/PageSpeed, schema validation are documented to
@@ -151,14 +157,18 @@ and tag the result **estimated**.
    fact-dense domains (health, law, finance).
 4. **Entity & authority** — Organization/Author identity, `sameAs` links to
    Wikipedia/LinkedIn/Crunchbase, topical authority, E-E-A-T signals, and
-   freshness (`dateModified`).
+   freshness (`dateModified`). Off-page authority (backlink rank, referring-domain
+   count, anchor health, **competitor link gap**) is the part GSC can't show.
+   *Feeds: DataForSEO Backlinks, Ahrefs, Semrush.*
 5. **Structured data** — JSON-LD validity (FAQPage, HowTo, QAPage, Article,
    Organization). *Labeled honestly: helps SEO and non-Google engines, but
    **Google does not require it** for AI features.* *Feeds: schema validator.*
 6. **AI-surface presence** — is the brand/page actually cited in ChatGPT,
    Perplexity, Google AI Overviews/AI Mode, Claude? Default to the manual
    citation protocol in `connectors/ai-visibility.md` (prompts to run + record);
-   an API hook is optional.
+   an API hook is optional. *Feeds (optional): DataForSEO **LLM Mentions** for
+   indexed brand citations + competitor share-of-voice across Google AI Overviews
+   & ChatGPT, and **LLM Responses** for Perplexity/Gemini/Claude.*
 7. **llms.txt** — present and well-formed? *Labeled **low-confidence**: cheap to
    add, but 97% are never fetched and no major provider commits to it.* Never
    ranked above dimensions 1–4.
