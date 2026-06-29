@@ -1,5 +1,5 @@
 ---
-description: Audit and improve a site's visibility in search and AI answer engines (SEO, GEO, AEO). Use when asked to assess SEO/GEO/AEO, check AI-search / AI-Overview visibility, generate an optimization playbook, or track ranking and citation progress over time. Runs as `/stone-giant:seo-geo-aeo assess|playbook|track|refresh <target>` and reads data from Google Search Console, GA4, Lighthouse, DataForSEO (pay-per-use SERP/backlinks/AI-mentions), Semrush, Ahrefs and more via API, MCP, or pasted screenshots. Methodology grounded in the GEO paper (KDD 2024), Google's AI-search guidance, and the primary sources in reference.md.
+description: Audit and improve a site's visibility in search and AI answer engines (SEO, GEO, AEO). Use when asked to assess SEO/GEO/AEO, check AI-search / AI-Overview visibility, generate an optimization playbook, or track ranking and citation progress over time. Runs as `/stone-giant:seo-geo-aeo assess|playbook|track|compare|refresh <target>` and reads data from Google Search Console, GA4, Lighthouse, DataForSEO (pay-per-use SERP/backlinks/AI-mentions), Semrush, Ahrefs and more via API, MCP, or pasted screenshots. Methodology grounded in the GEO paper (KDD 2024), Google's AI-search guidance, and the primary sources in reference.md.
 metadata:
   last_technique_review: "2026-06-25"
   technique_stale_after_days: "14"
@@ -39,13 +39,14 @@ sitemap URL, or a local site/repo path.
 | `assess` | Audit current state across 7 scored dimensions | a dated **scorecard** |
 | `playbook` | Turn the scorecard's gaps into a prioritized, evidence-weighted plan | a **playbook** |
 | `track` | Diff a fresh assessment against the last scorecard + open playbook items | updates **history** + playbook status |
+| `compare` | Score the target **and** one or more competitor URLs on the same 7 dimensions, side by side | a dated **comparison** |
 | `refresh` | Update *the skill's own knowledge* of the fast-moving GEO/AEO landscape | edits `reference.md` / `connectors/*` |
 | `help` | Print the usage block below and stop | — |
 
-`assess | playbook | track` operate on a **target site** and are **plan-only** —
-they audit, plan, and track; they never edit the site. Applying playbook items
-is a separate, explicit step the user drives. `refresh` operates on the skill
-itself (see "Staying current").
+`assess | playbook | track | compare` operate on a **target site** and are
+**plan-only** — they audit, plan, and track; they never edit the site (or the
+competitors'). Applying playbook items is a separate, explicit step the user
+drives. `refresh` operates on the skill itself (see "Staying current").
 
 Routing: on `help` (or `--help`/`-h`), print the usage block and stop. With no
 mode **and** no target, print the usage block, then offer to run `assess`. With
@@ -57,7 +58,10 @@ a bare target and no mode: no prior scorecard → `assess`; one present → offe
 in this order: **explicit argument → the `target` in the latest `docs/seo/`
 scorecard under the cwd git root → ask.** This is how `playbook`/`track` know which
 repo's `docs/seo/` to read when the cwd is the *code* repo but the audited site is
-elsewhere; never guess — if no scorecard and no argument, ask.
+elsewhere; never guess — if no scorecard and no argument, ask. **`compare` needs a
+target plus at least one competitor URL** (`compare <target> <competitor…>`); if the
+target is omitted, resolve it like `track`, and if no competitor is given, offer to
+derive one from `connectors/dataforseo.md` competitor discovery, else ask.
 
 ### Usage (`help`)
 
@@ -69,6 +73,9 @@ elsewhere; never guess — if no scorecard and no argument, ask.
                                    scorecard (plan-only — never edits your site)
   /stone-giant:seo-geo-aeo track               Diff a fresh assessment vs the last scorecard;
                                    update playbook status + docs/seo/history.md
+  /stone-giant:seo-geo-aeo compare <target> <competitor…>
+                                   Score the target and competitor URLs on the same
+                                   7 dimensions → docs/seo/comparison-<date>.md
   /stone-giant:seo-geo-aeo refresh             Web-sweep the volatile GEO/AEO landscape and
                                    update the skill's own reference/connectors
   /stone-giant:seo-geo-aeo help                Show this help
@@ -209,6 +216,12 @@ Each is scored A–F (see "Grade bands") with located findings and per-metric
 provenance. The connector(s) that can feed real data are noted; absent them, score
 by reasoning and tag the result **estimated**.
 
+> The inline *Feeds:* notes below are point-of-use pointers. The **authoritative
+> source-of-truth for which connector feeds which dimension is each connector's own
+> `feeds:` header** (`connectors/<tool>.md`); if the two ever disagree, the connector
+> wins, and a newly added connector declares its `feeds:` there first. This keeps the
+> mapping from drifting as connectors are added.
+
 1. **Crawlability, technical & on-page** — robots.txt (including the major
    AI-crawler user-agents — GPTBot, ClaudeBot, PerplexityBot, Google-Extended,
    CCBot, … — are you blocking the ones you want indexed?), sitemap health, status
@@ -308,6 +321,7 @@ docs/seo/
   scorecard-YYYY-MM-DD.md   # one per assess run; frontmatter = machine-readable scores
   playbook.md               # living plan; items have stable IDs + status
   history.md                # append-only trend log, one row per assess
+  comparison-YYYY-MM-DD.md  # one per compare run; target vs competitors, side by side
 ```
 
 - **`assess`** → writes `scorecard-<date>.md`. Frontmatter carries
@@ -321,6 +335,9 @@ docs/seo/
   same-source series against the prior scorecard, marks playbook items
   done/in-progress/stale, appends a `history.md` row, and names the next-best
   move. Closes the loop: assess → playbook → (user applies) → track.
+- **`compare`** → scores the target and each competitor URL on the same 7
+  dimensions and writes `comparison-<date>.md` (see "Compare mode"). Plan-only —
+  it never edits any site. Contract: `artifacts/comparison.example.md`.
 - **`refresh`** → see "Staying current."
 
 `schema_version` in the scorecard frontmatter lets `track` migrate older
@@ -341,9 +358,46 @@ The contracts are defined by example, in this skill's `artifacts/`:
 - **`history.md` row** — append one Markdown-table row per assess:
   `| date | overall grade | overall score | per-dim grades (1–7) | note |`.
   Append-only; never rewrite past rows.
+- **`artifacts/comparison.example.md`** — the `compare` output: a per-dimension
+  `matrix` (target + each competitor) and a `beatable_gaps` list. Competitor cells
+  use public/third-party sources only (no GSC/GA4).
 
 These examples live in the skill, not the target repo. On `assess`/`playbook`, read
 the relevant example, then write the real artifact into the target's `docs/seo/`.
+
+## Compare mode (target vs competitors)
+
+`compare <target> <competitor…>` scores the target **and** each competitor on the
+same 7 dimensions and writes a side-by-side `comparison-<date>.md`. It answers
+"where do rivals beat us, and which gaps are worth closing?" — turning the
+competitor data the connectors already expose into a ranked head-to-head.
+
+**Procedure:**
+
+1. **Crawl each site** through Phase 1 (target + every competitor) — own page map
+   per site. Same scope rule: `quick` (homepage + ≤6 pages) or `full`.
+2. **Score the 7 dimensions per site**, reusing the assess logic and grade bands.
+3. **Lean on the competitor-native connectors** — these are the comparison's spine
+   and the part the free stack can't do:
+   - **Authority:** DataForSEO `bulk_ranks` / `bulk_referring_domains` across all
+     sites in one call (dim 4).
+   - **Link gap:** `domain_intersection` — who links to rivals but not the target.
+   - **AI share-of-voice:** LLM Mentions `cross_aggregated_metrics` — mention counts
+     per site on the same query universe (dim 6).
+   - **Keyword gap + winnability:** the methods in `connectors/dataforseo.md`.
+4. **Provenance asymmetry — handle it honestly (this is the discipline, not a bug).**
+   Owned-only sources (**GSC, GA4**) exist for the target but **never for
+   competitors**. So competitor dimension scores draw on **public/third-party
+   sources only** (on-page parse, Lighthouse, DataForSEO, schema) and are tagged
+   accordingly. **Never compare the target's *measured* GSC figure against a
+   competitor's *estimated* one** — compare same-source rows (e.g. Lighthouse LCP vs
+   Lighthouse LCP, DataForSEO rank vs DataForSEO rank). Where only the target has a
+   source, mark the competitor cell `n/a (owned-only source)`, don't fabricate it.
+5. **Output** (`artifacts/comparison.example.md` is the contract): a grade matrix
+   (rows = 7 dimensions, columns = target + each competitor), the head-to-head
+   **deltas** where a competitor leads, and a short **"biggest beatable gaps"**
+   list — winnable dimensions where a competitor is ahead — which feeds straight
+   into `playbook`. Plan-only; it never edits any site.
 
 ## Honesty rails (calibration)
 
