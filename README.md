@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Thirty-three skills pulled from our private toolchain and
+We use these every day. Thirty-four skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -95,6 +95,28 @@ recommendation.
 ```text
 /stone-giant:eval-npm date-fns vs dayjs vs moment
 /stone-giant:eval-npm audit my package.json
+```
+
+### /stone-giant:seo-geo-aeo — Get Found by Search and AI Answers
+
+Your content can rank on Google and still be invisible to ChatGPT, Perplexity,
+and AI Overviews. They cite *passages*, not pages, and reward different things —
+and most "AI SEO" advice is guesswork. This skill runs on evidence instead.
+
+It assesses your current state across seven scored dimensions, turns the gaps
+into a prioritized playbook — led by the moves a peer-reviewed study actually
+measured (adding quotations lifts AI visibility most; keyword-stuffing *hurts*)
+— and tracks progress across runs. It reads real data from Google Search
+Console, GA4, Lighthouse, DataForSEO (pay-per-use SERP, backlinks, and AI-answer
+citations — no subscription needed), Semrush, and Ahrefs via API, MCP, or a pasted
+screenshot, and labels every number measured or estimated so you never act on a
+guess. It stays honest where the field is hype: Google says structured data and
+llms.txt aren't required, and it tells you so.
+
+```text
+/stone-giant:seo-geo-aeo assess https://yoursite.com   # score current state
+/stone-giant:seo-geo-aeo playbook                       # prioritized plan
+/stone-giant:seo-geo-aeo track                          # progress over time
 ```
 
 ## Auto-Triggered Skills
