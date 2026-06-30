@@ -146,7 +146,7 @@ stop-when-it-stops-paying ladder: cache dependencies, cancel superseded runs,
 split serial jobs, shard the suite, isolate per-shard state, right-size the
 runner, cache build and Docker layers, gate no-op work on a diff, run only
 affected tests, add a merge queue. Every rung says when it pays and when to
-stop, grounded in how Google, Meta, Uber, and Shopify run CI at scale.
+stop, drawing on published CI engineering from Google, Meta, Uber, and Shopify.
 
 On a real Vitest + SQLite pipeline it cut code-gate feedback from ~3.4 min to
 ~1.5 min by sharding and parallelizing, with the bigger runner explicitly

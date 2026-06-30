@@ -15,7 +15,7 @@ actually parallelizes.
 Do not optimize from a guess. Pull the **per-step durations** of the slowest
 job and find the real long pole. Teams routinely "fix" the wrong thing.
 
-- GitHub Actions: `gh api repos/{owner}/{repo}/actions/runs/{id}/jobs --jq '.jobs[] | {name, steps: [.steps[] | {name, s: .started_at, e: .completed_at}]}'`, or compute each job's `started_at -> completed_at`.
+- GitHub Actions: `gh api --paginate 'repos/{owner}/{repo}/actions/runs/{id}/jobs?per_page=100' --jq '.jobs[] | {name, steps: [.steps[] | {name, s: .started_at, e: .completed_at}]}'`, or compute each job's `started_at -> completed_at`. **Paginate** -- the jobs API returns 30 per page by default, so a matrix-heavy run silently drops jobs past the first page and you measure the wrong long pole.
 - Distinguish **execution time** from **queue/dependency wait**. A job that "takes 2m" may be 40s of work behind 1m20s of waiting on its `needs:`. You can't optimize the wait if the dependency is correct (e.g. don't deploy before tests pass).
 - Separate **code-gate feedback** (is my change sound? -> typecheck/lint/test) from **deploy-prep** (migrate/seed a staging env). Speeding the gates helps iteration; speeding deploy-prep only helps "all green" time.
 
