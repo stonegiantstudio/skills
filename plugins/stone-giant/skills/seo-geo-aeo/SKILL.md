@@ -95,16 +95,29 @@ API → MCP → pasted screenshot (degrades gracefully). Every metric is tagged
 measured vs estimated. Progress lives in docs/seo/.
 ```
 
-## Establish provenance first — ask before assuming
+## Establish provenance first — detect, report, then ask
 
-**Step 0 — ask, do not assume.** Before scoring, tell the user which sources
-would sharpen the assessment and **ask which they can provide credentials for.**
-A source is "unavailable" only after the user has been asked and declined or
-omitted it — *never* because a key did not happen to be in the environment
-already. Silently downgrading a source the user could have supplied is a bug, not
-graceful degradation. Present the list (GSC, GA4, PageSpeed, **DataForSEO**,
-Semrush, Ahrefs, AI-visibility), note any already configured (see "Credentials &
-setup"), and ask about the rest.
+**Step 0 — detect from the project `.env`, then ask only for what's missing.**
+Credentials live in the **target project's `.env`** (git-ignored), which the app
+runtime (bun/node) loads — *not* the interactive shell. So before scoring, **probe
+that `.env` for the skill's documented variables** (the safe, name-only check in
+"Credentials & setup" below — it reads `.env`, never the bare shell) and report the
+result back to the user as two lists:
+
+- **Available in `.env`** — the sources whose keys are present; these run at API
+  depth. Name them so the user sees what the assessment will draw on.
+- **Missing** — the sources with no key in `.env`. For each, name the **exact
+  variable(s) to add to the project `.env`** (the table under "Credentials &
+  setup") so the user can enable it, and note the free fallback (paste / screenshot,
+  or local parse) that runs in the meantime.
+
+Then **ask** whether the user wants to add any of the missing keys before you run.
+A source is "unavailable" only after it is absent from `.env` **and** the user has
+declined to add it — *never* because a key did not happen to be exported in the
+shell. A shell reporting a key "unset" while it sits in `.env` is the exact bug this
+step exists to prevent: the keys are not loaded into the session, but they are in
+`.env` and the skill has access to them there. The sources to report on: GSC, GA4,
+PageSpeed, **DataForSEO**, Semrush, Ahrefs, AI-visibility.
 
 - **DataForSEO is the pay-per-use default for competitor, backlink, and
   AI-citation data** — it needs no Semrush/Ahrefs subscription (just a prepaid
@@ -163,18 +176,47 @@ in this skill lists every name. Standard names:
 | Ahrefs | `AHREFS_API_TOKEN` |
 | AI-visibility (optional) | `OTTERLY_API_KEY` |
 
-**Security (non-negotiable).** Credentials live in env vars and **their values must
-never enter the session.** Reference each var **by name** and let the shell expand
-it *inside* the request command (`curl -u "$SEMRUSH_API_KEY:"`, `--header
-"Authorization: Bearer $AHREFS_API_TOKEN"`), so the secret goes from the environment
-straight to the tool and never appears in any command's output or context. Do **not**
-`printenv`/`echo`/`cat` a value to inspect it — not even to "check" it. To confirm a
-var is present, test existence only and print a boolean: `[ -n "${VAR:-}" ] && echo
-set || echo unset`. Never list, dump, or grep the environment to *discover* keys, and
-never `cat`/grep a `.env` to fish for them — that surfaces unrelated secrets. If a var
-isn't in the shell, try running the request from a login shell (`zsh -lc '...'`) so it
-inherits the user's exported env; if still unset, **ask the user** — do not go looking.
-Never write a key's value into a scorecard.
+**Security (non-negotiable).** Credentials live in the project `.env` and **their
+values must never enter the session.** The `.env` is loaded by the app runtime
+(bun/node), **not** the interactive shell — so a bare shell check, even via
+`zsh -lc`, reports a key "unset" while it sits in `.env`. Always source the project
+`.env` **inside a subshell** and let that subshell expand each var by name *within*
+the request command, so the secret goes from `.env` straight to the tool and never
+appears in any output or context:
+
+```bash
+# Request: load .env in a scoped subshell; the value never prints.
+root="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
+( set -a; [ -f "$root/.env" ] && . "$root/.env"; set +a
+  # basic-auth (DataForSEO) and bearer (Ahrefs) both expand the var by name:
+  curl -sS -u "$DATAFORSEO_LOGIN:$DATAFORSEO_PASSWORD" <url>
+  # curl -sS -H "Authorization: Bearer $AHREFS_API_TOKEN" <url>
+)
+```
+
+The parens scope the load to that one command; nothing is exported into the session.
+
+**Presence check (reads `.env`, name-only, value-never).** To report what's
+configured, source the `.env` in a subshell and test **only the skill's own
+documented names** — print a boolean per name, never a value:
+
+```bash
+root="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
+( set -a; [ -f "$root/.env" ] && . "$root/.env"; set +a
+  for v in GSC_PROPERTY GSC_ACCESS_TOKEN GSC_SERVICE_ACCOUNT_JSON \
+           GA4_PROPERTY_ID GA4_ACCESS_TOKEN GA4_SERVICE_ACCOUNT_JSON \
+           PAGESPEED_API_KEY DATAFORSEO_LOGIN DATAFORSEO_PASSWORD \
+           SEMRUSH_API_KEY AHREFS_API_TOKEN OTTERLY_API_KEY; do
+    eval "val=\${$v:-}"; [ -n "$val" ] && echo "$v=set" || echo "$v=unset"
+  done )
+```
+
+Do **not** `printenv`/`echo`/`cat` a value to inspect it — not even to "check" it —
+and do **not** `cat` or grep the `.env` file itself (that surfaces unrelated
+secrets). Probe by the documented names above and nothing else. If a documented var
+is absent from `.env`, **tell the user the exact name to add to the project `.env`**
+(per the table above) — do not go looking elsewhere. Never write a key's value into
+a scorecard.
 
 Connector specifics live in `connectors/<tool>.md` (loaded on demand): Google
 Search Console, GA4, Lighthouse/PageSpeed, on-page parse, and schema validation are

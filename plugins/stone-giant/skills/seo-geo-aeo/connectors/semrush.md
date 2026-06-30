@@ -17,7 +17,8 @@ GSC's owned-site truth.
 - **Semrush API**: `domain_ranks` (Authority Score, organic traffic/keywords),
   `domain_organic` (ranking keywords), `backlinks_overview`.
   <https://developer.semrush.com/api/>. Units-metered — note cost before bulk
-  pulls. Key from `SEMRUSH_API_KEY`; if unset, **ask** — do not discover it.
+  pulls. Key from `SEMRUSH_API_KEY` in the project `.env` (check by sourcing it, not
+  the bare shell — see SKILL.md); if absent there, **ask** — do not discover it.
 
 ### 2. MCP (method=mcp)
 - Hosted **`mcp.semrush.com`** (account auth) exposes Trends + Standard API
