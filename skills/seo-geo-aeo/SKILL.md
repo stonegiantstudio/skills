@@ -188,8 +188,11 @@ appears in any output or context:
 ```bash
 # Request: load .env in a scoped subshell; the value never prints.
 root="$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
-( set -a; . "$root/.env"; set +a
-  curl -sS -u "$DATAFORSEO_LOGIN:$DATAFORSEO_PASSWORD" <url> )
+( set -a; [ -f "$root/.env" ] && . "$root/.env"; set +a
+  # basic-auth (DataForSEO) and bearer (Ahrefs) both expand the var by name:
+  curl -sS -u "$DATAFORSEO_LOGIN:$DATAFORSEO_PASSWORD" <url>
+  # curl -sS -H "Authorization: Bearer $AHREFS_API_TOKEN" <url>
+)
 ```
 
 The parens scope the load to that one command; nothing is exported into the session.

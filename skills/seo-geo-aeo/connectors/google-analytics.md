@@ -30,7 +30,8 @@ numeric **Property ID** (`GA4_PROPERTY_ID`, from Admin → Property details) —
 - **AI referrals:** dimension `sessionSource` with a `PARTIAL_REGEXP`
   `dimensionFilter` for `chatgpt|perplexity|gemini|copilot|openai|claude`.
 - Credentials `GA4_PROPERTY_ID` + `GA4_SERVICE_ACCOUNT_JSON` (or
-  `GA4_ACCESS_TOKEN`). If unset, **ask** — do not hunt for keys.
+  `GA4_ACCESS_TOKEN`). Check presence by sourcing the project `.env`, not the bare
+  shell (see SKILL.md); if absent there, **ask** — do not hunt for keys.
 
 ### 2. MCP (method=mcp)
 - Community GA4 MCP servers expose `runReport`-style tools. Use if connected.

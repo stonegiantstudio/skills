@@ -46,8 +46,9 @@ true total of 938). Add `dimensions` only for *breakdowns*, with a high
 - **URL Inspection:** `urlInspection.index.inspect` for index/coverage of a URL.
 - Endpoint: <https://developers.google.com/webmaster-tools/v1/searchanalytics/query>
 - Scope `https://www.googleapis.com/auth/webmasters.readonly`. Credentials from
-  `GSC_PROPERTY` + `GSC_SERVICE_ACCOUNT_JSON` (or `GSC_ACCESS_TOKEN`). If unset,
-  **ask** — never hunt the environment for keys.
+  `GSC_PROPERTY` + `GSC_SERVICE_ACCOUNT_JSON` (or `GSC_ACCESS_TOKEN`). Check presence
+  by sourcing the project `.env`, not the bare shell (see SKILL.md's presence check);
+  if absent there, **ask** — never hunt the environment for keys.
 
 ### 2. MCP (method=mcp)
 - `ahonn/mcp-server-gsc` (`uvx mcp-server-gsc`) or `AminForou/mcp-gsc`. Tools
