@@ -79,8 +79,10 @@ HTTP Basic auth from env vars **`DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD`**.
   — so the secret goes straight from the environment to curl and never appears in a
   command's output, the transcript, or context. Do **not** `printenv`/`echo`/`base64`
   a value to inspect it, build the header by hand, or write it to a file.
-- To confirm presence without loading the value, test existence only and print a
-  boolean: `[ -n "${DATAFORSEO_LOGIN:-}" ] && echo set || echo unset`.
+- To confirm presence without loading the value, **source the project `.env` in a
+  subshell** and test existence only, printing a boolean — never the value:
+  `( set -a; . "<repo>/.env"; set +a; [ -n "${DATAFORSEO_LOGIN:-}" ] && echo set || echo unset )`.
+  Don't run the bare test against the interactive shell alone — see the next bullet.
 - **Creds usually live in the project's `.env`, not exported in the shell** — a
   shell check (`printenv`, login/interactive shell) routinely shows them *unset even
   when present*. Don't conclude "missing" from that. Load them by **sourcing the
