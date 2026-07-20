@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **human-writing** — Write and edit prose that reads as human rather than
+  AI-generated. A two-tier banned lexicon, a stock-phrase list, 18 named
+  structural tells each paired with its rewrite move, the positive traits human
+  prose has (specifics, a position, experience markers, one voice), and a
+  seven-pass editing workflow for existing drafts. Grounded in Wikipedia's
+  WP:AITELLS editor catalogue, Kobak et al. 2024 (excess-word frequencies across
+  14M PubMed abstracts), Liang et al. 2024, and Matsui 2025.
 - **seo-geo-aeo** — Assess, plan, and track a site's visibility in search and
   AI answer engines (SEO, GEO, AEO). Six modes (`assess` → scorecard,
   `playbook` → prioritized plan, `track` → progress over time, `competitors` →
