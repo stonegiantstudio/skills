@@ -73,25 +73,15 @@ One established site + three greenfield domains, to calibrate expectations:
 
 ## Auth (method=api)
 
-HTTP Basic auth from env vars **`DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD`**.
-- **Never load the values into the session.** Reference the vars by name and let the
-  shell expand them *inside* the request — `curl -u "$DATAFORSEO_LOGIN:$DATAFORSEO_PASSWORD"`
-  — so the secret goes straight from the environment to curl and never appears in a
-  command's output, the transcript, or context. Do **not** `printenv`/`echo`/`base64`
-  a value to inspect it, build the header by hand, or write it to a file.
-- To confirm presence without loading the value, test existence only and print a
-  boolean: `[ -n "${DATAFORSEO_LOGIN:-}" ] && echo set || echo unset`.
-- **Creds usually live in the project's `.env`, not exported in the shell** — a
-  shell check (`printenv`, login/interactive shell) routinely shows them *unset even
-  when present*. Don't conclude "missing" from that. Load them by **sourcing the
-  documented `.env`** inside the request subshell — `set -a; source <repo>/.env; set
-  +a` — then reference `$DATAFORSEO_LOGIN`/`$DATAFORSEO_PASSWORD`. **Source it, never
-  `cat`/grep it** (sourcing loads the vars without printing them; grepping fishes
-  unrelated secrets). Outbound calls need network, so in a sandboxed shell run the
-  request with the sandbox disabled. If still unset after sourcing the documented
-  `.env`, **ask** — don't hunt other files.
-- Get both from the DataForSEO dashboard → **API Access** (the **API password may
-  differ** from your dashboard login password).
+HTTP Basic auth from **`DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD`**, per the
+skill credential protocol (SKILL.md) — presence check, `.env` sourcing, and the
+never-print rules all live there. DataForSEO-specific facts:
+- The request shape is `curl -u "$DATAFORSEO_LOGIN:$DATAFORSEO_PASSWORD"` inside
+  the protocol's subshell; do not build the Basic-auth header by hand.
+- Get both values from the DataForSEO dashboard → **API Access** (the **API
+  password may differ** from your dashboard login password).
+- Outbound calls need network, so in a sandboxed shell run the request with the
+  sandbox disabled.
 - **Test against the free Sandbox first:** host `sandbox.dataforseo.com` returns
   **dummy data at $0** — wire and verify request/response parsing before spending.
   Live host: `api.dataforseo.com`. **Caveat:** sandbox validates *shape only*; it

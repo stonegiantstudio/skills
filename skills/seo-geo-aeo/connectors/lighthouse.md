@@ -22,7 +22,8 @@ category scores.
   `loadingExperience.metrics` (field CWV).
   <https://developers.google.com/speed/docs/insights/v5/get-started>
 - **The anonymous quota (no key) is tiny and routinely exhausted** — set
-  `PAGESPEED_API_KEY` (free, ~25k/day) or use the CLI above. Field CWV only
+  `PAGESPEED_API_KEY` (free, ~25k/day), per the skill credential protocol
+  (SKILL.md), or use the CLI above. Field CWV only
   exists for pages with enough CrUX traffic; low-traffic pages return none
   (that is a data gap, not a failing score).
 

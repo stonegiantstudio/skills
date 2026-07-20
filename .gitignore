@@ -27,3 +27,6 @@ __pycache__/
 # Artifacts from test-installing our own skills via `npx skills add`
 .agents/
 skills-lock.json
+
+# Parking receipts (personal shutdown notes)
+.park/
