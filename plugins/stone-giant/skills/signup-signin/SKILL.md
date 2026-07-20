@@ -466,6 +466,7 @@ Do NOT invoke for:
 | `design-ninja` | General visual hierarchy, spacing, typography primitives |
 | `frontend-design` | Distinctive visual treatment for auth surfaces that need it (rare — auth is usually neutral) |
 | `writing-marketing-copy` | The marketing page that links TO sign-up (different voice, different goals) |
+| `human-writing` | General (non-auth) UI strings and prose voice — this skill owns auth microcopy specifically |
 | `react-router-v7` | Route-module shape for sign-up/sign-in actions and loaders |
 | `testing-ninja` | E2E tests for auth flows |
 

@@ -1,6 +1,6 @@
 ---
 name: human-writing
-description: Write and edit prose with a human voice — clear, specific, and owned by one identifiable writer. Directives distilled from Zinsser, Strunk & White, Williams, and Pinker, plus a de-slop workflow for AI-flavored drafts. Use for blog posts, essays, docs prose, UI microcopy, or when asked to "de-slop", "humanize", or fix "AI-sounding" text. For persuasion surfaces (landing pages, ads, email campaigns) use writing-marketing-copy, which pulls in this skill's ai-tells catalogue for its authenticity sweep.
+description: Write and edit prose with a human voice — clear, specific, and owned by one identifiable writer. Directives distilled from Zinsser, Strunk & White, Williams, and Pinker, plus a de-slop workflow for AI-flavored drafts. Use for blog posts, essays, voice and editing passes over existing prose, or when asked to "de-slop", "humanize", or fix "AI-sounding" text. For persuasion surfaces (landing pages, ads, email campaigns) use writing-marketing-copy, which pulls in this skill's ai-tells catalogue for its authenticity sweep; for documentation structure use technical-writing; for auth-flow microcopy use signup-signin.
 ---
 
 # Human writing
