@@ -233,7 +233,7 @@ production-tested knowledge — no stack-specific assumptions.
 
 **Writing, product & focus**
 
-- **human-writing** — prose that doesn't read as AI: the banned-tells catalogue and a de-slopping workflow
+- **human-writing** — prose with a human voice, built on Zinsser, Strunk & White, Williams, and Pinker; the de-slop tells catalogue is the reference, not the skill
 - **writing-markdown** — lint-compliant, well-structured markdown
 - **writing-marketing-copy** — persuasive copy grounded in Ogilvy, Halbert, Schwartz, Bernbach
 - **product-wisdom** — PM frameworks and counterintuitive truths for prioritization and strategy
