@@ -51,7 +51,7 @@ covers procedures, runbooks, READMEs, API docs, or doc structure.
 
 ## Deliverable A: `skills/human-writing/` restructured
 
-### `SKILL.md` (positive-first, target ≤150 lines)
+### `SKILL.md` (positive-first, ≤150 lines)
 
 1. **Stance** — writing is clarity extended as a courtesy to one specific
    reader. The read-aloud test stays as the one test.
@@ -86,7 +86,16 @@ covers procedures, runbooks, READMEs, API docs, or doc structure.
 Em-dash rule in SKILL.md becomes positive: let commas and periods do the
 work; keep only the dash doing work they can't.
 
-### `references/ai-tells.md` (the catalogue, reorganized)
+Frontmatter description (verbatim):
+
+> Write and edit prose with a human voice — clear, specific, and owned by
+> one identifiable writer. Directives distilled from Zinsser, Strunk &
+> White, Williams, and Pinker, plus a de-slop workflow for AI-flavored
+> drafts. Use for blog posts, landing pages, docs prose, emails, UI
+> strings, or when asked to "de-slop", "humanize", or fix "AI-sounding"
+> text.
+
+### `references/ai-tells.md` (the catalogue, reorganized; ≤250 lines)
 
 - Organized by **detection signal** (predictable vocabulary; uniform
   rhythm / burstiness; reflexive hedging; missing specificity; structural
@@ -103,10 +112,28 @@ work; keep only the dash doing work they can't.
 - Evidence base and the 25–40% editing benchmark kept.
 - Honest-limits note: this catalogue targets human readers' perception,
   not ML classifiers.
+- **"Refreshing this catalogue" note at the top:** the file is a
+  distillation, not the living list. Upstream sources: Wikipedia's
+  "Signs of AI writing" (WP:AITELLS, community-maintained by WikiProject
+  AI Cleanup) and the detection literature. A periodic pass re-derives
+  against upstream and drops tells that stop being discriminative —
+  same pattern as seo-geo-aeo's `refresh` mode. Upstream text is never
+  copied in (CC BY-SA vs. this repo's Apache-2.0); it is cited as
+  evidence and re-derived as facts.
+
+### `references/examples.md` (new; ≤120 lines)
+
+One worked before/after pass — the deliverable this skill has never had.
+A ~250-word AI-flavored draft (written fresh for this file, so no
+provenance issues), the edited result, and a per-edit annotation naming
+the directive or tell applied. The example must demonstrate the 25–40%
+editing benchmark and touch at least one item from each detection-signal
+group. One example only (bloat guard); more can be added when real
+de-slop sessions produce better material.
 
 ## Deliverable B: `skills/technical-writing/` (new)
 
-### `SKILL.md`
+### `SKILL.md` (≤120 lines)
 
 1. **Sentence discipline** (STE principles distilled; dictionary not
    reproduced, stated explicitly): one instruction per sentence; one
@@ -129,11 +156,42 @@ work; keep only the dash doing work they can't.
    human-writing for voice-ful prose, writing-markdown for formatting,
    writing-marketing-copy for persuasion.
 
-### `references/doc-types.md`
+Frontmatter description (verbatim):
+
+> Write clear technical documentation — READMEs, runbooks, how-to
+> guides, API references, procedures. Sentence discipline from ASD-STE100
+> principles (one instruction per sentence, one term one meaning),
+> Diátaxis doc types, and a fresh-reader review step. Use when writing or
+> reviewing documentation, a runbook, a procedure, API docs, or a README.
+
+### `references/doc-types.md` (≤200 lines)
 
 Per-type structure, skeleton templates, and the IBM quality
 characteristics (task orientation, accuracy, completeness, clarity,
-retrievability) as a review rubric.
+retrievability) as a review rubric. Includes the starter `.vale.ini`
+(Google package, Markdown scope) referenced from SKILL.md, with a note
+that when Vale is absent the review falls back to the skill's own
+checklist — the discipline must not depend on the tool.
+
+## Risks and mitigations
+
+- **Local shadow copy.** `~/.claude/skills/human-writing/` still exists
+  on this machine and will duplicate the plugin copy once merged.
+  Mitigation: delete the local copy after the PR merges (tracked in
+  Mechanics).
+- **Trigger overlap.** "Write copy for a landing page" could route to
+  human-writing or writing-marketing-copy. Mitigation: descriptions
+  drafted above keep persuasion words out of human-writing's triggers;
+  the sibling-boundary section states precedence when both load.
+- **Copyright.** Zinsser, Strunk & White, Williams, and Pinker are
+  copyrighted; the STE dictionary is copyrighted. Verification step
+  before commit: no quoted passage longer than a short attributed phrase;
+  no reproduced word lists from STE; Orwell's rules are the only
+  extended quotation (public-domain-adjacent, attributed).
+- **Self-violation.** A style skill that breaks its own rules loses
+  authority. Mitigation: mechanical self-check in Mechanics below.
+- **Vale absence.** technical-writing must degrade gracefully — the
+  checklist works with no tooling installed.
 
 ## Out of scope
 
@@ -154,14 +212,37 @@ retrievability) as a review rubric.
   "README", "documentation" → technical-writing.
 - README gets one differentiation sentence for human-writing (positive
   foundation + repo integration vs. the popular ban-list humanizers).
+- **Self-check before each commit** — zero hits allowed on both
+  SKILL.md files:
+
+  ```sh
+  # Tier-1 lexicon (word-boundary, case-insensitive; list from ai-tells.md)
+  grep -inwE "delve|tapestry|pivotal|meticulous|seamless(ly)?|robust|leverage|foster|garner|vibrant|groundbreaking|transformative|multifaceted|elevate|unlock|harness|embark|holistic|nuanced|paramount|utilize|facilitate|underscore|showcase" \
+    skills/human-writing/SKILL.md skills/technical-writing/SKILL.md
+  # Contrast scaffolds (the deletion-test sweep from ai-tells.md)
+  grep -inE "(^|[.!?] )(That's|Here's|This is|It's|The (key|point|catch|kicker|difference|takeaway|thing)) [^.!?]{0,45}[.!?]" \
+    skills/human-writing/SKILL.md skills/technical-writing/SKILL.md
+  ```
+
+  Scope is the two SKILL.md files only: ai-tells.md contains the lists
+  themselves, and examples.md's "before" draft contains tells by design —
+  both are exempt by construction, not by exception-listing.
+- After merge: delete `~/.claude/skills/human-writing/` (superseded by
+  the plugin copy).
 
 ## Success criteria
 
-- human-writing SKILL.md reads positive-first; a writer could follow it
-  with references/ai-tells.md deleted and still produce good prose.
-- The skill obeys its own rules (em-dash use, no banned lexicon, no
-  banned structures in its own text).
-- technical-writing gives a correct, followable discipline for a runbook
-  or README without requiring STE knowledge or reproducing STE content.
+- human-writing SKILL.md reads positive-first: directives precede any
+  reference to tells, and a writer could follow it with
+  references/ai-tells.md deleted and still produce good prose.
+- Self-check passes: the ai-tells.md greps return zero prose hits on
+  both SKILL.md files; em-dash use in SKILL.md survives the
+  "comma-or-period test" it prescribes.
+- examples.md demonstrates a 25–40% edit touching every detection-signal
+  group, each edit annotated with the directive applied.
+- Fresh-agent test for technical-writing: a session with only SKILL.md
+  loaded can produce a runbook that names its doc type, keeps one action
+  per step, and places warnings before steps — without STE knowledge or
+  reproduced STE content.
 - `npm run sync:plugin-skills:check` passes; both skills appear in
   skills.sh.json, README, CHANGELOG.
