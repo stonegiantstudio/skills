@@ -20,9 +20,22 @@ prevention-critical. Most findings do not qualify — keep this short.
   across every orchestration surface and thread it through all of them**, not just
   the obvious file. For a skill that means: frontmatter `description`, the `help`
   usage block, the Step-0 / ask list, per-dimension `feeds:`, the credentials
-  table, README, and CHANGELOG. A late addition wired into only the connector +
-  credentials table reads as "added" but agents following the orchestration layer
-  never offer it. (seo-geo-aeo PR #7: DataForSEO half-integrated.) (×1)
+  table, README, and CHANGELOG — including prose counts ("Thirty-four skills")
+  near the top of README. (seo-geo-aeo PR #7: DataForSEO half-integrated;
+  PR #9: README count not bumped when two skills were added.) (×2)
+- **After centralizing a policy, delete every restatement — adding the canonical
+  layer is half the job.** Check: grep for the policy's key phrases across the
+  repo; each surviving copy either becomes a pointer to the canonical anchor or
+  gets deleted. Two copies of a rule always drift into contradiction, and in a
+  prose repo nothing but deletion enforces the boundary. (PR #9 cold reviews:
+  benchmark ×3, sibling routing ×4, marketing's stale tells list; PR #8 review:
+  credential protocol in six near-copies.) (×3 — promote on next hit)
+- **A derived artifact (regex from a table, list from a schema) must be tested
+  against its source's own examples before shipping.** Check: run the derived
+  form against the cases the source itself documents; a "convenience" that
+  misses the source's canonical examples is worse than no convenience. (PR #9:
+  Tier-1 sweep missed "meticulously" — cited in the skill's own worked
+  example — twice, under two different regex designs.) (×1)
 - Example shell commands shipped in a skill are product surface — they must be
   correct AND complete. Paged APIs need pagination: `gh api` defaults to 30
   results/page, so an un-`--paginate`d jobs/issues/runs query silently truncates
