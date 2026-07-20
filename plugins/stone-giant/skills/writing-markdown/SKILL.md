@@ -1,5 +1,5 @@
 ---
-description: Writes and edits lint-compliant markdown files following markdownlint rules and best practices. Use when creating, editing, or reviewing .md files, README files, documentation, or any markdown content.
+description: Writes and edits lint-compliant markdown files following markdownlint rules and best practices. Owns formatting and lint compliance only. Use when creating, editing, or reviewing the markdown mechanics of any .md file. For a document's content and structure (doc types, READMEs, runbooks, procedures) pair with technical-writing; for prose voice pair with human-writing — this skill stacks cleanly under both.
 ---
 
 <!-- markdownlint-disable MD031 MD032 MD040 MD060 -->

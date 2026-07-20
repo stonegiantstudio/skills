@@ -6,8 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **writing-marketing-copy** — The Authenticity section's own AI-tells
+  list is gone; the human-writing skill's references/ai-tells.md is now
+  the single authority for the sweep. This replaces the absolute
+  em-dash ban (and its checklist gate) with the catalogue's density
+  heuristic: em dashes are permitted at roughly the edited-human
+  baseline, and only their overuse is a tell.
+
 ### Added
 
+- **human-writing** — Write prose with a human voice. Positive-first
+  directives distilled from Zinsser, Strunk & White, Williams, and Pinker
+  (sentence mechanics, why they work, the writer's posture), voice
+  calibration, and a seven-pass editing workflow. The AI-tells catalogue
+  (six detection signals, per-cluster replacement moves, false-positive
+  guidance, grep sweeps, WP:AITELLS refresh note) moves to
+  references/ai-tells.md, with a worked before/after pass in
+  references/examples.md.
+- **technical-writing** — Write documentation readers can follow.
+  Sentence discipline distilled from ASD-STE100 principles (one
+  instruction per sentence, active voice, one term one meaning, warnings
+  before steps), the every-page-is-page-one reader model, Diátaxis doc
+  types with skeleton templates, the IBM quality rubric, and an optional
+  Vale mechanical gate with a starter config.
 - **seo-geo-aeo** — Assess, plan, and track a site's visibility in search and
   AI answer engines (SEO, GEO, AEO). Six modes (`assess` → scorecard,
   `playbook` → prioritized plan, `track` → progress over time, `competitors` →
