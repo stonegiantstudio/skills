@@ -90,16 +90,14 @@ allows.
    invented. Ask the author for the missing specifics; cut what nobody
    can substantiate.
 4. **De-slop pass.** Load `references/ai-tells.md` and sweep the draft
-   against it. Worked demonstration: `references/examples.md`.
+   against it; its benchmark says how much a real pass touches. Worked
+   demonstration: `references/examples.md`.
 5. **Experience pass.** First person where true, one anecdote, one
    thing that went wrong.
 6. **Rhythm pass.** Vary sentence length; follow a long, clause-laden
    build with a short landing. Let commas and periods do the work; keep
    only the dash doing work they cannot.
 7. **Voice pass (last).** Does the whole read as one specific person?
-
-A real pass touches 25–40% of the draft. Below that, it still reads as
-machine output.
 
 ## When siblings load
 

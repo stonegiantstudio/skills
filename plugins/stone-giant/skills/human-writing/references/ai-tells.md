@@ -11,10 +11,11 @@ in core updates.
 This file is a distillation, not the living list. Upstream:
 Wikipedia's "Signs of AI writing" (WP:AITELLS, maintained by
 WikiProject AI Cleanup) and the detection literature — Kobak et al.
-2024 ("delve" at 28× expected rate across 14M PubMed abstracts), Liang
-et al. 2024 ("meticulous" 34.7× in LLM-modified peer reviews), Matsui
-2025 (135 tracked terms). A periodic pass re-derives this file against
-upstream and drops tells that stop being discriminative. Never copy
+2024, arXiv:2406.07016 ("delve" at 28× expected rate across 14M PubMed
+abstracts); Liang et al. 2024, arXiv:2403.07183 ("meticulous" 34.7× in
+LLM-modified peer reviews); Matsui 2025 (135 tracked terms). A
+periodic pass re-derives this file against upstream and drops tells
+that stop being discriminative. Never copy
 upstream text in (CC BY-SA vs. this repo's Apache-2.0); cite it and
 re-derive the facts.
 
@@ -104,12 +105,17 @@ The same scaffolds, whatever the topic.
 - **Uniform sentence length** — three consecutive sentences in the same
   length band. Move: rewrite one; follow a long build with a short
   landing (Provost's demonstration).
-- **Em-dash density** — detection signal: ~2 per 1,000 words is the
-  human baseline in edited prose; LLM drafts run 3–5×, often unspaced
-  (word—word) in styles that space them. Move: comma, period, or
+- **Em-dash density** — detection signal: roughly 2 per 1,000 words as
+  the baseline for edited human prose, with LLM drafts running several
+  times that, often unspaced (word—word) in styles that space them.
+  The numbers are this repo's working heuristics, not published
+  findings; judge direction, not decimals. Move: comma, period, or
   parentheses unless the dash does work they cannot.
-- **Tier-1 sweep:**
-  `grep -inwE "delve|tapestry|pivotal|meticulous|seamless(ly)?|robust|leverage|foster|garner|vibrant|groundbreaking|transformative|multifaceted|elevate|unlock|harness|embark|holistic|nuanced|paramount|utilize|facilitate|underscore|showcase" draft.md`
+- **Tier-1 sweep** — derived from the Tier-1 table above (single words
+  only; multiword phrases like "vital role" and "deep dive" live in
+  the table, which is the authority). Regenerate this regex whenever
+  the table changes:
+  `grep -inwE "crucial|pivotal|paramount|meticulous|intricate|intricacies|nuanced|bespoke|crafted|vibrant|dynamic|groundbreaking|transformative|game-changer|revolutionize|supercharge|delve|embark|journey|navigate|unlock|harness|elevate|empower|tapestry|landscape|realm|ecosystem|nestled|beacon|utilize|facilitate|leverage|encompass|elucidate|streamline|foster|garner|testament|profound|unparalleled|unwavering|indelible|formidable|seminal|seamless|seamlessly|robust|holistic|multifaceted|comprehensive|cutting-edge|ever-evolving|state-of-the-art|showcase|underscore|unveil|boasts|notably|particularly|significantly|ultimately" draft.md`
 
 ## Signal 4 — reflexive hedging
 
@@ -141,8 +147,9 @@ The same scaffolds, whatever the topic.
 
 ## Benchmark
 
-A real de-slop pass touches 25–40% of the draft. Below that, the draft
-still reads as machine output. Do not over-sand: deleting every
-distinctive sentence produces beige slop instead. The goal is one human
-voice, which includes occasional flourish; the test is whether the
-author would say it.
+A real de-slop pass touches 25–40% of the draft (this repo's working
+heuristic, stated only here — link to it, do not restate it). Below
+that, the draft still reads as machine output. Do not over-sand:
+deleting every distinctive sentence produces beige slop instead. The
+goal is one human voice, which includes occasional flourish; the test
+is whether the author would say it.

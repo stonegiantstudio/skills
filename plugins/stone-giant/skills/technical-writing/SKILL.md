@@ -1,5 +1,5 @@
 ---
-description: Write clear technical documentation — READMEs, runbooks, how-to guides, API references, procedures. Sentence discipline from ASD-STE100 principles (one instruction per sentence, one term one meaning), Diátaxis doc types, and a fresh-reader review step. Use when writing or reviewing documentation, a runbook, a procedure, API docs, or a README.
+description: Write clear technical documentation — READMEs, runbooks, how-to guides, API references, procedures. Sentence discipline from ASD-STE100 principles (one instruction per sentence, one term one meaning), Diátaxis doc types, and a fresh-reader review step. Use when writing or reviewing documentation, a runbook, a procedure, API docs, or a README. For explanation-style docs that want a human voice, pair with human-writing; for persuasion, use writing-marketing-copy instead.
 ---
 
 # Technical writing
@@ -64,16 +64,9 @@ keep a neutral register.
    They follow it cold and mark every stall. Each stall is a defect in
    the doc, not in the reader.
 2. **Quality rubric.** Score against the IBM characteristics in
-   `references/doc-types.md`: task orientation, accuracy, completeness,
+   `references/review.md`: task orientation, accuracy, completeness,
    clarity, retrievability.
 3. **Mechanical gate (optional).** If Vale is installed, run it with
    the Google or Microsoft style package; a starter `.vale.ini` is in
-   `references/doc-types.md`. When Vale is absent, the rubric alone is
+   `references/review.md`. When Vale is absent, the rubric alone is
    the gate — the discipline does not depend on the tool.
-
-## When siblings load
-
-- `human-writing` — voice-ful prose (blog posts, explanations).
-- `writing-markdown` — markdown formatting and lint rules.
-- `writing-marketing-copy` — persuasion. Marketing claims do not
-  belong in documentation.
