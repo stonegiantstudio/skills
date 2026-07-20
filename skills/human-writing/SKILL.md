@@ -84,13 +84,19 @@ allows.
    symmetrical heading grids. Structure gives a draft away before any
    sentence does.
 2. **Read aloud** (the one test, above). Mark everything that is not
-   talk.
+   talk — the pass's output is the quoted list of marked sentences; no
+   list means the pass did not run. When you wrote the draft yourself,
+   wait long enough to read the words instead of your intent, or hand
+   the read to a cold reader: a ten-second-old sentence gets confirmed,
+   not read.
 3. **Specificity pass.** Replace abstractions with numbers, names,
    dates — taken from the author or the source material, never
    invented. Ask the author for the missing specifics; cut what nobody
    can substantiate.
 4. **De-slop pass.** Load `references/ai-tells.md` and sweep the draft
-   against it; its benchmark says how much a real pass touches. Worked
+   against it; its benchmark says how much a real pass touches. Run
+   its deletion test on every sentence that closes a paragraph or
+   section — closers are where filler hides, in every register. Worked
    demonstration: `references/examples.md`.
 5. **Experience pass.** First person where true, one anecdote, one
    thing that went wrong.

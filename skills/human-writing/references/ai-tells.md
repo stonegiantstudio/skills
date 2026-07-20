@@ -42,6 +42,15 @@ active. Skills point here; none of them restate this.
   pair with human-writing, keeping one term one meaning and no
   persuasive scaffolds.
 
+## The deletion test
+
+Remove the sentence; if the paragraph loses no facts, it was filler.
+Apply it to every sentence that closes a paragraph or section — closers
+are where filler concentrates. The test is register-independent: it
+catches article scaffolds ("That's the catch.") and correspondence
+padding ("We'll shape it from there.") alike, including forms no
+lexicon sweep can see.
+
 ## Signal 1 — predictable vocabulary
 
 LLMs over-select the same impressive-sounding words. Replacement moves
@@ -97,8 +106,7 @@ The same scaffolds, whatever the topic.
   Just Z." Move: state the positive claim. Maximum once per piece, only
   when the misconception is real.
 - **Contrast scaffold one-liners** — "The difference is X." / "That's
-  the catch." Deletion test: remove the sentence; if the paragraph
-  loses no facts, it was scaffold. Sweep:
+  the catch." The deletion test (above) decides. Sweep:
   `grep -inE "(^|[.!?] )(That's|Here's|This is|It's|The (key|point|catch|kicker|difference|takeaway|thing)) [^.!?]{0,45}[.!?]" draft.md`
   Hits carrying a concrete noun, number, or name may stay.
 - **Rule-of-three padding** — triads whose third item adds nothing.
@@ -112,6 +120,14 @@ The same scaffolds, whatever the topic.
   start inside the idea.
 - **Section-ending recaps** — restating the section at its close. Move:
   end on the last new fact.
+- **Social closers (correspondence register)** — the warm, contentless
+  sentence that ends an email section: "We'll shape it from there,"
+  "Whatever works for you," "Happy to adjust as needed." Email
+  convention makes them invisible — they read as normal inside
+  correspondence — but they fail the deletion test the same way
+  scaffolds do: they never carried a fact. Move: end on the last
+  concrete fact or the actual ask; at most one closer per message, in
+  the author's own voice.
 - **Bold-phrase-plus-colon bullets** as the default list shape, and
   perfectly parallel Title-Case headings. Move: vary list shapes; let
   headings be sentences when that reads better.
