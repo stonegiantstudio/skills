@@ -33,6 +33,9 @@ this skill applies the principles and reproduces none of the content.)
 - **Vertical lists for sequences, one action per step.** Number steps
   only when order matters.
 
+Worked demonstration of every rule on one runbook:
+`references/examples.md`.
+
 ## The reader model
 
 - **Every page is page one** (Baker). Readers arrive mid-document from
@@ -54,8 +57,8 @@ Pick one type per document; do not blend.
 | Explanation | studying | "help me understand" |
 
 Structures and skeletons: `references/doc-types.md`. How this skill
-pairs with its siblings is arbitrated in one place: the `human-writing`
-skill's "When siblings load" section.
+pairs with its siblings is arbitrated in one place: the "Scope by
+skill" section of the `human-writing` skill's `references/ai-tells.md`.
 
 ## Review
 

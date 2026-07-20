@@ -26,6 +26,22 @@ not defeat ML classifiers, and does not try to.
 grammar is not a tell. Formal vocabulary is not a tell. One antithesis
 in a 1,200-word post is fine; one per section is the fingerprint.
 
+## Scope by skill
+
+The one place that says which signals apply when a sibling skill is
+active. Skills point here; none of them restate this.
+
+- **human-writing** — every signal applies in full.
+- **writing-marketing-copy** — Signals 1 and 3–6 apply in full. Signal
+  2's persuasive scaffolds (negative parallelism, rule-of-three,
+  setup-colon-payoff, coaching imperatives) are direct-response craft
+  when used deliberately; sweep them only when they read as filler
+  rather than persuasion.
+- **technical-writing** — procedures and reference keep a neutral
+  register and skip voice work entirely. Explanation-type docs may
+  pair with human-writing, keeping one term one meaning and no
+  persuasive scaffolds.
+
 ## Signal 1 — predictable vocabulary
 
 LLMs over-select the same impressive-sounding words. Replacement moves
@@ -114,9 +130,10 @@ The same scaffolds, whatever the topic.
 - **Tier-1 sweep** — a bulk-sweep convenience derived from the Tier-1
   table; the table is the authority (multiword phrases like "vital
   role" and "deep dive" live only there, and an agent following this
-  skill reads the table regardless). The suffix group catches
-  inflections ("meticulously", "embarked"):
-  `grep -inE "\b(crucial|pivotal|paramount|meticulous|intricate|intricac(y|ies)|nuanced|bespoke|crafted|vibrant|dynamic|groundbreaking|transformative|game-changer|revolutionize|supercharge|delve|embark|journey|navigate|unlock|harness|elevate|empower|tapestry|landscape|realm|ecosystem|nestled|beacon|utilize|facilitate|leverage|encompass|elucidate|streamline|foster|garner|testament|profound|unparalleled|unwavering|indelible|formidable|seminal|seamless|robust|holistic|multifaceted|comprehensive|cutting-edge|ever-evolving|state-of-the-art|showcase|underscore|unveil|boasts|notably|particularly|significantly|ultimately)(s|es|d|ed|ing|ly|ies)?\b" draft.md`
+  skill reads the table regardless). Per-stem alternations cover the
+  common inflections; treat the regex as best-effort, never as proof
+  of a clean draft:
+  `grep -inE "\b(crucial(ly)?|pivotal|paramount|meticulous(ly)?|intricate(ly)?|intricac(y|ies)|nuanced?|bespoke|craft(ed|ing)|vibrant|dynamic(ally)?|groundbreaking|transformativ(e|ely)|game-chang(er|ers|ing)|revolutioniz(e|es|ed|ing)|supercharg(e|es|ed|ing)|delv(e|es|ed|ing)|embark(s|ed|ing)?|journey(s|ed|ing)?|navigat(e|es|ed|ing)|unlock(s|ed|ing)?|harness(es|ed|ing)?|elevat(e|es|ed|ing)|empower(s|ed|ing|ment)?|tapestr(y|ies)|landscapes?|realms?|ecosystems?|nestled|beacons?|utiliz(e|es|ed|ing|ation)|facilitat(e|es|ed|ing|ion)|leverag(e|es|ed|ing)|encompass(es|ed|ing)?|elucidat(e|es|ed|ing)|streamlin(e|es|ed|ing)|foster(s|ed|ing)?|garner(s|ed|ing)?|testament|profound(ly)?|unparalleled|unwavering|indelibl[ey]|formidabl[ey]|seminal|seamless(ly)?|robust(ly|ness)?|holistic(ally)?|multifaceted|comprehensive(ly)?|cutting-edge|ever-evolving|state-of-the-art|showcas(e|es|ed|ing)|underscor(e|es|ed|ing)|unveil(s|ed|ing)?|boast(s|ed|ing)?|notably|particularly|significantly|ultimately)\b" draft.md`
 
 ## Signal 4 — reflexive hedging
 

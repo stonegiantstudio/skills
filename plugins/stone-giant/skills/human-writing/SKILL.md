@@ -1,5 +1,5 @@
 ---
-description: Write and edit prose with a human voice — clear, specific, and owned by one identifiable writer. Directives distilled from Zinsser, Strunk & White, Williams, and Pinker, plus a de-slop workflow for AI-flavored drafts. Use for blog posts, landing pages, docs prose, emails, UI strings, or when asked to "de-slop", "humanize", or fix "AI-sounding" text.
+description: Write and edit prose with a human voice — clear, specific, and owned by one identifiable writer. Directives distilled from Zinsser, Strunk & White, Williams, and Pinker, plus a de-slop workflow for AI-flavored drafts. Use for blog posts, essays, docs prose, UI microcopy, or when asked to "de-slop", "humanize", or fix "AI-sounding" text. For persuasion surfaces (landing pages, ads, email campaigns) use writing-marketing-copy, which pulls in this skill's ai-tells catalogue for its authenticity sweep.
 ---
 
 # Human writing
@@ -100,13 +100,10 @@ allows.
 
 ## When siblings load
 
-- With `writing-marketing-copy`: persuasive structures get license, but
-  the Tier-1 lexicon in `references/ai-tells.md` still applies.
-- With `technical-writing`: explanation-type docs may use both;
-  procedures and reference sections keep a neutral register and skip
-  voice work.
-- `writing-markdown` governs formatting; it stacks cleanly with this
-  skill.
+Which signals apply under each sibling skill is defined once, in
+`references/ai-tells.md` ("Scope by skill") — read it there rather
+than from any skill's own text. `writing-markdown` governs formatting
+and stacks cleanly with this skill.
 
 ## Caution
 

@@ -32,7 +32,7 @@ Rules: name the doc after the task the reader searches for.
 
 ## Reference (needs exact facts)
 
-Structure mirrors the product, not the reader's journey. Consistency
+Structure mirrors the product, not the reader's path. Consistency
 beats elegance: every entry has the same shape.
 
 Skeleton per entry: name · signature/shape · parameters (name, type,
@@ -49,3 +49,6 @@ Skeleton:
 2. Context and background; the trade-offs actually weighed.
 3. Alternatives considered and why they lost.
 4. Links to the reference for exact facts.
+
+Rules: may pair with `human-writing` for voice; still one term, one
+meaning; no persuasive scaffolds.

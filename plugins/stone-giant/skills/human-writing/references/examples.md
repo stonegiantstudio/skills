@@ -1,6 +1,6 @@
 # Worked example — one full de-slop pass
 
-Before (168 words, written for this file as a typical AI draft), after
+Before (about 170 words, written for this file as a typical AI draft), after
 (the edited result), and the annotations. This draft is dense with
 tells, so the pass rewrote nearly every sentence; on a typical mixed
 draft the same workflow lands inside the editing benchmark stated in

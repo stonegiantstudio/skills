@@ -1,6 +1,6 @@
 ---
 name: writing-marketing-copy
-description: Write persuasive marketing copy for landing pages, emails, ads, and sales materials using proven principles from legendary copywriters like David Ogilvy, Gary Halbert, Eugene Schwartz, and Bill Bernbach. Use when creating landing pages, email campaigns, sales letters, advertisements, headlines, taglines, value propositions, calls to action, product descriptions, or any marketing content. Triggers on requests for persuasive writing, conversion copy, direct response copy, brand messaging, promotional materials, or "write copy for."
+description: Write persuasive marketing copy for landing pages, emails, ads, and sales materials using proven principles from legendary copywriters like David Ogilvy, Gary Halbert, Eugene Schwartz, and Bill Bernbach. Use when creating landing pages, email campaigns, sales letters, advertisements, headlines, taglines, value propositions, calls to action, product descriptions, or any marketing content. Triggers on requests for persuasive writing, conversion copy, direct response copy, brand messaging, promotional materials, or "write copy for." The authenticity sweep loads the human-writing skill's ai-tells catalogue when that skill is installed.
 ---
 
 # Writing Marketing Copy
@@ -181,11 +181,12 @@ Support claims with:
 ## Authenticity: Write Like a Human Craftsman
 
 Copy should read as if written by hand, by a skilled human copywriter.
-The `human-writing` skill's `references/ai-tells.md` is the authority
-on what gives machine text away (lexicon, structure, rhythm, hedging)
-and how to rewrite each tell. Load it and sweep the copy against it
-before delivery; how the two skills combine is arbitrated in
-`human-writing` itself.
+Before delivery, sweep the copy against the `human-writing` skill's
+`references/ai-tells.md`; its **"Scope by skill"** section defines
+exactly which signals apply to marketing copy (persuasive scaffolds
+keep their license there — the sweep does not gut direct-response
+craft). If the human-writing skill is not installed, say so and
+deliver with this skill's Quality Checklist as the only gate.
 
 ## Quality Checklist
 
