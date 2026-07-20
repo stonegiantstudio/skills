@@ -179,28 +179,13 @@ Support claims with:
 
 ## Authenticity: Write Like a Human Craftsman
 
-Copy should read as if written by hand, by a skilled human copywriter. Avoid telltale signs of LLM-generated text.
-
-**Never use em dashes (—).** The em dash has become a signature of AI writing. Use alternatives:
-
-- Comma for light pauses: "Monaco Editor, the same editor that powers VS Code"
-- Colon to introduce lists or explanations: "Full connectivity: object browsing, execution, analysis"
-- Period for stronger breaks: "Dependency graphs aren't decoration. They're insurance."
-- Rephrase to eliminate the need: "up to 5 levels deep" not "—up to 5 levels deep"
-
-**Other patterns to avoid:**
-
-- Starting sentences with "This" or "It's" too frequently
-- Overusing "straightforward," "robust," "comprehensive," "seamless"
-- Generic superlatives without proof
-- Unnecessarily formal transitions
-
-**Write with craft:**
-
-- Vary sentence rhythm naturally
-- Use contractions when they sound right
-- Let personality show through word choice
-- Read it aloud. If it sounds like a robot, rewrite it.
+Copy should read as if written by hand, by a skilled human copywriter.
+The AI-tells catalogue in
+[human-writing/references/ai-tells.md](../human-writing/references/ai-tells.md)
+is the authority on what gives machine text away (lexicon, structure,
+rhythm, hedging) and how to rewrite each tell; sweep copy against it
+before delivery. Persuasive structures keep their license here, but the
+Tier-1 lexicon still applies.
 
 ## Quality Checklist
 
@@ -213,8 +198,8 @@ Before delivering copy:
 - [ ] Does it address the reader's objections?
 - [ ] Is there clear urgency or reason to act now?
 - [ ] Is the CTA unmistakably clear?
-- [ ] Does it sound like a human, not a corporation?
-- [ ] Are there zero em dashes (—) in the copy?
+- [ ] Does it sound like a human, not a corporation? (Swept against
+      the ai-tells catalogue?)
 
 ## References
 
