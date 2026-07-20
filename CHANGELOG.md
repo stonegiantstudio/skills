@@ -16,6 +16,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   guidance, grep sweeps, WP:AITELLS refresh note) moves to
   references/ai-tells.md, with a worked before/after pass in
   references/examples.md.
+- **technical-writing** — Write documentation readers can follow.
+  Sentence discipline distilled from ASD-STE100 principles (one
+  instruction per sentence, active voice, one term one meaning, warnings
+  before steps), the every-page-is-page-one reader model, Diátaxis doc
+  types with skeleton templates, the IBM quality rubric, and an optional
+  Vale mechanical gate with a starter config.
 - **seo-geo-aeo** — Assess, plan, and track a site's visibility in search and
   AI answer engines (SEO, GEO, AEO). Six modes (`assess` → scorecard,
   `playbook` → prioritized plan, `track` → progress over time, `competitors` →
