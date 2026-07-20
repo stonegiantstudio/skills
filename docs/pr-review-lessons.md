@@ -30,6 +30,14 @@ prevention-critical. Most findings do not qualify — keep this short.
   prose repo nothing but deletion enforces the boundary. (PR #9 cold reviews:
   benchmark ×3, sibling routing ×4, marketing's stale tells list; PR #8 review:
   credential protocol in six near-copies.) (×3 — promote on next hit)
+- **When adding a skill, check description-level trigger overlap against the
+  whole family — selection happens in descriptions, before anything loads.**
+  Check: list the surfaces the new description claims ("landing pages",
+  "READMEs", "UI strings") and grep the other descriptions for each; every
+  double-claim either narrows or names the winner. Body-text arbitration
+  cannot fix selection. (PR #9: human-writing collided with marketing,
+  technical-writing, writing-markdown, and signup-signin — four collisions,
+  one root cause.) (×2)
 - **A derived artifact (regex from a table, list from a schema) must be tested
   against its source's own examples before shipping.** Check: run the derived
   form against the cases the source itself documents; a "convenience" that
