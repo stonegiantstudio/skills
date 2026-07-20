@@ -1,184 +1,116 @@
 ---
-description: Write and edit prose that reads as human, not AI-generated. Use when writing or reviewing any public-facing copy — blog posts, landing pages, marketing copy, docs, emails, UI strings — or when asked to "de-slop" text. Contains the banned-tells catalogue (lexical + structural) and the humanization workflow.
+description: Write and edit prose with a human voice — clear, specific, and owned by one identifiable writer. Directives distilled from Zinsser, Strunk & White, Williams, and Pinker, plus a de-slop workflow for AI-flavored drafts. Use for blog posts, landing pages, docs prose, emails, UI strings, or when asked to "de-slop", "humanize", or fix "AI-sounding" text.
 ---
 
-# Human writing — avoiding the AI tells
+# Human writing
 
-LLM prose regresses to the statistical middle: uniform sentence
-lengths, a recognizable lexicon, contrast scaffolds, balanced hedging,
-and significance inflation. Readers now recognize the pattern and
-discount the content — and search engines increasingly do the same
-(thin scaled content is what core updates punish hardest). The fix is
-classical line editing plus a tell-deletion pass.
+Writing is clarity extended as a courtesy to one specific reader. Every
+directive below serves that reader; none of them serve the writer's wish
+to sound impressive.
 
-Evidence base: Wikipedia's "Signs of AI writing" editor catalogue
-(WP:AITELLS); Kobak et al. 2024 (excess-word frequencies in 14M PubMed
-abstracts — "delve" at 28× expected rate); Liang et al. 2024
-("meticulous" 34.7× in LLM-modified peer reviews); Matsui 2025 (135
-tracked terms); professional editors' humanization workflows.
-
-## The one test that catches most of it
+## The one test
 
 **Read it aloud.** Fix everything you would not say to one specific
-person across a table. Your breath finds the uniform rhythm, your mouth
+person across a table. Your breath finds uniform rhythm, your mouth
 refuses "it is recommended that," and you hear yourself droning
-"furthermore." Per-sentence: "Is this how I'd say it to a friend?" If
-not, say it that way instead (Paul Graham's test).
+"furthermore." Per sentence: would I say it this way to a friend? If
+not, say it that way instead (Paul Graham's test, and Zinsser's before
+him).
 
-## Banned lexicon
+## Directives
 
-### Tier 1 — delete on sight (flagged by 3+ independent studies/catalogues)
+### Sentence mechanics (Strunk & White)
 
-delve · tapestry · testament ("a testament to") · crucial · pivotal ·
-meticulous · intricate/intricacies · commendable · boasts · landscape
-(abstract) · realm · leverage (verb) · foster · garner · vibrant ·
-groundbreaking · transformative · multifaceted · seamless(ly) · robust ·
-elevate · unlock · harness · embark · journey (abstract) ·
-navigate/navigating (abstract) · game-changer · synergy · supercharge ·
-treasure trove · beacon · shed light · deep dive · interplay ·
-pioneering · paramount · holistic · nuanced · noteworthy · profound ·
-unparalleled · unwavering · nestled · "in the heart of" · cutting-edge ·
-ever-evolving · bespoke · indelible · elucidate · streamline · empower ·
-revolutionize · utilize · facilitate · encompass · burgeoning ·
-formidable · poised · unveil · underscore · showcase
+- **Omit needless words.** Every word earns its place or goes.
+- **Use the active voice.** The subject acts; the sentence moves.
+- **Put statements in positive form.** Say what is, not what is not.
+- **Prefer definite, specific, concrete language.** A number, a name, a
+  date, a sensory fact.
+- **End on the emphatic word.** The last position in a sentence carries
+  the most weight; spend it on the point.
+- **One topic per paragraph.** A new topic gets a new paragraph.
+- **Use plain is/are.** Not "serves as," not "boasts," not "features."
 
-### Tier 2 — fine once, a fingerprint in clusters
+### Why the mechanics work (Williams, Pinker)
 
-additionally · comprehensive · enhance/enhancing · insights · notably ·
-particularly · significant · potential · findings · compelling ·
-crafted · distinctive · remarkable · innovative · imperative ·
-ultimately · thorough · strategically · actionable · invaluable ·
-versatile · ecosystem · milestone · "vital role" · "driving force"
+- **Characters as subjects, actions as verbs.** "The committee decided"
+  beats "a decision was reached by the committee." Readers parse
+  who-did-what fastest when grammar mirrors it.
+- **Old information before new.** Start sentences with what the reader
+  already knows; land on what is new. Flow between sentences comes from
+  this, not from connective words.
+- **Write in classic style.** Writer and reader are equals looking at
+  the same thing; the prose is a window, not a performance (Pinker).
+- **Fight the curse of knowledge.** The root cause of unclear prose is
+  forgetting what it was like not to know. State what the reader must
+  already know; define terms on first use; test on a cold reader.
 
-### Stock phrases — delete the sentence, not just the phrase
+### The writer's posture (Zinsser, Graham, McPhee)
 
-"In today's fast-paced world" · "in a world where…" · "Now more than
-ever" · "As the landscape continues to evolve" · "Let's dive in" ·
-"Let's face it" · "It's no secret that" · "Here's the thing/kicker/
-catch" · "Be clear-eyed about…" · "Think of it this way" · "It's
-important to note" · "It's worth noting" · "That being said" · "In
-conclusion" · "In summary" · "At the end of the day" · "The bottom
-line" · "Whether you're a [A] or a [B]" · "What does this mean for
-you?" · "The good news?" · "Not all X are created equal" · "Here's what
-you need to know" · "Stay ahead of the curve" · "plays a vital/crucial/
-pivotal role" · "stands as / serves as / marks / represents" (use
-is/are)
+- **Simplify.** Strip every sentence to its cleanest components.
+  Zinsser: "clutter is the disease of American writing."
+- **Write for one person.** Not a committee, not a market segment.
+- **Take a position and say it first.** The section's first sentence
+  says what the section believes. Confidence varies with evidence, not
+  uniformly.
+- **Keep one voice.** One writer's word choices, one joke, one
+  irritation, held across the whole piece. Unity of tense, mood, and
+  pronoun.
+- **Ground every abstraction.** A thousand details add up to one
+  impression (McPhee). "Comprehensive integration" says nothing; "it
+  connects to Slack, Salesforce, and HubSpot; setup takes 15 minutes"
+  says everything.
+- **Volunteer one failure.** "After 200 implementations, three patterns
+  held; the first two attempts did not." Experience is specifics plus
+  what went wrong.
+- **Trust the reader.** Adjacent facts need no "furthermore";
+  juxtaposition does the work, and the reader who infers the connection
+  feels smart.
+- **Rewriting is the writing.** The first draft finds the idea; the
+  next drafts find the reader.
 
-## Banned structures
+## Voice calibration
 
-Each named pattern, with the rewrite move:
+When the author's real writing is available (past posts, emails, docs),
+match it: sentence rhythm, characteristic word choices, punctuation
+habits, recurring tics. Calibrate to the author, never to a house
+default. Without a sample, aim for the plainest register the content
+allows.
 
-1. **Negative parallelism** — "It's not just X, it's Y" / "This isn't
-   about X. It's about Y." / "No X. No Y. Just Z." Maximum once per
-   piece, and only when the misconception is real. Rewrite: state the
-   positive claim. *"This isn't about memorization. It's about
-   understanding."* → *"Students who understand the pattern stop
-   needing to memorize it."*
-2. **Contrast scaffold one-liners / meta-discourse** — "The difference
-   is X." / "That's the catch." / "That's not our line." / "Here's the
-   thing." Short deictic sentences that comment on the writing instead
-   of the subject. **Deletion test:** remove the sentence; if the
-   paragraph loses no facts, it was scaffold — delete it or fold its
-   emphasis into the content sentence ("…that number is worth reading
-   twice"). Mechanical sweep:
-   `grep -oE "(^|[.!?] )(That's|That is|Here's|Here is|This is|It's|It is|The (key|point|catch|kicker|result|difference|takeaway|thing)[^a-z]) [^.!?]{0,45}[.!?]" draft.md`
-   — hits carrying a concrete noun, number, or name may stay; hits
-   carrying only emphasis get cut.
-3. **Rule-of-three padding** — triads where the third item adds
-   nothing. *"rigorous, demanding, and intellectually challenging"* →
-   *"demanding."* Keep a triad only when all three items carry
-   distinct weight.
-4. **Setup-colon-payoff** — "The result: …" / "The catch: …" / "The
-   goal?" Rewrite as a plain sentence.
-5. **One-word fragment drama** — *"Speed. Precision. Mastery."* Cut.
-6. **Coaching imperatives** — "Be clear-eyed about…", "Remember:",
-   "Ask yourself…". Performative intimacy wrapping a generic claim.
-   State the fact instead.
-7. **Em-dash density** — budget ~2 per 1,000 words; each must do work
-   a comma or period can't. (LLMs also set them unspaced — word—word —
-   in styles that space them.)
-8. **Trailing "-ing" significance clauses** — "…, highlighting the
-   importance of recall." Cut the clause or attribute the claim.
-9. **Section-ending recaps** — closing each section by restating it.
-   End on the last new fact.
-10. **Thesis-preview openers (throat-clearing)** — "In this section
-    we'll explore…". Start inside the idea: *"The cache was the bug.
-    It usually is."*
-11. **Copula avoidance** — "serves as," "boasts," "features" where
-    "is" works. Plain is/are beats elegant substitutes.
-12. **Synonym cycling (elegant variation)** — constraints → norms →
-    confines for one concept. Repeat the right word; spend variety on
-    sentence shape.
-13. **Uniform rhythm** — three consecutive sentences in the same
-    length band = rewrite one. Humans alternate a long, clause-laden
-    build with a short landing.
-14. **Both-sides hedging** — "arguably," "may vary," perfectly
-    balanced qualifications. Commit. One earned hedge beats ten
-    reflexive ones.
-15. **Significance inflation** — "marks a pivotal moment," "reflects
-    broader trends," "cementing its legacy." Show the fact; cut the
-    welded-on meaning.
-16. **Vague authority** — "experts argue," "industry reports." Name
-    the expert or cut the claim.
-17. **Bolded-phrase-plus-colon bullets** as the default list shape,
-    and perfectly parallel Title-Case headings ("X and Y" × 4).
-18. **Pull-quote cadence** — any line that sounds engineered to be
-    quoted. *"Documentation isn't a chore — it's a love letter to your
-    future self."* → *"Write the docs now. In six months you won't
-    remember why you did any of this."* Human profundity is plainer
-    than it could be.
+## The workflow (editing an existing draft)
 
-## What human prose has (add these, not just delete tells)
-
-- **Specifics over abstractions.** Every abstract claim gets a number,
-  a name, a date, or a sensory fact — or gets cut. *"Comprehensive
-  integration"* → *"It connects to Slack, Salesforce, and HubSpot.
-  Setup takes 15 minutes."* (Zinsser: generalities mean nothing;
-  McPhee: a thousand details add up to one impression.)
-- **A position.** Say the thing the piece believes in the section's
-  first sentence. Confidence varies with evidence, not uniformly.
-- **Experience markers.** "After 200 implementations, three patterns…"
-  — and what went wrong. AI drafts never volunteer failure; one
-  failure note per piece is worth ten claims.
-- **Controlled asides.** A parenthetical, a rhetorical question, an
-  idiom — roughly one per few paragraphs. One per sentence reads like
-  an AI told to be quirky.
-- **Trust the reader.** Adjacent facts don't need "furthermore" —
-  juxtaposition does the work, and the reader who infers the
-  connection feels smart (Pinker's classic style).
-- **One voice.** The word choices, the one joke, the thing the writer
-  is irritated by — all belonging to the same identifiable person
-  across the whole piece.
-
-## The editing workflow (for an existing draft)
-
-1. **Skeleton first** — remove preview paragraphs, recap endings,
-   symmetrical heading grids, "challenges and future prospects"
-   closers. AI structure is recognizable before a single phrase is.
-2. **Read aloud**; mark everything that isn't talk.
-3. **Specificity pass** — replace abstractions with numbers, names,
-   dates; cut what can't be made concrete.
-4. **Tell-deletion pass** — the lexicon and structure lists above.
-5. **Experience pass** — first person where true, one anecdote, one
+1. **Skeleton first.** Remove preview paragraphs, recap endings,
+   symmetrical heading grids. Structure gives a draft away before any
+   sentence does.
+2. **Read aloud** (the one test, above). Mark everything that is not
+   talk.
+3. **Specificity pass.** Replace abstractions with numbers, names,
+   dates; cut what cannot be made concrete.
+4. **De-slop pass.** Load `references/ai-tells.md` and sweep the draft
+   against it. Worked demonstration: `references/examples.md`.
+5. **Experience pass.** First person where true, one anecdote, one
    thing that went wrong.
-6. **Rhythm pass** — break length uniformity; add a fragment and one
-   long run where the content earns it.
-7. **Voice pass (last)** — does the whole read as one specific person?
+6. **Rhythm pass.** Vary sentence length; follow a long, clause-laden
+   build with a short landing. Let commas and periods do the work; keep
+   only the dash doing work they cannot.
+7. **Voice pass (last).** Does the whole read as one specific person?
 
-Editors' benchmark: a real humanization pass touches 25–40% of the
-draft. Below that, it still reads as AI.
+A real pass touches 25–40% of the draft. Below that, it still reads as
+machine output.
 
-## Cautions
+## When siblings load
 
-- These are probabilistic signs, not proof — judge by density, not a
-  single hit. One antithesis in a 1,200-word post is fine; one per
-  section is the fingerprint.
-- Don't over-sand. Deleting every distinctive sentence produces a
-  different kind of slop (beige). The goal is one human voice, which
-  includes occasional flourish — the test is whether you'd say it.
-- Technical terms that overlap the ban list (e.g. "robust" in a stats
-  context, "navigate" for literal navigation) are fine in their
-  literal senses.
-- When editing for a specific project, project copy rules (banned
-  words, pricing canon, no-overclaim) stack on top of this skill, and
-  facts/citations/links are never casualties of a style pass.
+- With `writing-marketing-copy`: persuasive structures get license, but
+  the Tier-1 lexicon in `references/ai-tells.md` still applies.
+- With `technical-writing`: explanation-type docs may use both;
+  procedures and reference sections keep a neutral register and skip
+  voice work.
+- `writing-markdown` governs formatting; it stacks cleanly with this
+  skill.
+
+## Caution
+
+These directives are probabilistic, not laws. Technical senses of
+flagged words stay ("navigate" for literal navigation). And Orwell's
+sixth rule closes every list of rules, including this one: "Break any
+of these rules sooner than say anything outright barbarous."
