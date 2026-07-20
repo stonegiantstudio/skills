@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **writing-marketing-copy** — The Authenticity section's own AI-tells
+  list is gone; the human-writing skill's references/ai-tells.md is now
+  the single authority for the sweep. This replaces the absolute
+  em-dash ban (and its checklist gate) with the catalogue's density
+  heuristic: em dashes are permitted at roughly the edited-human
+  baseline, and only their overuse is a tell.
+
 ### Added
 
 - **human-writing** — Write prose with a human voice. Positive-first

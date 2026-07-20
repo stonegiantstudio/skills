@@ -180,12 +180,11 @@ Support claims with:
 ## Authenticity: Write Like a Human Craftsman
 
 Copy should read as if written by hand, by a skilled human copywriter.
-The AI-tells catalogue in
-[human-writing/references/ai-tells.md](../human-writing/references/ai-tells.md)
-is the authority on what gives machine text away (lexicon, structure,
-rhythm, hedging) and how to rewrite each tell; sweep copy against it
-before delivery. Persuasive structures keep their license here, but the
-Tier-1 lexicon still applies.
+The `human-writing` skill's `references/ai-tells.md` is the authority
+on what gives machine text away (lexicon, structure, rhythm, hedging)
+and how to rewrite each tell. Load it and sweep the copy against it
+before delivery; how the two skills combine is arbitrated in
+`human-writing` itself.
 
 ## Quality Checklist
 

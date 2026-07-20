@@ -111,11 +111,12 @@ The same scaffolds, whatever the topic.
   The numbers are this repo's working heuristics, not published
   findings; judge direction, not decimals. Move: comma, period, or
   parentheses unless the dash does work they cannot.
-- **Tier-1 sweep** — derived from the Tier-1 table above (single words
-  only; multiword phrases like "vital role" and "deep dive" live in
-  the table, which is the authority). Regenerate this regex whenever
-  the table changes:
-  `grep -inwE "crucial|pivotal|paramount|meticulous|intricate|intricacies|nuanced|bespoke|crafted|vibrant|dynamic|groundbreaking|transformative|game-changer|revolutionize|supercharge|delve|embark|journey|navigate|unlock|harness|elevate|empower|tapestry|landscape|realm|ecosystem|nestled|beacon|utilize|facilitate|leverage|encompass|elucidate|streamline|foster|garner|testament|profound|unparalleled|unwavering|indelible|formidable|seminal|seamless|seamlessly|robust|holistic|multifaceted|comprehensive|cutting-edge|ever-evolving|state-of-the-art|showcase|underscore|unveil|boasts|notably|particularly|significantly|ultimately" draft.md`
+- **Tier-1 sweep** — a bulk-sweep convenience derived from the Tier-1
+  table; the table is the authority (multiword phrases like "vital
+  role" and "deep dive" live only there, and an agent following this
+  skill reads the table regardless). The suffix group catches
+  inflections ("meticulously", "embarked"):
+  `grep -inE "\b(crucial|pivotal|paramount|meticulous|intricate|intricac(y|ies)|nuanced|bespoke|crafted|vibrant|dynamic|groundbreaking|transformative|game-changer|revolutionize|supercharge|delve|embark|journey|navigate|unlock|harness|elevate|empower|tapestry|landscape|realm|ecosystem|nestled|beacon|utilize|facilitate|leverage|encompass|elucidate|streamline|foster|garner|testament|profound|unparalleled|unwavering|indelible|formidable|seminal|seamless|robust|holistic|multifaceted|comprehensive|cutting-edge|ever-evolving|state-of-the-art|showcase|underscore|unveil|boasts|notably|particularly|significantly|ultimately)(s|es|d|ed|ing|ly|ies)?\b" draft.md`
 
 ## Signal 4 — reflexive hedging
 
@@ -147,9 +148,11 @@ The same scaffolds, whatever the topic.
 
 ## Benchmark
 
+<!-- Maintenance: this benchmark is stated only here. Other files
+link to it; do not restate it elsewhere. -->
+
 A real de-slop pass touches 25–40% of the draft (this repo's working
-heuristic, stated only here — link to it, do not restate it). Below
-that, the draft still reads as machine output. Do not over-sand:
+heuristic). Below that, the draft still reads as machine output. Do not over-sand:
 deleting every distinctive sentence produces beige slop instead. The
 goal is one human voice, which includes occasional flourish; the test
 is whether the author would say it.

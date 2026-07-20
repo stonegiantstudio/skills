@@ -54,9 +54,9 @@ Pick one type per document; do not blend.
 | Reference | working, needs facts | "tell me exactly" |
 | Explanation | studying | "help me understand" |
 
-Structures and skeletons: `references/doc-types.md`. Explanation-type
-docs may also load `human-writing` for voice; procedures and reference
-keep a neutral register.
+Structures and skeletons: `references/doc-types.md`. How this skill
+pairs with its siblings is arbitrated in one place: the `human-writing`
+skill's "When siblings load" section.
 
 ## Review
 

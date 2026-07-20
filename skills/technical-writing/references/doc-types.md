@@ -43,13 +43,9 @@ where possible so it cannot drift.
 
 ## Explanation (studying, wants understanding)
 
-The one type where voice helps.
-
 Skeleton:
 
 1. The question this page answers, stated as the reader would ask it.
 2. Context and background; the trade-offs actually weighed.
 3. Alternatives considered and why they lost.
 4. Links to the reference for exact facts.
-
-Review rubric and mechanical gate: `review.md`.
