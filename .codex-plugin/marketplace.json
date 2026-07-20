@@ -1,16 +1,15 @@
 {
-  "marketplaceMetadata": {
-    "name": "Stone Giant Studio Skills",
-    "description": "Production-tested skills from Stone Giant Studio",
-    "version": "1.1.0"
+  "name": "stone-giant-studio-skills",
+  "owner": {
+    "name": "Stone Giant Studio",
+    "url": "https://github.com/stonegiantstudio"
   },
+  "description": "Production-tested skills from Stone Giant Studio",
   "plugins": [
     {
-      "id": "stone-giant",
-      "name": "Stone Giant Studio",
-      "description": "Production-tested skills spanning artifact scoring, shutdown rituals, npm evaluation and security, CI/CD speedups, React Router v7, JavaScript/TypeScript, databases (PostgreSQL, SQL Server, Drizzle, Kysely), testing, UI design, auth, AWS serverless, PDF generation, technical and marketing writing, product strategy, and search/AI-answer visibility (SEO/GEO/AEO)",
+      "name": "stone-giant",
       "source": "./plugins/stone-giant",
-      "version": "1.1.0"
+      "description": "Production-tested skills spanning artifact scoring, shutdown rituals, npm evaluation and security, CI/CD speedups, React Router v7, JavaScript/TypeScript, databases (PostgreSQL, SQL Server, Drizzle, Kysely), testing, UI design, auth, AWS serverless, PDF generation, technical and marketing writing, product strategy, and search/AI-answer visibility (SEO/GEO/AEO)"
     }
   ]
 }
