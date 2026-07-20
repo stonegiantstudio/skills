@@ -96,29 +96,34 @@ API → MCP → pasted screenshot (degrades gracefully). Every metric is tagged
 measured vs estimated. Progress lives in docs/seo/.
 ```
 
-## Establish provenance first — detect, report, then ask
+## Establish provenance first — detect, map, report, ask
 
-**Step 0 — detect from the project `.env`, then ask only for what's missing.**
+**Step 0 — one presence check, one readiness table, one question.**
 Credentials live in the **target project's `.env`** (git-ignored), which the app
-runtime (bun/node) loads — *not* the interactive shell. So before scoring, **probe
-that `.env` for the skill's documented variables** (the safe, name-only check in
-"Credentials & setup" below — it reads `.env`, never the bare shell) and report the
-result back to the user as two lists:
+runtime (bun/node) loads — *not* the interactive shell. A source is "unavailable"
+only after its variables are absent from `.env` **and** the user has declined to
+add them — never because a key did not happen to be exported in the shell.
 
-- **Available in `.env`** — the sources whose keys are present; these run at API
-  depth. Name them so the user sees what the assessment will draw on.
-- **Missing** — the sources with no key in `.env`. For each, name the **exact
-  variable(s) to add to the project `.env`** (the table under "Credentials &
-  setup") so the user can enable it, and note the free fallback (paste / screenshot,
-  or local parse) that runs in the meantime.
+1. **Detect.** Run the presence check from "Credential protocol" below once
+   (reads `.env` in a subshell, prints `NAME=set|unset`, never a value).
+2. **Map** variables to per-source readiness with this table — readiness is not
+   1:1 with variables; the and/or column is the rule:
 
-Then **ask** whether the user wants to add any of the missing keys before you run.
-A source is "unavailable" only after it is absent from `.env` **and** the user has
-declined to add it — *never* because a key did not happen to be exported in the
-shell. A shell reporting a key "unset" while it sits in `.env` is the exact bug this
-step exists to prevent: the keys are not loaded into the session, but they are in
-`.env` and the skill has access to them there. The sources to report on: GSC, GA4,
-PageSpeed, **DataForSEO**, Semrush, Ahrefs, AI-visibility.
+   | Source | Ready when | Partial when |
+   | --- | --- | --- |
+   | GSC | `GSC_PROPERTY` **and** (`GSC_ACCESS_TOKEN` **or** `GSC_SERVICE_ACCOUNT_JSON`) | only one half is set |
+   | GA4 | `GA4_PROPERTY_ID` **and** (`GA4_ACCESS_TOKEN` **or** `GA4_SERVICE_ACCOUNT_JSON`) | only one half is set |
+   | PageSpeed | always ready — the CLI is free; `PAGESPEED_API_KEY` only lifts the PSI quota | — |
+   | DataForSEO | `DATAFORSEO_LOGIN` **and** `DATAFORSEO_PASSWORD` | exactly one of the two |
+   | Semrush | `SEMRUSH_API_KEY` | — |
+   | Ahrefs | `AHREFS_API_TOKEN` | — |
+   | AI-visibility | `OTTERLY_API_KEY` — optional; the manual citation protocol runs without it | — |
+
+3. **Report** three lists: **Ready** (runs at API depth), **Partial** (name the
+   exact variable still missing), **Missing** (name every variable to add to the
+   project `.env`, and the free fallback — paste / screenshot / local parse —
+   that runs in the meantime).
+4. **Ask** once, about partial and missing sources only, before running.
 
 - **DataForSEO is the pay-per-use default for competitor, backlink, and
   AI-citation data** — it needs no Semrush/Ahrefs subscription (just a prepaid
@@ -161,21 +166,16 @@ top-N breakdown — a top-10 query sum silently omits the long tail and undercou
 (a real GSC run: top-10 sum = 19 impressions vs the true total of 938). Pull
 breakdowns separately, with a high row limit, only when you need them.
 
-### Credentials & setup (.env)
+### Credential protocol (.env)
 
-Credentials are read from **exact, documented environment variables** — set them
-once in the target project's `.env` (git-ignored) or your shell; `.env.example`
-in this skill lists every name. Standard names:
-
-| Source | Variable(s) |
-| --- | --- |
-| Google Search Console | `GSC_PROPERTY`, and `GSC_ACCESS_TOKEN` *or* `GSC_SERVICE_ACCOUNT_JSON` (path) |
-| Google Analytics 4 | `GA4_PROPERTY_ID`, and `GA4_ACCESS_TOKEN` *or* `GA4_SERVICE_ACCOUNT_JSON` (path) |
-| PageSpeed Insights | `PAGESPEED_API_KEY` (lifts the small anonymous quota — see lighthouse connector) |
-| DataForSEO | `DATAFORSEO_LOGIN` + `DATAFORSEO_PASSWORD` — one account ≈ SERP + keyword volume + competitor backlinks + LLM-mention/AI-Overview citations. Core is pay-per-use; **Backlinks API and LLM Mentions are optional add-ons that each need a $100/mo activation** — gate on it, fall back if absent (see the connector) |
-| Semrush | `SEMRUSH_API_KEY` |
-| Ahrefs | `AHREFS_API_TOKEN` |
-| AI-visibility (optional) | `OTTERLY_API_KEY` |
+**This section is the only copy of the credential rules.** Connectors name
+their variables and point here; they do not restate the protocol. Variables are
+set once in the target project's `.env` (git-ignored); `.env.example` in this
+skill lists every name, and the readiness table in Step 0 maps them to sources.
+(DataForSEO note: one account covers SERP + keyword volume + competitor
+backlinks + LLM-mention/AI-Overview citations; core is pay-per-use, and the
+Backlinks and LLM Mentions add-ons each need a $100/mo activation — gate on it,
+fall back if absent; see the connector.)
 
 **Security (non-negotiable).** Credentials live in the project `.env` and **their
 values must never enter the session.** The `.env` is loaded by the app runtime
