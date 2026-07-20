@@ -85,7 +85,9 @@ allows.
 2. **Read aloud** (the one test, above). Mark everything that is not
    talk.
 3. **Specificity pass.** Replace abstractions with numbers, names,
-   dates; cut what cannot be made concrete.
+   dates — taken from the author or the source material, never
+   invented. Ask the author for the missing specifics; cut what nobody
+   can substantiate.
 4. **De-slop pass.** Load `references/ai-tells.md` and sweep the draft
    against it. Worked demonstration: `references/examples.md`.
 5. **Experience pass.** First person where true, one anecdote, one

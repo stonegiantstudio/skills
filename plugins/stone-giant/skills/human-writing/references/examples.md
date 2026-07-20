@@ -6,6 +6,11 @@ tells, so the pass rewrote nearly every sentence; on a typical mixed
 draft the same workflow lands in the 25–40% benchmark, and anything
 below 25% on an AI draft is under-editing.
 
+The specifics in the After (the 900ms p95, the deploy count, the 30%
+bill cut) are the answers the author gave when asked — the editor never
+invents facts. When the author has no number, the vague claim gets cut,
+not decorated.
+
 ## Before
 
 > In today's fast-paced development landscape, choosing the right
