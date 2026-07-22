@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Fixed
+
+- **README** — The Claude Code install command was `claude plugin add
+  github:stonegiantstudio/skills`, which fails with `unknown command 'add'`.
+  There is no `claude plugin add`; installing a plugin takes two steps —
+  `claude plugin marketplace add` to register the marketplace, then
+  `claude plugin install <plugin>@<marketplace>`. The install block now
+  carries both, and names `stone-giant-studio-skills` explicitly, since the
+  marketplace name comes from `.claude-plugin/marketplace.json` rather than
+  the repo name.
+
 ## [1.2.0] — 2026-07-20
 
 ### Changed
