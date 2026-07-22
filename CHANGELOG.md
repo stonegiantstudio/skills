@@ -16,6 +16,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   carries both, and names `stone-giant-studio-skills` explicitly, since the
   marketplace name comes from `.claude-plugin/marketplace.json` rather than
   the repo name.
+- **docs/skills-sh-claude-code-install.md** — The install section links here,
+  and the doc still taught the dead command plus the retired `/sgs:*`
+  namespace. It now opens with a banner marking it a dated record and pointing
+  at the README, and its plan section points at the README's install block
+  instead of restating the commands.
 
 ## [1.2.0] — 2026-07-20
 
@@ -137,6 +142,7 @@ Initial public release. Extracted from private `stone-giant-skills` repo.
 - **eval-npm** — NPM package evaluation
 - **npm-security-advisory** — Security pre-check for npm packages
 
+[unreleased]: https://github.com/stonegiantstudio/skills/compare/v1.2.0...HEAD
 [1.2.0]: https://github.com/stonegiantstudio/skills/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/stonegiantstudio/skills/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/stonegiantstudio/skills/releases/tag/v1.0.0
