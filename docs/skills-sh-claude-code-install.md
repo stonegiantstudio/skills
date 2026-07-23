@@ -12,11 +12,12 @@ Remaining: watch #1405 for maintainer response.
 (`park`, `score`, `eval-npm`, `npm-security-advisory`) for the universal agents
 but they never become available in Claude Code.
 
-> **Historical record — do not copy the commands below.** This is the
-> investigation as written on 2026-05-29. The Claude Code install command it
-> quotes (`claude plugin add …`) no longer exists in the CLI, and the plugin's
-> commands are namespaced `/stone-giant:*`, not `/sgs:*`. The README's Install
-> section is the authority on how to install today.
+> **Historical record — don't copy the Claude Code install commands below.**
+> This is the investigation as written on 2026-05-29. The Claude Code install
+> command it quotes (`claude plugin add …`) no longer exists in the CLI, and the
+> plugin's commands are namespaced `/stone-giant:*`, not `/sgs:*`. The README's
+> Install section is the authority on how to install today. The `npx skills add`
+> commands below still work as written.
 
 ---
 
