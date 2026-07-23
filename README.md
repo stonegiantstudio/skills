@@ -7,11 +7,16 @@ Works with Claude Code, Cursor, Codex, and Gemini CLI.
 
 ## Install
 
-**Claude Code** — install the plugin:
+**Claude Code** — register the marketplace, then install the plugin from it:
 
 ```bash
-claude plugin add github:stonegiantstudio/skills
+claude plugin marketplace add stonegiantstudio/skills
+claude plugin install stone-giant@stone-giant-studio-skills
 ```
+
+`stone-giant-studio-skills` is the marketplace name declared in
+`.claude-plugin/marketplace.json`, which is not the repo name — the first
+command registers it, the second installs the one plugin it publishes.
 
 Commands arrive namespaced: `/stone-giant:park`, `/stone-giant:score`,
 `/stone-giant:eval-npm`.
@@ -262,7 +267,7 @@ This repo ships two formats from the same content:
 - **`skills/`** — the **source of truth**. The agentskills.io format consumed by
   `npx skills add` (Claude Code, Cursor, Codex, Gemini CLI, and 50+ agents).
 - **`plugins/stone-giant/skills/`** — **generated** plugin output for
-  `claude plugin add`. Do not edit by hand.
+  `claude plugin install`. Do not edit by hand.
 
 Both use the `skills/<name>/SKILL.md` directory convention.
 

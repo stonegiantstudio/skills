@@ -29,7 +29,9 @@ prevention-critical. Most findings do not qualify — keep this short.
   gets deleted. Two copies of a rule always drift into contradiction, and in a
   prose repo nothing but deletion enforces the boundary. (PR #9 cold reviews:
   benchmark ×3, sibling routing ×4, marketing's stale tells list; PR #8 review:
-  credential protocol in six near-copies.) (×3 — promote on next hit)
+  credential protocol in six near-copies; PR #11: the README's install command
+  was fixed while the doc it links to kept teaching the dead one.) (×4 — due for
+  promotion, blocked on this repo having no CLAUDE.md to promote into)
 - **When adding a skill, check description-level trigger overlap against the
   whole family — selection happens in descriptions, before anything loads.**
   Check: list the surfaces the new description claims ("landing pages",

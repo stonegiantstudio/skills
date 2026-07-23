@@ -12,6 +12,13 @@ Remaining: watch #1405 for maintainer response.
 (`park`, `score`, `eval-npm`, `npm-security-advisory`) for the universal agents
 but they never become available in Claude Code.
 
+> **Historical record — don't copy the Claude Code install commands below.**
+> This is the investigation as written on 2026-05-29. The Claude Code install
+> command it quotes (`claude plugin add …`) no longer exists in the CLI, and the
+> plugin's commands are namespaced `/stone-giant:*`, not `/sgs:*`. The README's
+> Install section is the authority on how to install today. The `npx skills add`
+> commands below still work as written.
+
 ---
 
 ## TL;DR
@@ -154,9 +161,9 @@ produces a second copy under bare names. Pick one path per the strategy below.
 
 Make the README unambiguous about per-agent install paths:
 
-- **Claude Code → the plugin.** `claude plugin add github:stonegiantstudio/skills`
-  is Claude-native, robust, already documented, and does **not** touch the buggy
-  symlink code. Gives `/sgs:*` commands.
+- **Claude Code → the plugin.** Claude-native, robust, and does **not** touch
+  the buggy symlink code. The commands live in the README's Install section —
+  that block is the authority, so this plan doesn't restate them.
 - **All other agents → skills.sh.** `npx skills add stonegiantstudio/skills`
   for Cursor, Codex, Amp, Cline, Gemini CLI, etc.
 - State explicitly: **pick one path for Claude Code, not both** (avoids the
