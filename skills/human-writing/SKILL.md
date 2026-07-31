@@ -155,8 +155,9 @@ own, ask. One question costs less than a voice overwritten.
 7. **De-slop sweep as a check.** Load `references/ai-tells.md` and
    sweep. Here the sweep confirms; it does not construct, and its
    benchmark does not apply — see that file's Benchmark note. Run its
-   literal-question test on every phrase that sounds finished; the
-   greps cannot see shape, and shape is what survives a rewrite.
+   literal-question test on every phrase that sounds finished. A
+   grep matches words rather than shapes, and a fresh draft invents
+   its own flourishes rather than inheriting the original's.
 8. **Voice pass (last).** Does the whole read as one specific person —
    and, when the source supplied the voice sample, as *that* person?
    A rewrite that passes every other check and sounds like nobody has

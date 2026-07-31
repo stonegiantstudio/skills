@@ -72,12 +72,10 @@ answers it. A phrase that only sounds right cannot.
 - "a reader arriving cold" — how does a reader arrive cold? Two real
   idioms fused into one that denotes nothing.
 
-Every example above cleared every sweep in this file, because no word
-in any of them is a tell. Their shape is the tell, and shape is what a
-lexicon cannot see. Run this test on anything that sounds finished:
-the phrases that survive drafting untouched are the ones that sounded
-right on the first pass, which is the same reason they were never
-examined. Move: answer the question in the prose, or cut the phrase.
+Every example above cleared every sweep in this file. No word in any
+of them is a tell; the shape is, and a grep matches words rather than
+shapes. Run this test on anything that sounds finished. Move: answer
+the question in the prose, or cut the phrase.
 
 Paradox aphorisms (Signal 6) and agentless punch (Signal 2) are the
 two named forms this test catches most often; it is not limited to
@@ -200,8 +198,9 @@ The same scaffolds, whatever the topic.
   a session notices nothing. Same with "the system knows," "the
   process caught it," "the run failed to flag it." The rhythm pass
   asks for a short sentence after a long build, so the reach for one
-  comes before there is a subject to put in it, and a pronoun standing
-  in for nobody arrives sounding decisive. This is the detection side
+  comes before there is a subject to put in it, and a short sentence
+  reads as decisive even when its subject refers to nothing. This is
+  the detection side
   of the Williams directive in `SKILL.md` — characters as subjects,
   actions as verbs. Move: ask who did the thing. When the answer is a
   session, a system, or a process, name the person or state what
@@ -279,8 +278,7 @@ The same scaffolds, whatever the topic.
 - **Pull-quote cadence** — lines engineered to be quoted.
   "Documentation isn't a chore — it's a love letter to your future
   self." Move: "Write the docs now. In six months you won't remember
-  why you did any of this." Human profundity is plainer than it could
-  be.
+  why you did any of this."
 
 ## Benchmark
 

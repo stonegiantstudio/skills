@@ -23,10 +23,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   a phrase a literal question; one that means something answers, one
   that only sounds right cannot. "Cost you more than it returns" —
   more than what? "Neither noticed" — neither what? "A reader arriving
-  cold" — how does a reader arrive cold? Four such phrases shipped
-  from this repo in one evening, every one of them clearing every grep
-  in the file, because no word in any of them is a tell and shape is
-  what a lexicon cannot see. Both workflows now run it.
+  cold" — how does a reader arrive cold? Four came out of one
+  evening's drafting, one of them into a public PR description, and
+  every one cleared every grep in the file: no word in any of them is
+  a tell, and a grep matches words rather than shapes. Both workflows
+  now run it.
 - **human-writing** — `references/ai-tells.md` gains **agentless
   punch** under Signal 2: the short landing sentence whose subject
   cannot perform its verb ("Neither noticed," "the system knows"). The
