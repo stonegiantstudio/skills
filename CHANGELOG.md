@@ -6,7 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-## [1.2.1] — 2026-07-30
+## [1.3.0] — 2026-07-30
+
+### Changed
+
+- **human-writing** — Existing drafts are now **rewritten from their
+  distilled essence by default** rather than edited in place. Editing
+  preserves the draft's skeleton, and the skeleton is what reads as
+  machine-written; the old workflow's first step said as much while
+  prescribing pruning as the fix. A tells catalogue is also a detector,
+  so aiming it at existing sentences produces avoidance rather than
+  prose. `revise`, `tighten`, `edit only`, `light pass`, or any ask
+  that signals preserve-my-sentences switches back to the in-place
+  edit, as does fidelity-critical text (quotations, legal or medical
+  wording, specifications) regardless of phrasing.
+- **human-writing** — The rewrite distills two things, not one. The
+  essence list is the fidelity contract; the voice is calibrated from
+  the author's other writing, or from the draft itself when the draft
+  is the author's own, or dropped to the plainest register when the
+  draft is machine-written. Rebuilding the structure no longer means
+  discarding the person who wrote it.
+- **human-writing** — `references/examples.md` is retitled and now
+  shows its essence list. The worked example was already a rewrite —
+  the After shares almost no phrasing with the Before, and every number
+  in it came from the author on request — while presenting itself as an
+  edit pass.
+- **human-writing** — The 25–40% benchmark in `references/ai-tells.md`
+  is scoped to edit-in-place. It assumes a retained skeleton, so under
+  the new default it would misread as a ceiling to stay under.
 
 ### Added
 
