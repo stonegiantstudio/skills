@@ -148,8 +148,8 @@ own, ask. One question costs less than a voice overwritten.
    Then the reverse: nothing in the draft that is off the list, and
    quoted material verbatim. Strike anything you cut on purpose, with
    its reason, so the cut is a decision rather than an omission.
-   Naming what you throw away is what catches the instruction hiding
-   inside a vague claim.
+   Writing the reason down often exposes a usable instruction inside
+   a claim you were cutting for being vague.
 6. **Read aloud** (the one test, above).
 7. **De-slop sweep as a check.** Load `references/ai-tells.md` and
    sweep. Here the sweep confirms; it does not construct, and its

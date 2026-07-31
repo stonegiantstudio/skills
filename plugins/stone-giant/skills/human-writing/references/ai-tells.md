@@ -48,7 +48,13 @@ active. Skills point here; none of them restate this.
 
 Remove the sentence; if the paragraph loses no facts, it was filler.
 Apply it to every sentence that closes a paragraph or section — closers
-are where filler concentrates. The test is register-independent: it
+are where filler concentrates.
+
+**Apply it to trailing clauses too, not only to whole sentences.** A
+flourish that would be conspicuous standing alone hides comfortably
+after a comma: "..., and the missing item is the one nobody thinks to
+look for." Delete from the comma and reread. If no fact left with the
+clause, it was ornament. The test is register-independent: it
 catches article scaffolds ("That's the catch.") and correspondence
 padding ("We'll shape it from there.") alike, including forms no
 lexicon sweep can see.
@@ -224,6 +230,16 @@ The same scaffolds, whatever the topic.
 - **Welded-on meaning** — "marks a pivotal moment," "reflects broader
   trends," "cementing its legacy." Move: show the fact; cut the
   meaning.
+- **Paradox aphorisms** — a balanced, knowing formulation that sounds
+  like insight and cannot be checked: "the missing item is the one
+  nobody thinks to look for," "the hardest bugs are the ones you
+  cannot see," "you don't know what you don't know." The shape carries
+  the authority and the content is empty. No word in them is a tell,
+  so they clear every lexicon sweep, and they favour trailing clauses
+  where a deletion test aimed at closing sentences never reaches them.
+  Move: cut the clause. If it was doing work, say the work plainly —
+  "check against the written list, not from memory" beats any
+  observation about what nobody thinks to look for.
 - **Pull-quote cadence** — lines engineered to be quoted.
   "Documentation isn't a chore — it's a love letter to your future
   self." Move: "Write the docs now. In six months you won't remember

@@ -6,15 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-## [1.3.1] — 2026-07-30
+## [1.4.0] — 2026-07-30
+
+### Added
+
+- **human-writing** — `references/ai-tells.md` gains **paradox
+  aphorisms** under Signal 6: the balanced, knowing formulation that
+  sounds like insight and cannot be checked. "The missing item is the
+  one nobody thinks to look for." "You don't know what you don't
+  know." The shape carries the authority and the content is empty. No
+  word in them is a tell, so they clear every lexicon sweep, which is
+  how three of them reached a shipped PR description, a CHANGELOG
+  entry, and `SKILL.md` itself before a human reader caught them.
+- **human-writing** — The deletion test now applies to trailing
+  clauses, not only to whole sentences. Both flourishes that prompted
+  this sat after a comma, where a test aimed at closing sentences
+  never reached them. Delete from the comma and reread; if no fact
+  left with the clause, it was ornament.
 
 ### Fixed
 
 - **human-writing** — The rewrite workflow's reconcile step said to
   check that every essence-list item survived, without saying to check
   it against the written list. Reconciling from memory does not work: a
-  draft reads complete whether or not it is, and the dropped item is
-  the one nobody thinks to look for. Two independent runs of the 1.3.0
+  draft reads complete whether or not it is. Two independent runs of the 1.3.0
   workflow on the same source each lost different items, and neither
   run noticed — one dropped "map-of-content" (the Obsidian term of art)
   and an instruction worth keeping; the other dropped its opening
