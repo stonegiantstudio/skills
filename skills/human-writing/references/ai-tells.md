@@ -33,7 +33,7 @@ active. Skills point here; none of them restate this.
 
 - **human-writing** — every signal applies in full.
 - **writing-marketing-copy** — Signals 1 and 3–6 apply in full. Signal
-  2's persuasive scaffolds (negative parallelism, rule-of-three,
+  2's persuasive scaffolds (the not-X-but-Y family, rule-of-three,
   setup-colon-payoff, coaching imperatives) are direct-response craft
   when used deliberately; sweep them only when they read as filler
   rather than persuasion.
@@ -73,6 +73,7 @@ are per cluster; pick the plain word the sentence actually needs.
 
 ### Tier 2 — fine once, a fingerprint in clusters
 
+genuinely · really · truly · actually · honestly · frankly ·
 additionally · enhance/enhancing · insights · potential · findings ·
 compelling · distinctive · remarkable · innovative · imperative ·
 thorough · strategically · actionable · invaluable · versatile ·
@@ -97,14 +98,58 @@ what you need to know" · "Stay ahead of the curve"
   works. Move: plain is/are.
 - **Synonym cycling** — constraints → norms → confines for one concept.
   Move: repeat the right word; spend variety on sentence shape.
+- **Nominalization** — the action buried in a noun, usually ending
+  `-tion`, `-ment`, `-ance`, `-ity`: "the implementation of the
+  migration resulted in a reduction of latency." Move: put the action
+  back in the verb — "migrating cut latency." Detection side of the
+  Williams directive in `SKILL.md`. Not a tell when the noun names a
+  thing instead of hiding an act: a deployment, a migration, and an
+  authentication flow are objects in the system, and rewriting them
+  into verbs costs precision.
+- **Noun piles** — three or more nouns modifying each other:
+  "customer engagement optimization framework," "content delivery
+  performance baseline." Each noun makes the reader guess which one is
+  the head. Move: break the stack with a verb or a preposition — "a
+  framework for keeping customers engaged." Established compound terms
+  are exempt: "content delivery network" and "cross site request
+  forgery token" are names, not stacks.
+- **Filler intensifiers** — genuinely, really, truly, actually. They
+  assert conviction where evidence belongs, and the sentence keeps its
+  meaning without them. Move: delete. Tier 2 rather than Tier 1 —
+  speech runs on these, so one in a paragraph is voice and three is
+  the fingerprint.
+- **Sincerity prefaces** — honestly, frankly, to be honest, truth be
+  told. Distinct from the intensifiers above: these imply the
+  surrounding prose was not candid, which is both false and unflattering
+  to the writer. They carry no information in any position. Move:
+  delete the word and start on the next one; the sentence is shorter
+  every time. Sweep every grammatical position, not just the sentence
+  opener — the adverbial use mid-clause ("comments honestly describing
+  a compromise") is the one that survives a preface-only check. The
+  adjective keeps its meaning and stays: an honest mistake, honest
+  work.
+  `grep -inE "\b(honest(ly)?|frankly|truth be told)\b" draft.md`
 
 ## Signal 2 — structural templates
 
 The same scaffolds, whatever the topic.
 
-- **Negative parallelism** — "It's not just X, it's Y" / "No X. No Y.
-  Just Z." Move: state the positive claim. Maximum once per piece, only
-  when the misconception is real.
+- **The not-X-but-Y family** — the most recognizable current LLM
+  construction. Four surface forms, one underlying move:
+  - *Negative parallelism* — "It's not just X, it's Y."
+  - *Corrective negation* — "X isn't about A. It's about B." The
+    correction answers an objection no reader raised.
+  - *Antithesis* — two clauses balanced on a hinge: "not with a bang
+    but a whimper."
+  - *Negative anaphora* — "No X. No Y. Just Z."
+
+  Move: state the positive claim by itself and let it stand. Keep at
+  most one instance per piece, and only where the misconception is one
+  a real reader holds. Sweep catches the first three forms; negative
+  anaphora needs the eye, since a bare "No" opening is too common to
+  grep. Best-effort like the Tier-1 sweep — plain negation followed by
+  a contrast ("we did not ship it but we learned") hits and is fine:
+  `grep -inE "\b(not just|isn'?t (just|about)|is not (just|about)|not ([a-z]+ ){1,3}but)\b" draft.md`
 - **Contrast scaffold one-liners** — "The difference is X." / "That's
   the catch." The deletion test (above) decides. Sweep:
   `grep -inE "(^|[.!?] )(That's|Here's|This is|It's|The (key|point|catch|kicker|difference|takeaway|thing)) [^.!?]{0,45}[.!?]" draft.md`
