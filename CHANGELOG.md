@@ -6,6 +6,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.2.1] — 2026-07-30
+
+### Added
+
+- **human-writing** — `references/ai-tells.md` gains four detection
+  entries under Signal 1's related structures. **Nominalization** (the
+  action buried in a `-tion`/`-ment`/`-ance`/`-ity` noun) is the
+  detection side of the Williams directive `SKILL.md` already states,
+  which had no corresponding entry in the catalogue. **Noun piles**
+  covers three-or-more-noun stacks. **Filler intensifiers**
+  (genuinely, really, truly, actually) and **sincerity prefaces**
+  (honestly, frankly, truth be told) were absent entirely; the latter
+  sweeps every grammatical position, since the adverbial mid-clause
+  use is what survives a preface-only check. All four carry
+  false-positive exemptions — thing-nouns, established compound terms,
+  one-per-paragraph conversational use, and the plain adjective.
+
+### Changed
+
+- **human-writing** — Signal 2's `negative parallelism` entry becomes
+  **the not-X-but-Y family**, naming all four surface forms
+  (negative parallelism, corrective negation, antithesis, negative
+  anaphora) with a grep sweep. `antithesis` was referenced in the
+  false-positives note without ever being defined. The Scope-by-skill
+  cross-reference is updated to the new entry name.
+- **human-writing** — The six intensifier and preface words join the
+  Tier 2 list rather than Tier 1, whose documented bar is three or
+  more independent catalogues.
+
 ### Fixed
 
 - **README** — The Claude Code install command was `claude plugin add
