@@ -1,7 +1,9 @@
 # AI tells — the de-slop catalogue
 
 Detection signals, the patterns under each, and the rewrite move for
-every pattern. Loaded by the human-writing workflow's de-slop pass.
+every pattern. Loaded by both human-writing workflows: as the final
+check on fresh prose when rewriting from the essence, and as the
+mid-pipeline de-slop pass when editing in place.
 The sweep pays twice: readers discount prose that pattern-matches as
 machine output, and search engines punish thin scaled content hardest
 in core updates.
@@ -72,6 +74,10 @@ are per cluster; pick the plain word the sentence actually needs.
 | Padding adverbs | notably, particularly, significantly, ultimately | usually delete outright |
 
 ### Tier 2 — fine once, a fingerprint in clusters
+
+An index, not the authority. Where a word also has an entry under
+Related structures below, that entry carries the move and the
+false-positive guard; this list only says the word is worth counting.
 
 genuinely · really · truly · actually · honestly · frankly ·
 additionally · enhance/enhancing · insights · potential · findings ·
@@ -234,3 +240,10 @@ heuristic). Below that, the draft still reads as machine output. Do not over-san
 deleting every distinctive sentence produces beige slop instead. The
 goal is one human voice, which includes occasional flourish; the test
 is whether the author would say it.
+
+**Scope: edit-in-place only.** The percentage assumes a retained
+skeleton, so it means nothing under human-writing's default mode,
+where the draft is rewritten from its distilled essence and every
+sentence is new. Applying it there inverts its purpose — it would read
+as a ceiling to stay under. In rewrite mode this catalogue is a check
+on fresh prose, and the only target is that no signal survives.

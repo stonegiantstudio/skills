@@ -1,6 +1,6 @@
 ---
 name: human-writing
-description: Write and edit prose with a human voice — clear, specific, and owned by one identifiable writer. Directives distilled from Zinsser, Strunk & White, Williams, and Pinker, plus a de-slop workflow for AI-flavored drafts. Use for blog posts, essays, voice and editing passes over existing prose, or when asked to "de-slop", "humanize", or fix "AI-sounding" text. For persuasion surfaces (landing pages, ads, email campaigns) use writing-marketing-copy, which pulls in this skill's ai-tells catalogue for its authenticity sweep; for documentation structure use technical-writing; for auth-flow microcopy use signup-signin.
+description: Write and edit prose with a human voice — clear, specific, and owned by one identifiable writer. Directives distilled from Zinsser, Strunk & White, Williams, and Pinker, plus a de-slop workflow for AI-flavored drafts. Use for blog posts, essays, voice and editing passes over existing prose, or when asked to "de-slop", "humanize", or fix "AI-sounding" text. Existing drafts are rewritten from their distilled essence by default, since the skeleton is what reads as machine-written; "revise", "tighten", or any ask to keep the author's own sentences switches to an in-place edit instead. For persuasion surfaces (landing pages, ads, email campaigns) use writing-marketing-copy, which pulls in this skill's ai-tells catalogue for its authenticity sweep; for documentation structure use technical-writing; for auth-flow microcopy use signup-signin.
 ---
 
 # Human writing
@@ -78,7 +78,64 @@ habits, recurring tics. Calibrate to the author, never to a house
 default. Without a sample, aim for the plainest register the content
 allows.
 
-## The workflow (editing an existing draft)
+## Working on an existing draft
+
+Two workflows. **Rewriting from the essence is the default**; editing
+in place is the switch.
+
+Editing preserves the draft's skeleton, and the skeleton is what gives
+a machine draft away — the first pass below used to say so while
+prescribing pruning as the fix. Pruning leaves the shape intact. Worse,
+a tells catalogue is a detector: aimed at existing sentences it
+produces avoidance, which is how a draft ends up beige rather than
+human. The directives above can only compose when they are writing,
+not when they are arbitrating someone else's sentence.
+
+### Choosing the mode
+
+**Edit in place** when any of these hold:
+
+- The request says `revise`, `tighten`, `edit only`, or `light pass`.
+- The request signals preserve-my-sentences in any wording: "keep my
+  phrasing," "don't rewrite it," "just clean it up a little." Intent
+  governs; the words above are examples, not a magic list.
+- The text is fidelity-critical regardless of phrasing: quoted
+  material, legal, medical, or compliance wording, technical
+  specifications, or anything that will be cited or diffed.
+
+**Otherwise rewrite from the essence.**
+
+When the mode is genuinely ambiguous and the draft may be the author's
+own, ask. One question costs less than a voice overwritten.
+
+### Rewrite from the essence (default)
+
+1. **Distill the essence.** List every claim, number, name, date,
+   quotation, and the spine of the argument. This list is the
+   contract: nothing ships that is not on it, and nothing on it gets
+   dropped.
+2. **Check the list against the source** before writing a sentence.
+   Hedges, caveats, and attributions are load-bearing more often than
+   they look — a qualifier someone added deliberately reads as
+   removable right up until it is gone.
+3. **Distill the voice.** The author's other writing, when available,
+   is the calibration target. Without a sample, if the draft is the
+   author's own prose, the draft is the sample — take its rhythm,
+   characteristic word choices, punctuation habits, recurring tics.
+   If the draft is machine-written there is no voice to carry; use the
+   plainest register the content allows.
+4. **Write fresh from the Directives.** Work from the essence list and
+   the voice notes, not from the original's sentences. Rereading them
+   mid-draft re-anchors you to the structure you are replacing, which
+   is the failure this whole mode exists to avoid.
+5. **Reconcile.** Every item on the list present, nothing invented
+   that is not on it, quoted material verbatim.
+6. **Read aloud** (the one test, above).
+7. **De-slop sweep as a check.** Load `references/ai-tells.md` and
+   sweep. Here the sweep confirms; it does not construct, and its
+   benchmark does not apply — see that file's Benchmark note.
+
+### Edit in place (the switch)
 
 1. **Skeleton first.** Remove preview paragraphs, recap endings,
    symmetrical heading grids. Structure gives a draft away before any
