@@ -117,7 +117,9 @@ own, ask. One question costs less than a voice overwritten.
 1. **Distill the essence.** List every claim, number, name, date,
    quotation, and the spine of the argument. This list is the
    contract: nothing ships that is not on it, and nothing on it gets
-   dropped.
+   dropped. Write it down and keep it — step 5 checks the draft
+   against it, and a list you are holding in your head is not
+   something you can check anything against.
 2. **Check the list against the source** before writing a sentence.
    Hedges, caveats, and attributions are load-bearing more often than
    they look — a qualifier someone added deliberately reads as
@@ -141,12 +143,21 @@ own, ask. One question costs less than a voice overwritten.
    vary sentence length and follow a long, clause-laden build with a
    short landing — rhythm is cheaper to build in than to retrofit.
    First person where true, one anecdote, one thing that went wrong.
-5. **Reconcile.** Every item on the list present, nothing invented
-   that is not on it, quoted material verbatim.
+5. **Reconcile against the written list, item by item.** Walk the
+   list and find each item in the finished draft. Memory is what lets
+   items go missing — a draft reads complete whether or not it is.
+   Then the reverse: nothing in the draft that is off the list, and
+   quoted material verbatim. Strike anything you cut on purpose, with
+   its reason, so the cut is a decision rather than an omission.
+   Writing the reason down often exposes a usable instruction inside
+   a claim you were cutting for being vague.
 6. **Read aloud** (the one test, above).
 7. **De-slop sweep as a check.** Load `references/ai-tells.md` and
    sweep. Here the sweep confirms; it does not construct, and its
-   benchmark does not apply — see that file's Benchmark note.
+   benchmark does not apply — see that file's Benchmark note. Run its
+   literal-question test on every phrase that sounds finished. A
+   grep matches words rather than shapes, and a fresh draft invents
+   its own flourishes rather than inheriting the original's.
 8. **Voice pass (last).** Does the whole read as one specific person —
    and, when the source supplied the voice sample, as *that* person?
    A rewrite that passes every other check and sounds like nobody has
@@ -170,8 +181,9 @@ own, ask. One question costs less than a voice overwritten.
 4. **De-slop pass.** Load `references/ai-tells.md` and sweep the draft
    against it; its benchmark says how much a real pass touches. Run
    its deletion test on every sentence that closes a paragraph or
-   section — closers are where filler hides, in every register. Worked
-   demonstration: `references/examples.md`.
+   section — closers are where filler hides, in every register — and
+   its literal-question test on every phrase that sounds finished.
+   Worked demonstration: `references/examples.md`.
 5. **Experience pass.** First person where true, one anecdote, one
    thing that went wrong.
 6. **Rhythm pass.** Vary sentence length; follow a long, clause-laden
