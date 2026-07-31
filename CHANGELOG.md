@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.3.1] — 2026-07-30
+
+### Fixed
+
+- **human-writing** — The rewrite workflow's reconcile step said to
+  check that every essence-list item survived, without saying to check
+  it against the written list. Reconciling from memory does not work: a
+  draft reads complete whether or not it is, and the dropped item is
+  the one nobody thinks to look for. Two independent runs of the 1.3.0
+  workflow on the same source each lost different items, and neither
+  run noticed — one dropped "map-of-content" (the Obsidian term of art)
+  and an instruction worth keeping; the other dropped its opening
+  orientation. Step 5 now walks the list item by item against the
+  finished draft, and step 1 requires the list be written down and kept
+  so there is something to check against.
+- **human-writing** — Deliberate cuts now get struck from the essence
+  list with a reason rather than silently omitted. The cut that
+  prompted this removed a vague claim that had a usable instruction
+  inside it; naming what you throw away is what surfaces that.
+
 ## [1.3.0] — 2026-07-30
 
 ### Changed
