@@ -153,7 +153,9 @@ own, ask. One question costs less than a voice overwritten.
 6. **Read aloud** (the one test, above).
 7. **De-slop sweep as a check.** Load `references/ai-tells.md` and
    sweep. Here the sweep confirms; it does not construct, and its
-   benchmark does not apply — see that file's Benchmark note.
+   benchmark does not apply — see that file's Benchmark note. Run its
+   literal-question test on every phrase that sounds finished; the
+   greps cannot see shape, and shape is what survives a rewrite.
 8. **Voice pass (last).** Does the whole read as one specific person —
    and, when the source supplied the voice sample, as *that* person?
    A rewrite that passes every other check and sounds like nobody has
@@ -177,8 +179,9 @@ own, ask. One question costs less than a voice overwritten.
 4. **De-slop pass.** Load `references/ai-tells.md` and sweep the draft
    against it; its benchmark says how much a real pass touches. Run
    its deletion test on every sentence that closes a paragraph or
-   section — closers are where filler hides, in every register. Worked
-   demonstration: `references/examples.md`.
+   section — closers are where filler hides, in every register — and
+   its literal-question test on every phrase that sounds finished.
+   Worked demonstration: `references/examples.md`.
 5. **Experience pass.** First person where true, one anecdote, one
    thing that went wrong.
 6. **Rhythm pass.** Vary sentence length; follow a long, clause-laden

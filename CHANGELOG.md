@@ -18,6 +18,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   word in them is a tell, so they clear every lexicon sweep, which is
   how three of them reached a shipped PR description, a CHANGELOG
   entry, and `SKILL.md` itself before a human reader caught them.
+- **human-writing** — `references/ai-tells.md` gains **the
+  literal-question test**, a second test beside the deletion test. Ask
+  a phrase a literal question; one that means something answers, one
+  that only sounds right cannot. "Cost you more than it returns" —
+  more than what? "Neither noticed" — neither what? "A reader arriving
+  cold" — how does a reader arrive cold? Four such phrases shipped
+  from this repo in one evening, every one of them clearing every grep
+  in the file, because no word in any of them is a tell and shape is
+  what a lexicon cannot see. Both workflows now run it.
+- **human-writing** — `references/ai-tells.md` gains **agentless
+  punch** under Signal 2: the short landing sentence whose subject
+  cannot perform its verb ("Neither noticed," "the system knows"). The
+  rhythm pass asks for a short sentence after a long build, so the
+  reach for one comes before there is a subject to put in it. This is
+  the detection side of the Williams directive `SKILL.md` states,
+  which had no entry — the same gap nominalization had in 1.3.0.
 - **human-writing** — The deletion test now applies to trailing
   clauses, not only to whole sentences. Both flourishes that prompted
   this sat after a comma, where a test aimed at closing sentences
@@ -29,17 +45,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **human-writing** — The rewrite workflow's reconcile step said to
   check that every essence-list item survived, without saying to check
   it against the written list. Reconciling from memory does not work: a
-  draft reads complete whether or not it is. Two independent runs of the 1.3.0
-  workflow on the same source each lost different items, and neither
-  run noticed — one dropped "map-of-content" (the Obsidian term of art)
-  and an instruction worth keeping; the other dropped its opening
-  orientation. Step 5 now walks the list item by item against the
+  draft reads complete whether or not it is. Two independent runs of the
+  1.3.0 workflow on the same source each lost different items, and the
+  losses surfaced only when the two drafts were compared. One dropped
+  "map-of-content" (the Obsidian term of art) and an instruction worth
+  keeping; the other dropped its opening orientation. Step 5 now walks
+  the list item by item against the
   finished draft, and step 1 requires the list be written down and kept
   so there is something to check against.
 - **human-writing** — Deliberate cuts now get struck from the essence
   list with a reason rather than silently omitted. The cut that
   prompted this removed a vague claim that had a usable instruction
-  inside it; naming what you throw away is what surfaces that.
+  inside it. Writing the reason down exposed it.
 
 ## [1.3.0] — 2026-07-30
 

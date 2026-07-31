@@ -59,6 +59,30 @@ catches article scaffolds ("That's the catch.") and correspondence
 padding ("We'll shape it from there.") alike, including forms no
 lexicon sweep can see.
 
+## The literal-question test
+
+Ask the phrase a literal question. A phrase that means something
+answers it. A phrase that only sounds right cannot.
+
+- "will cost you more than it returns" — more than what, in what unit?
+- "the missing item is the one nobody thinks to look for" — who is
+  nobody?
+- "Neither noticed." — neither what? Two sessions, and a session
+  notices nothing.
+- "a reader arriving cold" — how does a reader arrive cold? Two real
+  idioms fused into one that denotes nothing.
+
+Every example above cleared every sweep in this file, because no word
+in any of them is a tell. Their shape is the tell, and shape is what a
+lexicon cannot see. Run this test on anything that sounds finished:
+the phrases that survive drafting untouched are the ones that sounded
+right on the first pass, which is the same reason they were never
+examined. Move: answer the question in the prose, or cut the phrase.
+
+Paradox aphorisms (Signal 6) and agentless punch (Signal 2) are the
+two named forms this test catches most often; it is not limited to
+them.
+
 ## Signal 1 — predictable vocabulary
 
 LLMs over-select the same impressive-sounding words. Replacement moves
@@ -171,6 +195,18 @@ The same scaffolds, whatever the topic.
 - **Setup-colon-payoff** — "The result: …" / "The goal?" Move: a plain
   sentence.
 - **One-word fragment drama** — "Speed. Precision. Mastery." Move: cut.
+- **Agentless punch** — a short landing sentence whose subject cannot
+  perform its verb. "Neither noticed." Neither what? Two sessions, and
+  a session notices nothing. Same with "the system knows," "the
+  process caught it," "the run failed to flag it." The rhythm pass
+  asks for a short sentence after a long build, so the reach for one
+  comes before there is a subject to put in it, and a pronoun standing
+  in for nobody arrives sounding decisive. This is the detection side
+  of the Williams directive in `SKILL.md` — characters as subjects,
+  actions as verbs. Move: ask who did the thing. When the answer is a
+  session, a system, or a process, name the person or state what
+  happened instead: "the losses surfaced only when the two drafts were
+  compared."
 - **Coaching imperatives** — "Remember:", "Ask yourself…". Move: state
   the fact.
 - **Thesis-preview openers** — "In this section we'll explore…". Move:
