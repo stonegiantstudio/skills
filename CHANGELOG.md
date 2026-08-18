@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.6.0] — 2026-08-18
+
+### Added
+
+- **scaffolding-audit** — audits the local Claude Code setup (hooks,
+  plugins, skills, MCP servers, CLAUDE.md) for scaffolding rot:
+  customizations built for weaker models that now cost more than they
+  return. Classifies every artifact by what it encodes (capability
+  workaround vs durable preference/knowledge), and produces an
+  evidence-based keep/trial/retire report — read-only by default.
+
 ## [1.4.0] — 2026-07-30
 
 ### Added

@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Thirty-six skills pulled from our private toolchain and
+We use these every day. Thirty-eight skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -156,6 +156,16 @@ stop, drawing on published CI engineering from Google, Meta, Uber, and Shopify.
 On a real Vitest + SQLite pipeline it cut code-gate feedback from ~3.4 min to
 ~1.5 min by sharding and parallelizing, with the bigger runner explicitly
 rejected.
+
+### scaffolding-audit — Find the Setup Rot
+
+Agent scaffolding rots: hooks, wrappers, and micro-skills written to
+compensate for a weaker model become pure cost — injected context,
+conflicting instructions, silent failure modes — once the model no longer
+needs them. This skill audits the local Claude Code setup (hooks, plugins,
+skills, MCP servers, CLAUDE.md) through that lens and produces an
+evidence-based keep/trial/retire report. Read-only by default: it proposes,
+the human disposes.
 
 ## Engineering & Design Skills
 
