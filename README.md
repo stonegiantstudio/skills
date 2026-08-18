@@ -163,6 +163,18 @@ These load automatically when you're working in the matching context — editing
 a route module, writing a Zod schema, naming a test file. No command to
 remember; the right expertise shows up when it's relevant.
 
+### screen-performance — Make a Slow Screen Feel Native
+
+A slow screen is a stack of hidden problems — serialized loader queries,
+payloads full of unread fields, a router silently re-downloading data on
+every navigation, a listener per row. Guess-and-memoize changes nothing.
+
+This skill runs a measure-first loop with hard budgets (loader under 1s and
+300KB, every interaction under 100ms with zero network) and ten patterns
+ranked by leverage, each landing as its own commit with before → after
+numbers. On its reference overhaul it took a 400-row gantt from a 4.4s
+loader and 45-second hover freezes to 0.7s and 2ms.
+
 ### react-router-v7 — Framework-Mode React, Done Right
 
 React Router v7 (the Remix successor) plus the general React patterns that go
