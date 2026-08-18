@@ -1,5 +1,5 @@
 ---
-description: React + React Router v7 framework mode expertise for Remix-style full-stack applications. Triggers when writing general React components (memoization, state derivation, keys, anti-useEffect patterns) or editing loaders, actions, route modules, react-router.config.ts, middleware, or any file importing from react-router or @react-router/*. Use for React patterns, route data loading, mutations, error handling, form submissions, redirects, revalidation, client/server code splitting, RSC patterns, thin routes/fat models architecture, and CSRF protection configuration.
+description: React + React Router v7 framework mode expertise for Remix-style full-stack applications. Triggers when writing general React components (memoization, state derivation, keys, anti-useEffect patterns) or editing loaders, actions, route modules, react-router.config.ts, middleware, or any file importing from react-router or @react-router/*. Use for React patterns, route data loading, mutations, error handling, form submissions, redirects, revalidation, client/server code splitting, RSC patterns, thin routes/fat models architecture, and CSRF protection configuration. For making a slow screen fast (loader/payload budgets, the navigation revalidation tax, virtualization), use the screen-performance skill.
 ---
 
 # React + React Router v7
@@ -451,10 +451,18 @@ export async function clientLoader() {
 }
 ```
 
-## Revalidation - Embrace It
+## Revalidation - Embrace It After Actions
 
 After any action, React Router revalidates all loaders on the page.
-**This is a feature, not a bug. Don't fight it.**
+**For mutations this is a feature, not a bug. Don't fight it** — it is
+what keeps every view consistent after a write.
+
+Navigation is a different economy: loaders for routes that stay matched
+also re-run on pathname changes, and on a heavy loader that is a
+measurable data tax. Classify navigations as data-changing or
+presentation-only and opt the presentation-only ones out via
+`shouldRevalidate` — the `screen-performance` skill carries the
+measure-first loop and budgets for that side.
 
 ```typescript
 // If you need to prevent revalidation for a specific route:

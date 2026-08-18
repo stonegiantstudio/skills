@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Thirty-six skills pulled from our private toolchain and
+We use these every day. Thirty-seven skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -157,12 +157,6 @@ On a real Vitest + SQLite pipeline it cut code-gate feedback from ~3.4 min to
 ~1.5 min by sharding and parallelizing, with the bigger runner explicitly
 rejected.
 
-## Engineering & Design Skills
-
-These load automatically when you're working in the matching context — editing
-a route module, writing a Zod schema, naming a test file. No command to
-remember; the right expertise shows up when it's relevant.
-
 ### screen-performance — Make a Slow Screen Feel Native
 
 A slow screen is a stack of hidden problems — serialized loader queries,
@@ -172,8 +166,15 @@ every navigation, a listener per row. Guess-and-memoize changes nothing.
 This skill runs a measure-first loop with hard budgets (loader under 1s and
 300KB, every interaction under 100ms with zero network) and ten patterns
 ranked by leverage, each landing as its own commit with before → after
-numbers. On its reference overhaul it took a 400-row gantt from a 4.4s
-loader and 45-second hover freezes to 0.7s and 2ms.
+numbers. On its reference overhaul it took a 400-row gantt loader from
+4.4s to 0.7s, the DOM from 18k to 9.3k nodes, and hydration from 630ms
+to 64ms — with every post-load interaction at zero network.
+
+## Engineering & Design Skills
+
+These load automatically when you're working in the matching context — editing
+a route module, writing a Zod schema, naming a test file. No command to
+remember; the right expertise shows up when it's relevant.
 
 ### react-router-v7 — Framework-Mode React, Done Right
 
@@ -297,6 +298,16 @@ The sources you edit by hand are:
 - **`.claude-plugin/marketplace.json`** and
   **`plugins/stone-giant/.claude-plugin/plugin.json`** — the canonical
   manifests (e.g. for a version bump).
+
+A release PR also touches four surfaces `sync-check` cannot see — verify
+each by hand:
+
+- **`package.json`** `version` moves together with `plugin.json`'s.
+- **`README.md`**'s skill count near the top, plus a README entry.
+- **`CHANGELOG.md`** gains the release section.
+- **`marketplace.json`**'s plugin `description` (the copy shown when
+  browsing) and `plugin.json`'s `keywords`, when the new skill changes
+  what the set covers.
 
 Everything else is **generated** — don't edit it by hand:
 
