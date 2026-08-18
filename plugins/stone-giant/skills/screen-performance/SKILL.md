@@ -31,6 +31,11 @@ A screen is done when, on a warm dev server:
   filter — **under 100ms with zero network**.
 - Anything that must stay slower than ~300ms shows pending state (dim +
   spinner driven by the router's navigation state).
+- User-facing ceilings on a production build: **LCP ≤ 2.5s, INP ≤ 200ms,
+  CLS ≤ 0.1** (the Core Web Vitals "good" thresholds). CLS deserves a
+  deliberate check on screens with virtualization or late-arriving
+  affordances — estimated row heights and popped-in links are exactly
+  what shifts layout.
 
 Every interaction is either under budget or listed with its measured
 number and the reason it stays.
@@ -45,7 +50,13 @@ number and the reason it stays.
 4. **Re-measure the same numbers.** A gain inside run-to-run noise
    (±10%) is not a gain; revert it or keep it only on non-perf grounds.
 5. **Test, then commit with before → after in the message.**
-6. Repeat until the budgets hold. Ship the accumulated table in the PR
+6. **Guard the win.** A measured gain with no pin regresses silently:
+   add a shape test for the payload projection, a contract test for the
+   listener/revalidation behavior you fixed (mutation-check it — revert
+   the production line, see red, restore), keep field Web Vitals flowing
+   (e.g. an APM's browser tracing), and record the CWV baseline in the
+   PR body.
+7. Repeat until the budgets hold. Ship the accumulated table in the PR
    body — measured on two preview deployments (with and without the
    branch, same database, same session) when the platform offers them.
 
@@ -142,6 +153,10 @@ overhaul.
 - Vite HMR does not reload the root route module, and server module
   singletons survive HMR — restart the dev server after touching either,
   or you chase phantom `X is not defined` / missing-method errors.
+- Buffered LCP/CLS observers lie when the tab did not actually reload —
+  a same-URL "navigation" can leave you reading entries from the previous
+  session (we caught a 28s phantom LCP this way). Force a real reload
+  (cache-busting query) and check `performance.getEntriesByType('navigation')[0].type`.
 - rAF and CSS animations pause in occluded or background tabs: under
   browser automation, a "frozen renderer" may just be an unfocused
   window. Verify with long-task entries or animation-instance identity,
