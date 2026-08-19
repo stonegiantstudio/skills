@@ -93,7 +93,7 @@ abstraction, the missing test, the hole that "works on my machine."
 
 Deep-review reads the GitHub diff without cloning. One worker per PR.
 It loads only the sibling skills the files actually need, then returns a
-verdict: blockers, should-fix, nits, and a delete-list for what did not
+verdict: blockers, high, medium, nits, and a delete-list for what did not
 need to exist.
 
 ```text
