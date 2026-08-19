@@ -1,6 +1,6 @@
 ---
 name: deep-review
-description: Deep PR review through every relevant skill lens in one pass (read-only report). Accepts a PR URL, owner/repo#N, or a PR number in the current repo.
+description: Use when a PR is substantially ready and you want a multi-lens review of the diff (PR URL, owner/repo#N, or PR number). Not a single-lens pass and not a pre-PR lint.
 ---
 
 # Deep Review
@@ -15,9 +15,7 @@ critique that goes beyond a single-lens review.
 **Versus the neighbours.** A cheap pre-PR lint (known repeats only, a few
 lines of output) is the gate you run before opening. This skill is the
 expensive architectural read, run once a branch is substantially done. An
-acting review (auto-fix on a self-review, posted comments on someone else's
-PR) is the tool you reach for when you want the review to _act_. This skill
-never writes anything.
+acting review (auto-fix on a self-review) is the tool you reach for when you want the review to _act_ on the tree. This skill does not edit code. It may POST the review to GitHub when the job is a PR review and this worker has `pull_requests:write`.
 
 This file is the protocol. A repo that wants extra lenses (tenant rules,
 local linters, a harness) lists those extras locally. It does not copy
@@ -188,7 +186,7 @@ appears.
 **Don't install `stonegiantstudio/skills` both ways.** That repo also ships a
 `skills.sh` manifest (`npx skills add stonegiantstudio/skills`), which installs
 the same skills user-level under bare names. Running both gives you every skill
-twice — `/stone-giant:park` _and_ `/park`.
+twice — the plugin command `/stone-giant:park` and the skills.sh bare name `park`.
 
 ## Extra lenses
 
@@ -212,7 +210,7 @@ single message (not as one sequential script):
 
 ```bash
 git fetch origin
-BASE=$(gh pr view --json baseRefName -q .baseRefName 2>/dev/null || echo main)
+BASE=$(gh pr view --json baseRefName -q .baseRefName)
 ```
 
 ```bash
@@ -242,12 +240,16 @@ branch diff is the sole input.
 
 Do not clone. Resolve owner/repo/number, then:
 
+- Fetch the PR via `GET /repos/{owner}/{repo}/pulls/{n}` for number, title,
+  body, url, baseRefName, and head SHA. Those fields do not come from `/files`.
 - Paginate `GET /repos/{owner}/{repo}/pulls/{n}/files`.
-- For every new or substantially-changed path, fetch the **full file** at the
-  head SHA via `GET /repos/{owner}/{repo}/contents/{path}?ref={head}` (or the
-  git blob/tree APIs). If `patch` is omitted (large file), still fetch the file.
-- Fetch PR reviews, issue comments, and review comments.
-- Surrounding files the hunk calls get a read, not a tour.
+- For every changed path (added, modified, or renamed), fetch the **full file**
+  at the head SHA via `GET /repos/{owner}/{repo}/contents/{path}?ref={head}`
+  (or the git blob/tree APIs). If `patch` is omitted (large file), still fetch
+  the file. Do not stop at the hunk, including small edits.
+- Paginate PR reviews, issue comments, and review comments.
+- Surrounding files the hunk calls: fetch via the same contents/blob APIs
+  (not a local Read). A read, not a tour.
 - Same inputs as the checkout path: number, title, body, url, baseRefName,
   head SHA, the file list, the patch.
 
@@ -289,8 +291,8 @@ If you are not in a checkout, skip Codex (it needs a tree) and proceed.
 ## Read the changed files end-to-end
 
 Not just the diff hunks — a finding often hinges on code the diff didn't
-touch but that the new code now calls. For each new or substantially-changed
-file, Read the full file. Batch reads in parallel.
+touch but that the new code now calls. For each changed file (added, modified, or renamed), read the full file
+(contents/blob if not in a checkout; Read if you already are). Batch in parallel.
 
 ## Run the multi-lens pass
 
@@ -369,25 +371,24 @@ Specific things to check, mapped to skill:
   the others.
 
 Data-layer checks — only when the diff touches schema, SQL, migrations,
-or tenant-scoped queries:
+or tenant-scoped queries. Route by dialect; do not lead with T-SQL on a
+Postgres diff.
 
-- `stone-giant:sql-server-safety` — Unguarded division (`/ 0` → error or wrong
-  result), `EXEC` with string-concatenated input (injection),
+- `stone-giant:relational-db-theory` — when schema/DDL changes: missing/incorrect
+  keys, denormalization without cause, nullable columns that should be
+  `NOT NULL`, missing FK constraints, repeating groups, EAV smell.
+- Postgres (raw SQL / schema, no Drizzle): `stone-giant:postgresql` +
+  `stone-giant:relational-db-theory`. JSONB vs column modeling lives here.
+- T-SQL / Azure SQL: `stone-giant:sql-server` + `stone-giant:sql-server-safety` +
+  `stone-giant:sql-server-performance` + `stone-giant:relational-db-theory`.
+  Safety: unguarded division, `EXEC` with string-concatenated input,
   multi-statement procs without `BEGIN TRAN`/error handling, swallowed
-  errors (`TRY/CATCH` that returns success), `@@ROWCOUNT` read after an
-  intervening statement.
-- `stone-giant:sql-server-performance` — Non-SARGable predicates (function on an
-  indexed column, leading-wildcard `LIKE`, implicit conversions),
-  index column order against the ESR rule (Equality → Sort → Range),
-  parameter-sniffing exposure, `SELECT *` in views/TVFs, row-by-row
-  where set-based would do.
-- `stone-giant:relational-db-theory` — Missing/incorrect keys, denormalization
-  without cause, nullable columns that should be `NOT NULL`, missing
-  FK constraints, repeating groups, EAV smell.
-- `stone-giant:sql-server` — Type choices (`NVARCHAR(MAX)` by
-  default, `money`, `float` for currency), naming convention drift,
-  temporal-table / masking opportunities (SQL Server), JSONB vs
-  column modeling (Postgres). Pick the one matching the project's DB.
+  errors, `@@ROWCOUNT` after an intervening statement. Performance:
+  non-SARGable predicates, ESR index order, parameter sniffing, `SELECT *`
+  in views/TVFs, row-by-row where set-based would do. Types: `NVARCHAR(MAX)`
+  by default, `money`, `float` for currency, naming drift, temporal/masking.
+- Drizzle: `stone-giant:drizzle-migrations` + `stone-giant:postgresql`.
+- Kysely: `stone-giant:kysely-orm`.
 
 ## Cross-check project docs
 
@@ -431,7 +432,7 @@ Tag each finding with the skill(s) that raised it: `[simplify]`,
 carries both tags — that's signal, not noise.
 
 **Cite `file:line` for every finding.** A review without line numbers
-is a wish list. `app/modules/forecast/portfolio/phase-row.tsx:77` is an
+is a wish list. `src/routes/invoice.ts:77` is an
 actionable finding; "the mobile file" is not.
 
 Close with a **What's good** section. A pure-criticism review misses
@@ -495,8 +496,11 @@ lens tag. No filler praise. No review of files the diff did not touch.
   invocation note in Fetch. Never blanket `git checkout .` afterward —
   snapshot `git status --porcelain` before and after, and revert only the
   delta, naming it in the report.)
-- **No commits, no pushes, no PR comments** unless the user asked. The
-  review lands in chat, not on GitHub.
+- **No commits, no pushes.** Unconditional. This skill never changes the tree.
+- **Where the report lands.** Default is chat. If this worker has
+  `pull_requests:write` and the job is reviewing a PR, POST the review to
+  `POST /repos/{owner}/{repo}/pulls/{n}/reviews` with that head `commit_id`.
+  Posting the report is not acting-review: it does not edit the tree.
 - **No delegation of the whole review.** Individual lookups (e.g. "how
   is X used elsewhere?") can go to a explore/subagent; the synthesis
   stays in the main thread so the findings aren't diluted by a
@@ -518,13 +522,13 @@ lens tag. No filler praise. No review of files the diff did not touch.
 - **Docs-only diff** — invoke `stone-giant:technical-writing` and
   `stone-giant:writing-markdown` and skip the code-centric lenses; keep
   `simplify` for cross-document consistency.
-- **Migration / pure-SQL diff** — drop the frontend lenses entirely and
-  lead with the data-layer group (`stone-giant:sql-server-safety`,
-  `stone-giant:sql-server-performance`,
-  `stone-giant:relational-db-theory`, `stone-giant:sql-server`, plus
-  `stone-giant:drizzle-migrations` / `stone-giant:postgresql` when the
-  files say so). Keep `simplify` for duplicated SQL and DRY across
-  SQL + TS.
+- **Migration / pure-SQL diff** — drop the frontend lenses. Lead with the
+  dialect the files use: Postgres → `stone-giant:postgresql` +
+  `stone-giant:relational-db-theory` (plus `stone-giant:drizzle-migrations` if
+  Drizzle); T-SQL → `stone-giant:sql-server` + `stone-giant:sql-server-safety` +
+  `stone-giant:sql-server-performance` + `stone-giant:relational-db-theory`;
+  Kysely → `stone-giant:kysely-orm`. Keep `simplify` for duplicated SQL and
+  DRY across SQL + TS.
 
 - **Preview URL / user-visible change** — note that a click-test is warranted.
   The worker does not click.
