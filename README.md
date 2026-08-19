@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Thirty-six skills pulled from our private toolchain and
+We use these every day. Thirty-seven skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -19,7 +19,7 @@ claude plugin install stone-giant@stone-giant-studio-skills
 command registers it, the second installs the one plugin it publishes.
 
 Commands arrive namespaced: `/stone-giant:park`, `/stone-giant:score`,
-`/stone-giant:eval-npm`.
+`/stone-giant:eval-npm`, `/stone-giant:deep-review`.
 
 **All other agents** — Cursor, Codex, Gemini CLI, Amp, Cline, and
 [50+ more](https://skills.sh) — install via skills.sh:
@@ -83,6 +83,24 @@ Stop guessing. Set a target and let it iterate.
 /stone-giant:score             # Score the current artifact
 /stone-giant:score 90          # Auto-iterate to 90/100
 /stone-giant:score 95 README.md  # Iterate a specific file
+```
+
+### /stone-giant:deep-review — Review the Diff, Not the Pitch
+
+A PR description tells you what the author wanted you to see. The diff
+tells you what actually landed. Rubber-stamp reviews miss the extra
+abstraction, the missing test, the hole that "works on my machine."
+
+Deep-review reads the GitHub diff without cloning. One worker per PR.
+It loads only the sibling skills the files actually need, then returns a
+verdict: blockers, should-fix, nits, and a delete-list for what did not
+need to exist.
+
+```text
+/stone-giant:deep-review                 # current-branch PR
+/stone-giant:deep-review 123             # PR #123 in this repo
+/stone-giant:deep-review owner/repo#123
+/stone-giant:deep-review https://github.com/owner/repo/pull/123
 ```
 
 ### /stone-giant:eval-npm — Pick Dependencies You Won't Regret
