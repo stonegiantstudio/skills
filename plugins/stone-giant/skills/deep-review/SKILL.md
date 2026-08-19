@@ -1,11 +1,16 @@
 ---
-description: Use when reviewing one or more GitHub PRs against a diff — bugs, security, intent mismatch, missing tests, YAGNI, over-engineering, and oversized diffs. Accepts a PR URL, owner/repo#N, or a PR number in the current repo.
+description: Use when reviewing one or more GitHub PRs against a diff — bugs, security, intent mismatch, missing tests, YAGNI, over-engineering, and oversized diffs. Accepts a PR URL, owner/repo#N, or a PR number in the current repo. Read-only report.
 ---
 
 # Deep Review
 
 Review a GitHub pull request from the diff, not from the PR body's claims.
-Cite file + evidence. No performative review.
+Read-only: do not edit code, commit, push, or post a GitHub review unless
+the user asked. Cite `file:line`. No performative review.
+
+This file is the protocol. A repo that wants extra lenses (tenant rules,
+local linters, a harness) lists those extras locally. It does not copy
+this flow.
 
 ## Parse arguments
 
@@ -32,7 +37,7 @@ Cite file + evidence. No performative review.
 ## Isolation
 
 One worker per PR. Inputs for that worker: owner, repo, PR number, head SHA,
-branch, that PR's diff. No shared context across reviews.
+branch, that PR's actual base, that PR's diff. No shared context across reviews.
 
 Label every finding with `#N`. If two PRs in the same run touch the same file,
 say so in a **separate note**. Do not merge findings.
@@ -44,7 +49,10 @@ same folder.
 
 Do not clone the repo to read a diff. Use the GitHub connector, `gh`, or the
 GitHub API (`pulls`, files, reviews). Resolve owner/repo/number, then fetch
-head SHA, branch, files, and the patch.
+head SHA, **the PR's base branch** (never assume `main`), files, and the patch.
+
+If there is no PR yet and you are already inside a checkout, `git fetch` and
+diff `origin/<default-or-stacked-base>...HEAD`. Do not clone to get a checkout.
 
 Do not post a GitHub review comment unless the user asked.
 
@@ -71,8 +79,24 @@ them in the review opener. Do not load the whole catalog.
 | Docs / README | `technical-writing` |
 | CI workflows | `ci-performance` |
 
-If a tenant/org isolation skill is installed, load it when the diff has
-`orgId`, tenant, or isolation checks. Do not require one.
+Skipping a lens because the diff does not warrant it is correct and silent.
+Skipping one because the skill failed to resolve is a defect: name that lens
+in the opener under **Lenses failed to load**.
+
+Tag every finding with the lens(es) that raised it.
+
+## Extra lenses
+
+After the sibling table, load extras that are **already installed** and that
+the diff actually needs:
+
+- a tenant/org isolation skill, when the diff has `orgId`, tenant, or isolation checks
+- `simplify`, `eval-npm`, or other installed skills that match the files
+- any list the current repo keeps under `.claude/deep-review-lenses.md`
+  (or a short "Deep review extra lenses" section in `CLAUDE.md` / `AGENTS.md`)
+
+Do not require extras. Do not copy a second review protocol into the repo.
+Extra lenses only — same skip/fail-to-load rules, same tags.
 
 If `ponytail` or `thermo-nuclear-code-quality-review` happen to be installed,
 using them is optional. This skill already inlines that intent.
@@ -95,28 +119,64 @@ accessibility basics.
 
 Independently verify claims. Do not take the PR body at its word.
 
+## Read the files
+
+For each new or substantially-changed file, read the full file, not only the
+hunk. A finding often lives in code the diff calls but did not touch.
+
 ## Click-test
 
 If the PR has a preview URL and the change is user-visible or critical, note
 that a click-test is warranted. Do not clone, do not start localhost, and do
 not write Playwright unless the user asked.
 
+## Edge cases
+
+- **Empty diff** — nothing to review; stop.
+- **Docs-only** — load `technical-writing` (and `writing-markdown` if installed);
+  skip code lenses.
+- **Dependency bump only** — load `npm-security-advisory` and `eval-npm` if
+  present; skip the rest.
+- **No PR yet** — review the branch diff against the resolved base; say that
+  scope is inferred from the diff alone.
+
 ## Output
 
-Start with the opener: PR `#N`, head SHA, skills loaded.
+```text
+# Deep PR review — #N "<title>"
 
-Then a verdict: `approve` / `request-changes` / `comment`.
+**SHA:** <head>
+**Base:** <base branch>
+**Lenses loaded:** …
+**Lenses failed to load:** … | none
+**Verdict:** approve | request-changes | comment
 
-Then, only sections that have items:
+## Blockers
+### B1. <title> [lens]
+<file:line> — evidence. Suggested fix.
 
-- **Blockers** — must fix before merge
-- **Should-fix**
-- **Nits**
-- **Delete-list** — YAGNI / unused / extra deps
-- **What is good**
+## High
+### H1. …
 
-Every item cites a file and the evidence. No filler praise. No review of
-files the diff did not touch.
+## Medium
+### M1. …
+
+## Nits
+- **N1** [lens] <file:line> — one line
+
+## Delete-list
+- unused / extra dep / scaffolding that did not need to exist
+
+## What's good
+- <bullet>
+```
+
+Omit empty sections. Every item cites `file:line` and at least one lens tag.
+No filler praise. No review of files the diff did not touch.
+
+Blockers are merge-stoppers (bugs, security, broken intent, missing tests for
+new behavior, trust-boundary holes). High compounds. Medium is dead ceremony.
+Nits are not load-bearing.
 
 ---
 
