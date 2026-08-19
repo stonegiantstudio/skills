@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.5.0] — 2026-08-18
+
+### Added
+
+- **screen-performance** — measure-first loop for slow app screens:
+  three-tier budgets (structural / wall-clock / field-p75 Core Web
+  Vitals), paste-safe measurement snippets that fail loudly on non-200
+  and redirected responses, and ten patterns ranked by leverage (serial
+  loader waves → batched round trips → N+1 via TVPs → payload
+  projection → client-derivable data → the navigation revalidation
+  tax → per-item listeners → virtualization → optimistic UI → pending
+  feedback), plus a traps section (dev-vs-prod wall-clock, buffered
+  observers, occluded-tab rAF, redirects reading as 200).
+
+### Changed
+
+- **react-router-v7** — the revalidation section now distinguishes
+  post-action revalidation (embrace it) from navigation revalidation on
+  heavy loaders (a measurable cost; classify and opt out), and
+  cross-references screen-performance; descriptions on both skills name
+  each other so the router picks the right one.
+
 ## [1.4.0] — 2026-07-30
 
 ### Added
