@@ -18,7 +18,7 @@ metadata:
 
 # SQL Server & Azure SQL Database Design
 
-Database design guidance specific to Microsoft SQL Server and Azure SQL Database. This skill covers SQL Server-specific patterns—for universal relational theory (normalization, keys, constraints), see the `relational-db-theory` skill.
+Database design guidance specific to Microsoft SQL Server and Azure SQL Database. This skill covers SQL Server-specific patterns—for universal relational theory (normalization, keys, constraints), see the `stone-giant:relational-db-theory` skill.
 
 ## Azure SQL vs On-Premises: Critical Differences
 

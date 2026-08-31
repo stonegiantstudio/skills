@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Thirty-six skills pulled from our private toolchain and
+We use these every day. Thirty-seven skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -19,7 +19,7 @@ claude plugin install stone-giant@stone-giant-studio-skills
 command registers it, the second installs the one plugin it publishes.
 
 Commands arrive namespaced: `/stone-giant:park`, `/stone-giant:score`,
-`/stone-giant:eval-npm`.
+`/stone-giant:eval-npm`, `/stone-giant:deep-review`.
 
 **All other agents** — Cursor, Codex, Gemini CLI, Amp, Cline, and
 [50+ more](https://skills.sh) — install via skills.sh:
@@ -83,6 +83,26 @@ Stop guessing. Set a target and let it iterate.
 /stone-giant:score             # Score the current artifact
 /stone-giant:score 90          # Auto-iterate to 90/100
 /stone-giant:score 95 README.md  # Iterate a specific file
+```
+
+### /stone-giant:deep-review — Review the Diff, Not the Pitch
+
+A PR description tells you what the author wanted you to see. The diff
+tells you what actually landed. Rubber-stamp reviews miss the extra
+abstraction, the missing test, the hole that "works on my machine."
+
+Deep-review works from the patch, not the pitch. In a checkout it diffs
+against the PR's real base and runs a parallel `codex` second opinion;
+without one it reads the same diff over the GitHub API rather than
+cloning. One worker per PR. It loads only the sibling skills the files
+actually need, then returns a verdict: blockers, high, medium, nits, and
+a delete-list for what did not need to exist.
+
+```text
+/stone-giant:deep-review                 # current-branch PR
+/stone-giant:deep-review 123             # PR #123 in this repo
+/stone-giant:deep-review owner/repo#123
+/stone-giant:deep-review https://github.com/owner/repo/pull/123
 ```
 
 ### /stone-giant:eval-npm — Pick Dependencies You Won't Regret
@@ -295,6 +315,12 @@ Everything else is **generated** — don't edit it by hand:
   **alphabetically** from the `skills/` directories, so don't hand-curate its
   order (the group `name`/`description` remain yours to edit)
 
+`--check` also asserts the two hand-maintained facts sync cannot generate:
+`package.json` and `plugin.json` carry the same version (an unbumped
+`plugin.json` means `claude plugin update` is a no-op and no existing
+install ever receives the change), and the README's headline count matches
+the number of `skills/` directories.
+
 Commit the regenerated files alongside your source change. To verify everything
 is in sync (e.g. in review or CI):
 
@@ -310,6 +336,12 @@ every skill into the plugin tree with two plugin-format transforms:
 - **Invocations** are namespaced: `/park` → `/stone-giant:park` (for every
   skill name under `skills/`). Paths, URLs, and longer identifiers are left
   untouched.
+- **Sibling references** are namespaced the same way: a backticked skill
+  name in prose (`` `park` `` → `` `stone-giant:park` ``) so a skill citing
+  its siblings names something that resolves on the plugin route. Source
+  keeps them bare, which is what resolves on the skills.sh route. A
+  backtick that follows a `/` is left alone, so slash-separated identifier
+  lists (`` `grade`/`score` ``) aren't mistaken for skill references.
 - **Frontmatter** drops the top-level `name:` field (Claude Code infers the
   name from the directory); `skills/` keeps it, as the agentskills.io spec
   requires. `allowed-tools` is also rewritten from the space-separated source

@@ -1,12 +1,12 @@
 ---
-description: Elite JavaScript/TypeScript developer with deep expertise in modern language features, performance optimization, and pragmatic engineering. Use when writing, reviewing, or debugging pure JS/TS or Node.js code, discussing language-level architecture decisions, or needing battle-tested patterns. Triggers on JavaScript, TypeScript, Node.js, Promise/async code, npm packages, and JS performance questions. For React and React Router v7 patterns, use the `react-router-v7` skill. For Zod schema design, use `zod-ninja`.
+description: Elite JavaScript/TypeScript developer with deep expertise in modern language features, performance optimization, and pragmatic engineering. Use when writing, reviewing, or debugging pure JS/TS or Node.js code, discussing language-level architecture decisions, or needing battle-tested patterns. Triggers on JavaScript, TypeScript, Node.js, Promise/async code, npm packages, and JS performance questions. For React and React Router v7 patterns, use the `stone-giant:react-router-v7` skill. For Zod schema design, use `stone-giant:zod-ninja`.
 ---
 
 # JS Ninja
 
 Act as a senior JavaScript/TypeScript engineer with 15+ years of production experience across startups and enterprise. Pragmatic over dogmatic — ship code that works, scales, and other devs can maintain.
 
-This skill owns **language-level** JS/TS/Node concerns. For React and React Router v7 patterns, use `react-router-v7`. For Zod schema design and cross-field validation, use `zod-ninja`. For boundary robustness (timeouts, retries, circuit breakers), use `robustness`.
+This skill owns **language-level** JS/TS/Node concerns. For React and React Router v7 patterns, use `stone-giant:react-router-v7`. For Zod schema design and cross-field validation, use `stone-giant:zod-ninja`. For boundary robustness (timeouts, retries, circuit breakers), use `robustness`.
 
 ## Core Philosophy
 
@@ -340,7 +340,7 @@ async function handleRequest(req: Request): Promise<Response> {
 }
 ```
 
-For Zod schema design and cross-field validation, see the `zod-ninja` skill.
+For Zod schema design and cross-field validation, see the `stone-giant:zod-ninja` skill.
 
 ## Module Boundaries (`.server.ts` / `.client.ts`)
 

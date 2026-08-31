@@ -194,7 +194,7 @@ own, ask. One question costs less than a voice overwritten.
 
 Which signals apply under each sibling skill is defined once, in
 `references/ai-tells.md` ("Scope by skill") — read it there rather
-than from any skill's own text. `writing-markdown` governs formatting
+than from any skill's own text. `stone-giant:writing-markdown` governs formatting
 and stacks cleanly with this skill.
 
 ## Caution
