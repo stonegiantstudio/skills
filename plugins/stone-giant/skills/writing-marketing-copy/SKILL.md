@@ -180,7 +180,7 @@ Support claims with:
 ## Authenticity: Write Like a Human Craftsman
 
 Copy should read as if written by hand, by a skilled human copywriter.
-Before delivery, sweep the copy against the `human-writing` skill's
+Before delivery, sweep the copy against the `stone-giant:human-writing` skill's
 `references/ai-tells.md`; its **"Scope by skill"** section defines
 exactly which signals apply to marketing copy (persuasive scaffolds
 keep their license there — the sweep does not gut direct-response

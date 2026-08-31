@@ -1,12 +1,12 @@
 ---
-description: Sign-up and sign-in UX as a design + copy discipline. Use when building or reviewing any auth surface — sign-up, sign-in, OTP, magic-link, passkey enrollment, forgot-password, recovery, or lockout. Owns the user-facing experience (copy, error states, recovery affordances, persona tests); defers integration mechanics to the relevant stack skill (`better-auth`, `resend`, `clerk`, etc.). See the "When to invoke" section for filename and import triggers.
+description: Sign-up and sign-in UX as a design + copy discipline. Use when building or reviewing any auth surface — sign-up, sign-in, OTP, magic-link, passkey enrollment, forgot-password, recovery, or lockout. Owns the user-facing experience (copy, error states, recovery affordances, persona tests); defers integration mechanics to the relevant stack skill (`stone-giant:better-auth`, `stone-giant:resend`, `clerk`, etc.). See the "When to invoke" section for filename and import triggers.
 ---
 
 # Sign-up and Sign-in
 
 Auth is the most consequential UX surface in any app. A user who can't sign up never becomes a user. A user who can't recover their account becomes a support ticket and, eventually, a refund. A user who gets shamed by an error message remembers it.
 
-This skill owns the **user-facing experience**: the layout, the copy, the recovery affordances, the trade-off decisions. Integration mechanics (SDK calls, plugin wiring, database schema, session cookies) live in stack-specific skills — invoke `better-auth`, `resend`, `clerk`, etc. for those.
+This skill owns the **user-facing experience**: the layout, the copy, the recovery affordances, the trade-off decisions. Integration mechanics (SDK calls, plugin wiring, database schema, session cookies) live in stack-specific skills — invoke `stone-giant:better-auth`, `stone-giant:resend`, `clerk`, etc. for those.
 
 The non-negotiable rule: **every auth surface must pass two persona tests at the same time.**
 
@@ -343,7 +343,7 @@ This trade-off matters most for **audiences who fail the persona test on the "sa
 
 ### Better Auth
 
-Defer integration mechanics to the `better-auth` skill. The UX-specific concerns this skill owns:
+Defer integration mechanics to the `stone-giant:better-auth` skill. The UX-specific concerns this skill owns:
 
 **Auto-sign-in after sign-up is the default and the right one.** `signUp.email` returns an active session; don't build a separate "now sign in" step. The inverse of what BA expects.
 
@@ -408,7 +408,7 @@ Single source of truth — a `normalizeUsPhone(input)` or equivalent E.164 norma
 
 ### Other stacks
 
-- **Resend / SendGrid / Postmark** — the `resend` skill (or equivalent) owns send mechanics. This skill owns the **content** of verification + reset emails.
+- **Resend / SendGrid / Postmark** — the `stone-giant:resend` skill (or equivalent) owns send mechanics. This skill owns the **content** of verification + reset emails.
 - **Clerk / Auth0 / Descope** — drop-in components are configurable; pick the configuration that aligns with this skill's patterns. The `clerk` / `vercel:auth` skills cover SDK specifics.
 - **Lucia / Auth.js** — manual session management. Apply the same UX patterns; the session implementation is orthogonal.
 
@@ -442,17 +442,17 @@ If the code under review matches any of these, fix before shipping.
 Triggers (Claude scans these on every read/write):
 
 - Filenames matching `sign-up*`, `sign-in*`, `signup*`, `signin*`, `verify-*`, `forgot-password*`, `reset-password*`, anything in `/auth/`
-- Files importing from `better-auth`, `@better-auth/*`, `twilio`, `next-auth`, `clerk`, `lucia`, `@auth/*`
+- Files importing from `stone-giant:better-auth`, `@better-auth/*`, `twilio`, `next-auth`, `clerk`, `lucia`, `@auth/*`
 - Editing email templates that contain verification codes or magic links
 - Reviewing PRs that touch the auth funnel
 - The user asks about auth UX, login flows, recovery, account safety, microcopy for auth, "users are abandoning at sign-up", "how do we handle MFA UX"
 
 Do NOT invoke for:
 
-- Pure backend auth wiring (defer to `better-auth`, `vercel:auth`, etc.)
+- Pure backend auth wiring (defer to `stone-giant:better-auth`, `vercel:auth`, etc.)
 - Authorization / RBAC (different domain)
 - OAuth provider configuration (defer to stack skills)
-- Marketing-funnel signup CRO (different goal — different skill, e.g. `writing-marketing-copy`)
+- Marketing-funnel signup CRO (different goal — different skill, e.g. `stone-giant:writing-marketing-copy`)
 
 ---
 
@@ -460,15 +460,15 @@ Do NOT invoke for:
 
 | Skill | When |
 |---|---|
-| `better-auth` | All Better Auth integration mechanics — SDK calls, plugin wiring, schema, session config |
-| `resend` | Transactional email send mechanics (this skill owns the *content*) |
+| `stone-giant:better-auth` | All Better Auth integration mechanics — SDK calls, plugin wiring, schema, session config |
+| `stone-giant:resend` | Transactional email send mechanics (this skill owns the *content*) |
 | `clerk`, `vercel:auth` | Hosted-auth provider configuration |
-| `design-ninja` | General visual hierarchy, spacing, typography primitives |
+| `stone-giant:design-ninja` | General visual hierarchy, spacing, typography primitives |
 | `frontend-design` | Distinctive visual treatment for auth surfaces that need it (rare — auth is usually neutral) |
-| `writing-marketing-copy` | The marketing page that links TO sign-up (different voice, different goals) |
-| `human-writing` | General (non-auth) UI strings and prose voice — this skill owns auth microcopy specifically |
-| `react-router-v7` | Route-module shape for sign-up/sign-in actions and loaders |
-| `testing-ninja` | E2E tests for auth flows |
+| `stone-giant:writing-marketing-copy` | The marketing page that links TO sign-up (different voice, different goals) |
+| `stone-giant:human-writing` | General (non-auth) UI strings and prose voice — this skill owns auth microcopy specifically |
+| `stone-giant:react-router-v7` | Route-module shape for sign-up/sign-in actions and loaders |
+| `stone-giant:testing-ninja` | E2E tests for auth flows |
 
 ---
 

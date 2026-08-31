@@ -66,6 +66,21 @@ function buildCommandRegex(skillNames) {
   return new RegExp("(^|[\\s`(*>\"'|])\\/(" + alt + ")(?![\\w/-])", "gm");
 }
 
+/** Regex matching backticked bare skill references, e.g. `park`.
+ *
+ *  Skills cite their siblings by name; on the plugin route those names only
+ *  resolve namespaced. Source keeps them bare because `skills/` is the
+ *  skills.sh artifact, where bare is what resolves.
+ *
+ *  A name that merely collides with a skill is not a reference. The guard: the
+ *  opening backtick must not follow a `/`, which is how slash-separated
+ *  identifier lists are written (`grade`/`score`/`metrics[]` — a JSON field,
+ *  not the `score` skill). */
+function buildSkillRefRegex(skillNames) {
+  const alt = [...skillNames].sort((a, b) => b.length - a.length).map(escapeRegExp).join("|");
+  return new RegExp("(^|[^/`])`(" + alt + ")`", "gm");
+}
+
 /** Split a SKILL.md into { fm, rest } at the closing `---` fence, or null.
  *  Anchors on a full `---` line (followed by newline or EOF) so a frontmatter
  *  value whose line merely starts with `---` can't truncate it early. */
@@ -96,9 +111,12 @@ function allowedToolsToList(md) {
   return "---\n" + fm + s.rest;
 }
 
-function transformSkillFile(relPath, buf, cmdRe) {
+function transformSkillFile(relPath, buf, cmdRe, refRe) {
   if (!relPath.endsWith(".md")) return buf; // copy non-markdown verbatim
-  let text = buf.toString("utf8").replace(cmdRe, (_m, pre, name) => `${pre}/${NS}:${name}`);
+  let text = buf
+    .toString("utf8")
+    .replace(cmdRe, (_m, pre, name) => `${pre}/${NS}:${name}`)
+    .replace(refRe, (_m, pre, name) => `${pre}\`${NS}:${name}\``);
   if (relPath.endsWith("SKILL.md")) text = allowedToolsToList(stripName(text));
   return Buffer.from(text, "utf8");
 }
@@ -110,8 +128,9 @@ function generate() {
   // 1. plugin skill copies
   const skillNames = readdirSync(SRC, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name);
   const cmdRe = buildCommandRegex(skillNames);
+  const refRe = buildSkillRefRegex(skillNames);
   for (const rel of listFiles(SRC)) {
-    files.set(join("plugins", NS, "skills", rel), transformSkillFile(rel, readFileSync(join(SRC, rel)), cmdRe));
+    files.set(join("plugins", NS, "skills", rel), transformSkillFile(rel, readFileSync(join(SRC, rel)), cmdRe, refRe));
   }
 
   // 2 & 3. platform manifest copies. Assumed byte-identical to the canonical
@@ -139,12 +158,60 @@ function generate() {
   return files;
 }
 
+const UNITS = ["zero","one","two","three","four","five","six","seven","eight","nine","ten",
+  "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+const TENS = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+
+/** Spell 0-99 the way the README writes its headline count ("Thirty-seven"). */
+function numberToWords(n) {
+  if (n < 20) return UNITS[n];
+  const t = TENS[Math.floor(n / 10)];
+  return n % 10 ? `${t}-${UNITS[n % 10]}` : t;
+}
+
+/** The surfaces `--check` could not see before, each of which has shipped wrong
+ *  at least once: a skill added without a version bump reaches no existing
+ *  plugin install (`plugin.json`'s version is what gates `claude plugin
+ *  update`), and the README's headline count drifts from the skill count. A
+ *  checklist did not hold these; an assertion does. */
+function auditUncheckedSurfaces(skillCount) {
+  const problems = [];
+
+  const pkgVersion = JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8")).version;
+  const pluginVersion = JSON.parse(
+    readFileSync(join(ROOT, "plugins/stone-giant/.claude-plugin/plugin.json"), "utf8")
+  ).version;
+  if (pkgVersion !== pluginVersion) {
+    problems.push(
+      `version mismatch: package.json is ${pkgVersion}, ` +
+        `plugins/stone-giant/.claude-plugin/plugin.json is ${pluginVersion}`
+    );
+  }
+
+  const readme = readFileSync(join(ROOT, "README.md"), "utf8");
+  const m = /^We use these every day\. ([A-Za-z-]+) skills pulled/m.exec(readme);
+  if (!m) {
+    problems.push("README.md: could not find the headline skill count sentence");
+  } else {
+    const expectedWord = numberToWords(skillCount);
+    if (m[1].toLowerCase() !== expectedWord) {
+      problems.push(
+        `README.md headline count is "${m[1]}" but skills/ holds ${skillCount} ` +
+          `(expected "${expectedWord[0].toUpperCase() + expectedWord.slice(1)}")`
+      );
+    }
+  }
+
+  return problems;
+}
+
 function main() {
   if (!existsSync(SRC)) {
     console.error(`Source directory not found: ${SRC}`);
     process.exit(1);
   }
   const expected = generate();
+  const skillCount = readdirSync(SRC, { withFileTypes: true }).filter((e) => e.isDirectory()).length;
 
   if (CHECK) {
     const problems = [];
@@ -159,12 +226,21 @@ function main() {
       if (!existsSync(dest)) problems.push(`missing: ${rel}`);
       else if (!readFileSync(dest).equals(buf)) problems.push(`out of date: ${rel}`);
     }
+    // Hand-maintained surfaces: sync cannot fix these, so report them apart
+    // from staleness rather than under a "run sync" banner that would not help.
+    const manual = auditUncheckedSurfaces(skillCount);
+
     if (problems.length) {
       console.error("Generated files are out of sync (run `npm run sync:plugin-skills`):");
       for (const p of problems.sort()) console.error("  - " + p);
-      process.exit(1);
     }
-    console.log(`Generated files are up to date (${expected.size} files).`);
+    if (manual.length) {
+      console.error("Hand-maintained files need editing (sync will not fix these):");
+      for (const p of manual.sort()) console.error("  - " + p);
+    }
+    if (problems.length || manual.length) process.exit(1);
+
+    console.log(`Generated files are up to date (${expected.size} files); version and README count agree.`);
     return;
   }
 

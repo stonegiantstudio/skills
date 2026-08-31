@@ -50,5 +50,5 @@ Skeleton:
 3. Alternatives considered and why they lost.
 4. Links to the reference for exact facts.
 
-Rules: may pair with `human-writing` for voice; still one term, one
+Rules: may pair with `stone-giant:human-writing` for voice; still one term, one
 meaning; no persuasive scaffolds.

@@ -6,6 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.5.0] — 2026-08-31
+
+### Added
+
+- **deep-review** — a public `/deep-review` skill: a multi-lens PR review
+  that reads the diff rather than the description. It routes sibling
+  skills by what the diff actually touches, runs an independent `codex`
+  pass in parallel when a checkout is available, and reports blockers /
+  high / medium / nits with a `file:line` on every finding. Read-only: it
+  never edits, commits, or pushes, and it posts to GitHub only when asked
+  with `--post`.
+- **deep-review** — `references/audit-specimens.md` carries the worked
+  incidents behind the two cross-cutting audits (framework-bypass and
+  recombination), so the protocol states the rule and the specimen stays
+  out of the context budget of every invocation.
+
+### Changed
+
+- **sync** — sibling-skill references in prose are now namespaced on the
+  generated plugin copies the same way command invocations already were:
+  `` `park` `` → `` `stone-giant:park` ``. Skills cite each other by name
+  and those names only resolve namespaced on the plugin route, so every
+  such citation was previously a dead name for plugin users. Source keeps
+  bare names, which is what resolves on the skills.sh route. A backtick
+  following a `/` is skipped so slash-separated identifier lists aren't
+  rewritten.
+
+### Fixed
+
+- **sync** — `--check` now asserts the two surfaces it could not see, both
+  of which have shipped wrong: `package.json` and `plugin.json` must carry
+  the same version, and the README's headline skill count must match the
+  number of `skills/` directories. An unbumped `plugin.json` makes
+  `claude plugin update` a no-op, so a release could add a skill that no
+  existing install would ever receive. A checklist did not hold this;
+  the assertion does.
+
 ## [1.4.0] — 2026-07-30
 
 ### Added
@@ -251,7 +288,8 @@ Initial public release. Extracted from private `stone-giant-skills` repo.
 - **eval-npm** — NPM package evaluation
 - **npm-security-advisory** — Security pre-check for npm packages
 
-[unreleased]: https://github.com/stonegiantstudio/skills/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/stonegiantstudio/skills/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/stonegiantstudio/skills/compare/v1.4.0...v1.5.0
 [1.2.0]: https://github.com/stonegiantstudio/skills/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/stonegiantstudio/skills/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/stonegiantstudio/skills/releases/tag/v1.0.0

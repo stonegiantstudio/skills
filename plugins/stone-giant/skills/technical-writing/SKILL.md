@@ -58,7 +58,7 @@ Pick one type per document; do not blend.
 
 Structures and skeletons: `references/doc-types.md`. How this skill
 pairs with its siblings is arbitrated in one place: the "Scope by
-skill" section of the `human-writing` skill's `references/ai-tells.md`.
+skill" section of the `stone-giant:human-writing` skill's `references/ai-tells.md`.
 
 ## Review
 

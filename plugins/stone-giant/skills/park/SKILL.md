@@ -390,7 +390,7 @@ End with exactly:
 This is a cognitive boundary marker. After this, the only correct response to a
 work thought is to recall that the ritual is complete and the plan is captured.
 
-If the user has the `zen-break` skill installed, optionally suggest one
+If the user has the `stone-giant:zen-break` skill installed, optionally suggest one
 transition activity (a short walk, change of clothes, a few breaths) as the
 bridge between work and personal time. One sentence.
 

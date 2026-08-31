@@ -4,7 +4,7 @@ description: React + React Router v7 framework mode expertise for Remix-style fu
 
 # React + React Router v7
 
-React Router v7 is the successor to Remix, providing a full-stack framework with file-based routing, data loading, and server rendering built on Vite. This skill owns both React Router patterns and general React patterns for this codebase. For language-level JS/TS (async, types, falsy gotchas, modern features), see `js-ninja`.
+React Router v7 is the successor to Remix, providing a full-stack framework with file-based routing, data loading, and server rendering built on Vite. This skill owns both React Router patterns and general React patterns for this codebase. For language-level JS/TS (async, types, falsy gotchas, modern features), see `stone-giant:js-ninja`.
 
 ## General React Patterns
 

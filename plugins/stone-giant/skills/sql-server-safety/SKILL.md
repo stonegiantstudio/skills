@@ -13,7 +13,7 @@ that cause production incidents: silent data corruption, unhandled errors,
 security vulnerabilities, and nondeterministic behavior.
 
 This skill is specific to SQL Server (T-SQL). For PostgreSQL patterns,
-see the `postgresql` skill. For Prisma ORM patterns, see `prisma-safety`.
+see the `stone-giant:postgresql` skill. For Prisma ORM patterns, see `prisma-safety`.
 
 ## Core Rules
 

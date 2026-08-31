@@ -10,25 +10,25 @@ Routes to specialized PDF skills based on the task.
 
 | Task | Skill | Use When |
 |------|-------|----------|
-| **Extract content** | `pdf-extract` | Reading PDFs, finding content, searching patterns, getting snippets with page numbers |
-| **Create documents** | `pdf-create` | Generating branded PDFs, professional typography, print-ready documents |
-| **Charts & graphs** | `pdf-charts` | Data visualization, reports with charts, dashboards to PDF |
+| **Extract content** | `stone-giant:pdf-extract` | Reading PDFs, finding content, searching patterns, getting snippets with page numbers |
+| **Create documents** | `stone-giant:pdf-create` | Generating branded PDFs, professional typography, print-ready documents |
+| **Charts & graphs** | `stone-giant:pdf-charts` | Data visualization, reports with charts, dashboards to PDF |
 
 ## Quick Routing
 
-**Need to read or search a PDF?** → Use `pdf-extract`
+**Need to read or search a PDF?** → Use `stone-giant:pdf-extract`
 - Find contract total price with page reference
 - Extract all instances of a pattern
 - Get text snippets with surrounding context
 - Analyze images within PDFs
 
-**Need to create a PDF?** → Use `pdf-create`
+**Need to create a PDF?** → Use `stone-giant:pdf-create`
 - Branded business documents
 - Professional typography (margins, spacing, kerning)
 - Print-production quality output
 - Multi-page reports with consistent styling
 
-**Need charts or graphs in a PDF?** → Use `pdf-charts`
+**Need charts or graphs in a PDF?** → Use `stone-giant:pdf-charts`
 - Bar charts, line graphs, scatter plots
 - Dashboards and data reports
 - Export visualizations to print-ready format

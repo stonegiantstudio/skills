@@ -33,8 +33,8 @@ pattern in this skill is derived from expert practitioners: Brent Ozar, Erik
 Darling, Paul White, Kendra Little, Itzik Ben-Gan, Aaron Bertrand, and
 Microsoft documentation.
 
-This skill covers **performance**. For schema design, see `sql-server`. For
-safety patterns, see `sql-server-safety`. For multi-tenant isolation, see
+This skill covers **performance**. For schema design, see `stone-giant:sql-server`. For
+safety patterns, see `stone-giant:sql-server-safety`. For multi-tenant isolation, see
 `multi-tenant-safety`.
 
 ---
