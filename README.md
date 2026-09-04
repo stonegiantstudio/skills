@@ -75,7 +75,9 @@ Score builds a rubric tailored to your specific artifact, weighted by what
 actually matters (security gets more weight on an API, clarity gets more
 weight on a landing page). It scores each dimension, tells you exactly what
 would raise the number, and can auto-apply improvements until you hit your
-target. Built-in guardrails prevent gaming: an honest 93 beats a padded 96.
+target. The critic is cold: a fresh subagent scores the artifact without the
+conversation that produced it. Built-in guardrails prevent gaming: a real 93
+beats a padded 96.
 
 Stop guessing. Set a target and let it iterate.
 

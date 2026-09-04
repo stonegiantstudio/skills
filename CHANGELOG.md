@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.5.0] — 2026-09-04
+
+### Changed
+
+- **score** — the critic is cold. Scoring is done by a fresh subagent
+  that receives only the artifact, its type, the locked rubric, and the
+  scoring and anti-gaming sections; it never sees the conversation, the
+  author's reasoning, a prior pass's notes, or the target. The main
+  thread applies improvements and re-dispatches. The critic runs on the
+  session's own model, never a smaller override, and a run with no
+  subagent capability says `Critic: in-thread` at the top so the reader
+  knows the cold guarantee did not hold. Prompted by the 2026-09-04
+  survey of PR-review practice: every vendor converged on a verifier
+  with no commitment to the finding, and the same argument applies to
+  a scorer with no commitment to the draft.
+
 ## [1.4.0] — 2026-07-30
 
 ### Added
