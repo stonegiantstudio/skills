@@ -1,11 +1,34 @@
 ---
-description: Score any artifact on a 1-100 rubric with auto-iteration to a target score (e.g. /stone-giant:score 90). Builds a tailored rubric, identifies what would raise the score, and can auto-apply improvements. Built-in guardrails prevent gaming.
+description: Score any artifact on a 1-100 rubric with auto-iteration to a target score (e.g. /stone-giant:score 90). A cold critic subagent that never sees the conversation builds a tailored rubric and scores; the main thread applies what would raise the score. Built-in guardrails prevent gaming.
 ---
-
 
 # Score
 
 Evaluate the current artifact — a plan, PRD, implementation, markdown document, or any scoped work — against a tailored rubric and assign a score from 1 to 100.
+
+## The critic is cold
+
+The scoring itself is done by a **fresh subagent that has never seen this conversation**. The session that wrote an artifact holds every assumption that shaped it, which is exactly the context a critic must not have: same context scoring itself is confirmation bias with a slash command. So the split is fixed:
+
+- **The critic** (a subagent via the Agent tool, read-only, run in the foreground) receives only: the artifact (a file path, or the content inline for an in-conversation artifact), its type in one line, the rubric when one is already locked, and the **Scoring Guidelines** and **Anti-Gaming Guardrails** sections of this file. It receives no conversation history, no author reasoning, no prior pass's suggestions, and no hint of the target score. It returns the rubric (on the first pass), the per-dimension scores with notes, the "what would raise the score" list, and the verdict — nothing else.
+- **The main thread** parses arguments, identifies the artifact, applies improvements, and re-dispatches the critic. It never scores.
+
+The critic runs on the session's own model, never a smaller override: a critic weaker than the author waves work through. If the harness has no subagent capability, score in-thread and write `Critic: in-thread (no subagent available)` at the top of the report, so a reader knows the cold guarantee did not hold for this run.
+
+**The critic brief.** Dispatch a read-only, general-purpose subagent in the foreground with exactly this, and nothing else:
+
+> You are scoring an artifact you have never seen before. Artifact: `<absolute path, or the full content inline>`. Type: `<one line, e.g. "a Claude Code skill file" or "a PRD">`. For an implementation spanning files, the files are: `<list>`.
+>
+> First pass only: "Build the rubric per the section below."
+> Every later pass instead: "Use this locked rubric, unchanged:" followed by the rubric table.
+>
+> `<paste the Build the Rubric section, without the example dimensions if the artifact type is obvious>`
+> `<paste the Scoring Guidelines section>`
+> `<paste the Anti-Gaming Guardrails section>`
+>
+> Return only: the rubric table (dimension, weight, score, notes), the "what would raise the score" list with point estimates, and a one-sentence verdict, in the Score and Report format. Do not return anything else.
+
+The critic gets the sections pasted, not a path to this file, so it cannot read the parts meant for the main thread. Check its return before using it: the weights must total 100, every dimension must carry a score and a note, and the rubric on a later pass must match the locked one. On a bad return, re-dispatch once with the same brief; if the second return is also bad, fall back to in-thread scoring and label it as above.
 
 ## Parse Arguments
 
@@ -65,7 +88,7 @@ Do not guess. Wait for the user to clarify before proceeding.
 
 ## Build the Rubric
 
-Create a rubric **tailored to the artifact type**. Use 5-8 dimensions, each weighted to total 100 points. Choose dimensions appropriate to the artifact:
+The critic builds the rubric on the first pass and returns it; the main thread hands the same rubric back on every later pass so the dimensions and weights stay locked. Create a rubric **tailored to the artifact type**. Use 5-8 dimensions, each weighted to total 100 points. Choose dimensions appropriate to the artifact:
 
 ### Example Dimensions by Type
 
@@ -109,7 +132,7 @@ Adapt freely — the rubric should match the artifact, not the other way around.
 
 ## Score and Report
 
-Present the score in this format:
+Present the critic's return as it came back, with a `Critic: subagent` or `Critic: in-thread (no subagent available)` line above it, in this format:
 
 ```text
 ## Score: XX/100
@@ -145,17 +168,17 @@ Present the score in this format:
 - **40-59** — Needs work. Core structure is there but significant gaps remain.
 - **Below 40** — Major rethink needed. Fundamental issues with approach or completeness.
 
-Be honest. A score of 95 should be rare and earned. Most first drafts land in the 55-75 range, and that's normal.
+Score strictly. A score of 95 should be rare and earned. Most first drafts land in the 55-75 range, and that's normal.
 
-**Self-evaluation bias:** If you wrote or generated the artifact being scored, call that out explicitly. Acknowledge the conflict of interest and be extra critical to compensate.
+**Self-evaluation bias:** The cold critic exists to remove it: the critic does not know who wrote the artifact or why. If the critic is running in-thread because no subagent is available, and the session wrote the artifact, say so at the top of the report and score with the extra severity the conflict demands.
 
 **Scoring someone else's work:** Frame everything constructively. The goal is to help, not to judge. Use language like "this could be strengthened by..." rather than "this is missing..." Lead with what's working before identifying gaps.
 
-**Disagreement:** If the user disagrees with a dimension score, discuss it. If their reasoning is sound, adjust. The rubric is a conversation starter, not a final judgment.
+**Disagreement:** If the user disagrees with a dimension score, discuss it. If their reasoning is sound, re-dispatch the critic with the user's argument appended to the brief as `The author disputes <dimension>: <their reasoning>` and let it re-score; the main thread does not edit a score by hand. The rubric is a conversation starter, not a final judgment.
 
 ## Anti-Gaming Guardrails
 
-When chasing a target score, it is tempting to invent changes that look like improvements. Do not. A higher score on a worse artifact is a failure, not a success. **An honest 93 beats a gamed 96.**
+When chasing a target score, it is tempting to invent changes that look like improvements. Do not. A higher score on a worse artifact is a failure, not a success. **A real 93 beats a gamed 96.**
 
 **Never introduce any of these to raise a score:**
 
@@ -194,7 +217,7 @@ The rubric is locked across passes for consistency — but if every remaining su
 
 When you see these signals, surface them explicitly rather than iterating further. Offer to re-weight the rubric with the user's input, then re-score. Do not silently adjust weights mid-run — that hides the problem.
 
-**If the user agrees to re-weight:** show the revised rubric, reset the delta baseline for subsequent passes, and annotate the journey table (e.g., `Pass 3 (rubric reset): 78/100 — weights revised`). Deltas after a reset are measured from the new baseline, not the original.
+**If the user agrees to re-weight:** show the revised rubric, dispatch a fresh critic with it as the locked rubric, reset the delta baseline for subsequent passes, and annotate the journey table (e.g., `Pass 3 (rubric reset): 78/100 — weights revised`). Deltas after a reset are measured from the new baseline, not the original.
 
 ## After Scoring
 
@@ -202,9 +225,9 @@ When you see these signals, surface them explicitly rather than iterating furthe
 
 When a target score is present, iterate automatically:
 
-1. **Score** the artifact as normal (full rubric breakdown on the first pass).
+1. **Score** the artifact by dispatching the cold critic (full rubric breakdown on the first pass).
 2. **Filter suggestions through the Anti-Gaming Guardrails.** Discard any improvement that would require an anti-pattern. If all remaining improvements pass the filter, apply the highest-leverage ones — do not ask, just do it. If filtering leaves nothing meaningful and the score is within 5 points of the target, invoke **Diminishing Returns** and stop. If the gap is larger than 5 and no legitimate improvements remain, invoke **Rubric Re-examination** instead.
-3. **Re-score** the improved artifact. For intermediate passes, show:
+3. **Re-score** the improved artifact by dispatching a fresh critic with the locked rubric; the previous critic's notes are not passed along. For intermediate passes, show:
    - The new score with delta: `## Score: XX/100 (+N)`
    - A brief summary of what was changed (2-3 sentences)
    - The next set of improvements to apply (already filtered)
@@ -251,7 +274,7 @@ End with:
 
 ### Manual Mode (No Target)
 
-When no target score is provided, show the full rubric breakdown and ask:
+When no target score is provided, dispatch the cold critic once, show the full rubric breakdown, and ask:
 
 > Want me to rewrite this to address the improvements above?
 
