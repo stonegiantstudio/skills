@@ -1,0 +1,28 @@
+{
+  "browsers": [
+    {
+      "name": "ab-1234abcd-mine",
+      "workspace": "0123456789abcdef",
+      "status": "open",
+      "browserType": "chromium-headless-shell",
+      "userDataDir": null,
+      "headed": false,
+      "persistent": false,
+      "attached": false,
+      "compatible": true,
+      "version": "1.64.0-alpha-1789764292000"
+    },
+    {
+      "name": "ab-1234abcd",
+      "workspace": "0123456789abcdef",
+      "status": "closed",
+      "browserType": "chromium-headless-shell",
+      "userDataDir": null,
+      "headed": false,
+      "persistent": false,
+      "attached": false,
+      "compatible": true,
+      "version": "1.64.0-alpha-1789764292000"
+    }
+  ]
+}

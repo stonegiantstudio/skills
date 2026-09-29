@@ -4,6 +4,7 @@
       "name": "Stone Giant Studio",
       "description": "Production-tested developer skills",
       "skills": [
+        "agent-browsing",
         "agent-operating-standard",
         "agent-philosophy",
         "better-auth",

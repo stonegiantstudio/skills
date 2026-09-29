@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.5.0] — 2026-09-28
+
+### Added
+
+- **agent-browsing** — a browser for coding agents that can't slow the
+  machine down or reach the person's own. `shot.mjs` takes one screenshot
+  of a URL, a local file or one mockup frame, then exits. `cli.mjs` runs
+  Playwright CLI headless, on pinned versions, with a ten-minute idle
+  timeout, snapshots kept out of the repo, and sessions named for the git
+  checkout; commands and flags that reach other sessions or the person's
+  Chrome are refused. `doctor.mjs` reports agent browsers and abandoned
+  ones; `reap.mjs` stops only a browser that is headless, driven over a
+  pipe with no debugging port, running a throwaway profile, and whose
+  launcher is gone, re-proven before every signal. `setup.mjs` installs
+  the pinned Playwright into a cache once per machine and keeps
+  Chromium's sandbox on wherever the machine can give one. It is the
+  first skill in this collection with code; its `node --test` suite runs
+  in CI with and without real browsers.
+
 ## [1.4.0] — 2026-07-30
 
 ### Added

@@ -1,0 +1,62 @@
+name: agent-browsing
+
+# agent-browsing is the one skill that ships code. Its suite runs twice: with
+# no browser installed, where only the tests that launch one may be skipped,
+# then after setup installs the pinned browsers, where none may be.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/agent-browsing/**"
+      - ".github/workflows/agent-browsing.yml"
+      - "package.json"
+  pull_request:
+    paths:
+      - "skills/agent-browsing/**"
+      - ".github/workflows/agent-browsing.yml"
+      - "package.json"
+
+concurrency:
+  group: agent-browsing-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    # The Linux the sandbox check was proven on: 23.10 and later block the
+    # user namespaces Chromium's sandbox needs, so setup records it as off.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      # Pinned to full commit SHAs (mutable tags can be repointed). Comments
+      # track the human-readable version; update SHA + comment together.
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      - name: Without a browser, only the tests that need one are skipped
+        shell: bash
+        run: |
+          AGENT_BROWSING_HOME="$RUNNER_TEMP/not-set-up" npm run --silent test:agent-browsing -- --test-reporter=tap | tee tap.txt
+          for line in '# fail 0' '# cancelled 0' '# todo 0'; do grep -qx "$line" tap.txt; done
+          awk '/# SKIP/ && !/# SKIP (run scripts\/setup\.mjs first|the pinned CLI is not installed \(run scripts\/setup\.mjs\))$/ { print "skipped for another reason: " $0; bad = 1 } END { exit bad }' tap.txt
+      - name: Set up the pinned browsers, ending with a real screenshot
+        run: node skills/agent-browsing/scripts/setup.mjs
+      - name: With them, every test runs, and none is skipped, cancelled or left to do
+        shell: bash
+        run: |
+          npm run --silent test:agent-browsing -- --test-reporter=tap | tee tap.txt
+          for line in '# fail 0' '# cancelled 0' '# skipped 0' '# todo 0'; do grep -qx "$line" tap.txt; done
+          tests="$(sed -n 's/^# tests //p' tap.txt)"
+          test "$tests" -ge 90 && test "$(sed -n 's/^# pass //p' tap.txt)" = "$tests"
+      - name: No browser of any age left running, and no profile left on disk
+        shell: bash
+        run: |
+          node skills/agent-browsing/scripts/doctor.mjs --json --min-age=0 > doctor.json
+          node -e 'const j = JSON.parse(require("fs").readFileSync("doctor.json", "utf8")); process.exit(j.browsers.length || j.unverified.length ? 1 : 0)'
+          profiles="$(node --input-type=module -e 'import("./skills/agent-browsing/scripts/lib/versions.mjs").then((v) => console.log(v.profileRoot()))')"
+          test -d "$profiles" && test -z "$(ls -A "$profiles")"

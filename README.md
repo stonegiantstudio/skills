@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Thirty-six skills pulled from our private toolchain and
+We use these every day. Thirty-seven skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -157,6 +157,31 @@ On a real Vitest + SQLite pipeline it cut code-gate feedback from ~3.4 min to
 ~1.5 min by sharding and parallelizing, with the bigger runner explicitly
 rejected.
 
+### agent-browsing — A Browser Your Agent Can't Leave Running
+
+Ask an agent to check a page and it reaches for a browser. Depending on the
+tool, that browser is your installed Chrome, its snapshots land in your repo,
+it idles for an hour, or it fights another agent for a fixed debugging port.
+And when a session dies, its browsers keep running: one public report counts
+eighteen abandoned daemons holding about 25 GB.
+
+This skill gives the agent a browser it can't misuse. `shot.mjs` takes one
+screenshot of a URL, a local file or a single mockup frame, then exits.
+`cli.mjs` runs a headless session on a pinned Playwright with a ten-minute idle
+timeout, and refuses the commands and flags that would reach your own Chrome,
+your logins or other checkouts' sessions. `doctor.mjs` lists what automation left behind, and `reap.mjs`
+stops only the browsers an automation tool launched and then abandoned; your
+own browsers and apps never qualify.
+
+It also covers protected Vercel previews, sending the bypass secret only to the
+preview host you name, and Linux servers where Chromium's sandbox isn't
+available.
+
+Unlike the rest of this collection, it ships Node scripts, for macOS and Linux.
+Run its `scripts/setup.mjs` once per machine: it installs a pinned Playwright
+into `~/.cache/agent-browsing`, never into your project, and its headless-shell
+builds where Playwright keeps its browsers, about 450 MB in all.
+
 ## Engineering & Design Skills
 
 These load automatically when you're working in the matching context — editing
@@ -259,6 +284,9 @@ Skills are markdown files that teach AI coding agents how to do specific
 things well. No binaries, no build step, no runtime dependencies. They work
 across Claude Code, Cursor, Codex, Gemini CLI, and 50+ other agents via the
 [agentskills.io](https://agentskills.io) spec. Install once, use everywhere.
+The one exception is **agent-browsing**, which also carries Node scripts and
+installs a pinned Playwright into a cache folder the first time you run its
+setup.
 
 ## Repo Structure
 
@@ -294,6 +322,13 @@ Everything else is **generated** — don't edit it by hand:
 - the skill list in `skills.sh.json` — sync owns this list and sorts it
   **alphabetically** from the `skills/` directories, so don't hand-curate its
   order (the group `name`/`description` remain yours to edit)
+
+**agent-browsing** is the one skill with code, and it has a test suite
+(`node --test`, no dependencies); its CI job also runs it with real browsers:
+
+```bash
+npm run test:agent-browsing
+```
 
 Commit the regenerated files alongside your source change. To verify everything
 is in sync (e.g. in review or CI):

@@ -1,0 +1,38 @@
+     1      0 43-13:20:44   18976 Mon Sep 28 13:47:00 2026 /sbin/launchd
+   901      1 10-02:00:00  410000 Mon Sep 28 13:47:00 2026 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+   902    901 10-02:00:00   90000 Mon Sep 28 13:47:00 2026 /Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer
+   903      1 09-00:00:00  300000 Mon Sep 28 13:47:00 2026 /Applications/Brave Browser.app/Contents/MacOS/Brave Browser
+   904      1 09-00:00:00  200000 Mon Sep 28 13:47:00 2026 /Applications/Arc.app/Contents/MacOS/Arc
+   905      1 09-00:00:00  150000 Mon Sep 28 13:47:00 2026 /Applications/Slack.app/Contents/MacOS/Slack
+   906    905 09-00:00:00   80000 Mon Sep 28 13:47:00 2026 /Applications/Slack.app/Contents/Frameworks/Slack Helper (Renderer).app/Contents/MacOS/Slack Helper (Renderer) --type=renderer
+   907      1 09-00:00:00   60000 Mon Sep 28 13:47:00 2026 /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent
+   908      1    02:00:00  120000 Mon Sep 28 13:47:00 2026 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --remote-debugging-port=9222 --user-data-dir=/Users/dev/chrome-debug-profile
+   909      1    02:00:00  110000 Mon Sep 28 13:47:00 2026 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --remote-debugging-port=9223 --user-data-dir=/tmp/manual-debug
+   910      1    05:00:00   90000 Mon Sep 28 13:47:00 2026 /Applications/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing
+   911      1    05:00:00    8000 Mon Sep 28 13:47:00 2026 /Applications/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Helpers/chrome_crashpad_handler --database=/Users/dev/Library/Application Support/Google/Chrome for Testing/Crashpad
+   912      1    03:00:00  400000 Mon Sep 28 13:47:00 2026 /Applications/Visual Studio Code.app/Contents/MacOS/Electron /Users/dev/src/chrome-headless-shell-experiments
+   913      1    03:00:00    9000 Mon Sep 28 13:47:00 2026 tmux new-session -s bench node bench.js /Users/dev/Library/Caches/ms-playwright/chromium_headless_shell-1243
+   914      1       00:30    3000 Mon Sep 28 13:47:00 2026 /bin/zsh -c du -sh /Users/dev/Library/Caches/ms-playwright/*
+   915      1    04:00:00  180000 Mon Sep 28 13:47:00 2026 /opt/cft/chrome-headless-shell-linux64/chrome-headless-shell --headless --remote-debugging-port=9222 --user-data-dir=/tmp/playwright_chromiumdev_profile-manual
+   916      1    04:00:00   60000 Mon Sep 28 13:47:00 2026 node /usr/lib/node_modules/@playwright/mcp/cli.js --executable-path=/home/dev/.cache/ms-playwright/chromium-1243/chrome-linux/chrome
+   917      1       00:10    2000 Mon Sep 28 13:47:00 2026 /bin/bash -lc npx --yes @playwright/cli@0.1.21 open https://example.com
+   918      1    06:00:00  350000 Mon Sep 28 13:47:00 2026 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --remote-debugging-pipe --user-data-dir=/Users/dev/Library/Application Support/Google/Chrome
+   919      1    03:00:00   40000 Mon Sep 28 13:47:00 2026 /Users/dev/.volta/bin/node -e setInterval(()=>{},1e6) -- --remote-debugging-pipe --user-data-dir=/tmp/playwright_chromiumdev_profile-decoy
+   920      1    03:00:00    2000 Mon Sep 28 13:47:00 2026 grep -r -- --remote-debugging-pipe --user-data-dir=/tmp/playwright_chromiumdev_profile- /Users/dev/logs
+   921      1    03:00:00  150000 Mon Sep 28 13:47:00 2026 /home/ci/.cache/ms-playwright/chromium_headless_shell-1243/chrome-linux/headless_shell --headless --remote-debugging-pipe --remote-debugging-port=9333 --user-data-dir=/tmp/playwright_chromiumdev_profile-port
+   922      1    03:00:00  150000 Mon Sep 28 13:47:00 2026 /Users/dev/Library/Caches/ms-playwright/chromium_headless_shell-1243/chrome-mac/headless_shell --headless --remote-debugging-pipe --user-data-dir=/Users/dev/.cache/agent-browsing/profiles-keep/work
+   923      1    03:00:00  300000 Mon Sep 28 13:47:00 2026 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --flag-switches-begin=--remote-debugging-pipe --user-data-dir=/tmp/playwright_chromiumdev_profile-x
+   924      1    03:00:00  260000 Mon Sep 28 13:47:00 2026 /Users/dev/Library/Caches/ms-playwright/chromium-1243/chrome-mac/Chromium.app/Contents/MacOS/Chromium --remote-debugging-pipe --no-first-run --user-data-dir=/var/folders/ab/T/playwright_chromiumdev_profile-headed
+   925      1    03:00:00  250000 Mon Sep 28 13:47:00 2026 /Users/dev/Library/Caches/ms-playwright/chromium_headless_shell-1243/chrome-mac/headless_shell --headless --remote-debugging-pipe --user-data-dir=/tmp/playwright_chromiumdev_profile-a --user-data-dir=/Users/dev/Library/Application Support/Google/Chrome
+  2000    555       05:00   50000 Mon Sep 28 13:47:00 2026 /Users/dev/.volta/tools/image/node/22.23.1/bin/node /Users/dev/.cache/agent-browsing/playwright-cli-0.1.21/node_modules/playwright-core/lib/entry/cliDaemon.js --session=ab-1
+  2001   2000       05:00  150000 Mon Sep 28 13:47:00 2026 /Users/dev/Library/Caches/ms-playwright/chromium_headless_shell-1246/chrome-headless-shell-mac-arm64/chrome-headless-shell --headless --remote-debugging-pipe --user-data-dir=/var/folders/pq/T/playwright_chromiumdev_profile-aLsyRU
+  2002   2001       05:00   40000 Mon Sep 28 13:47:00 2026 /Users/dev/Library/Caches/ms-playwright/chromium_headless_shell-1246/chrome-headless-shell-mac-arm64/chrome-headless-shell --type=renderer
+  2003   2001       05:00   60000 Mon Sep 28 13:47:00 2026 /Users/dev/Library/Caches/ms-playwright/chromium_headless_shell-1246/chrome-headless-shell-mac-arm64/chrome-headless-shell --type=renderer --remote-debugging-pipe --user-data-dir=/var/folders/pq/T/playwright_chromiumdev_profile-aLsyRU
+  3001      1    01:10:00  160000 Mon Sep 28 13:47:00 2026 /home/ci/.cache/ms-playwright/chromium_headless_shell-1243/chrome-linux/headless_shell --headless --remote-debugging-pipe --user-data-dir=/tmp/playwright_chromiumdev_profile-xyz
+  3002   3001    01:10:00   30000 Mon Sep 28 13:47:00 2026 /home/ci/.cache/ms-playwright/chromium_headless_shell-1243/chrome-linux/headless_shell --type=gpu-process
+  4001      1       10:00  200000 Mon Sep 28 13:47:00 2026 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --remote-debugging-pipe --user-data-dir=/Users/dev/.cache/chrome-devtools-mcp/chrome-profile-stable
+  4101      1       45:00  180000 Mon Sep 28 13:47:00 2026 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --headless=new --remote-debugging-pipe --user-data-dir=/var/folders/ab/T/puppeteer_dev_chrome_profile-Q1
+  4201   9999       40:00  120000 Mon Sep 28 13:47:00 2026 /Users/dev/Library/Caches/ms-playwright/chromium_headless_shell-1243/chrome-mac/headless_shell --headless --remote-debugging-pipe --user-data-dir=/Users/dev/.cache/agent-browsing/profiles/shot-7Hq2Lm
+  5000      1 01-00:00:00    9000 Mon Sep 28 13:47:00 2026 /usr/lib/systemd/systemd --user
+  5001   5000       10:00  140000 Mon Sep 28 13:47:00 2026 /home/ci/.cache/ms-playwright/chromium_headless_shell-1243/chrome-linux/headless_shell --headless --remote-debugging-pipe --user-data-dir=/tmp/playwright_chromiumdev_profile-desk
+  6001    555       20:00   47000 Mon Sep 28 13:47:00 2026 chrome-devtools-mcp
