@@ -19,11 +19,11 @@ const parentArgs = (pid) => byPid(pid)?.args ?? null;
 // folder named like a browser, shell commands that mention the browser cache,
 // browsers started by hand with a debugging port, a tool that opened the
 // person's real Chrome profile, chrome-devtools-mcp's persistent window, and
-// the second review's decoys: a node process and a grep carrying both flags as
-// text, a browser another tool still drives over a port, a profile folder
-// that only starts like ours, the pipe flag inside another argument, and from
-// the third: a headed window a person opened through Playwright, and a
-// browser whose last --user-data-dir, the one Chrome uses, is the person's.
+// decoys built to fool a text match: a node process and a grep carrying both
+// flags as text, a browser another tool still drives over a port, a profile
+// folder that only starts like ours, the pipe flag inside another argument, a
+// headed window a person opened through Playwright, and a browser whose last
+// --user-data-dir, the one Chrome uses, is the person's.
 const PEOPLE = [901, 902, 903, 904, 905, 906, 907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917, 918,
   919, 920, 921, 922, 923, 924, 925, 4001, 5000];
 

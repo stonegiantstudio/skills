@@ -9,10 +9,12 @@ on:
     paths:
       - "skills/agent-browsing/**"
       - ".github/workflows/agent-browsing.yml"
+      - "package.json"
   pull_request:
     paths:
       - "skills/agent-browsing/**"
       - ".github/workflows/agent-browsing.yml"
+      - "package.json"
 
 concurrency:
   group: agent-browsing-${{ github.ref }}
@@ -23,7 +25,9 @@ permissions:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # The Linux the sandbox check was proven on: 23.10 and later block the
+    # user namespaces Chromium's sandbox needs, so setup records it as off.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       # Pinned to full commit SHAs (mutable tags can be repointed). Comments
@@ -39,9 +43,7 @@ jobs:
         run: |
           AGENT_BROWSING_HOME="$RUNNER_TEMP/not-set-up" npm run --silent test:agent-browsing -- --test-reporter=tap | tee tap.txt
           for line in '# fail 0' '# cancelled 0' '# todo 0'; do grep -qx "$line" tap.txt; done
-          if grep '# SKIP' tap.txt | grep -vqE '# SKIP (run scripts/setup\.mjs first|the pinned CLI is not installed \(run scripts/setup\.mjs\))$'; then
-            echo "a test was skipped for a reason other than a missing browser"; exit 1
-          fi
+          awk '/# SKIP/ && !/# SKIP (run scripts\/setup\.mjs first|the pinned CLI is not installed \(run scripts\/setup\.mjs\))$/ { print "skipped for another reason: " $0; bad = 1 } END { exit bad }' tap.txt
       - name: Set up the pinned browsers, ending with a real screenshot
         run: node skills/agent-browsing/scripts/setup.mjs
       - name: With them, every test runs, and none is skipped, cancelled or left to do
@@ -49,10 +51,12 @@ jobs:
         run: |
           npm run --silent test:agent-browsing -- --test-reporter=tap | tee tap.txt
           for line in '# fail 0' '# cancelled 0' '# skipped 0' '# todo 0'; do grep -qx "$line" tap.txt; done
-          test "$(sed -n 's/^# pass //p' tap.txt)" -ge 90
+          tests="$(sed -n 's/^# tests //p' tap.txt)"
+          test "$tests" -ge 90 && test "$(sed -n 's/^# pass //p' tap.txt)" = "$tests"
       - name: No browser of any age left running, and no profile left on disk
         shell: bash
         run: |
           node skills/agent-browsing/scripts/doctor.mjs --json --min-age=0 > doctor.json
-          node -e 'process.exit(JSON.parse(require("fs").readFileSync("doctor.json", "utf8")).browsers.length ? 1 : 0)'
-          test -z "$(ls -A ~/.cache/agent-browsing/profiles)"
+          node -e 'const j = JSON.parse(require("fs").readFileSync("doctor.json", "utf8")); process.exit(j.browsers.length || j.unverified.length ? 1 : 0)'
+          profiles="$(node --input-type=module -e 'import("./skills/agent-browsing/scripts/lib/versions.mjs").then((v) => console.log(v.profileRoot()))')"
+          test -d "$profiles" && test -z "$(ls -A "$profiles")"

@@ -95,13 +95,14 @@ export function buildArgs(rawArgv, { parse, configPath, checkout }) {
   const replace = options.includes("--replace");
   const { rest, name } = takeSession([...options.filter((a) => a !== "--replace"), ...text]);
   const session = name === undefined ? checkout : scopedSession(name, checkout);
-  const args = [`-s=${session}`, ...rest];
-  const parsed = parse(args);
+  const [restOptions, restText] = splitAtEnd(rest);
+  const args = [`-s=${session}`, ...restOptions];
+  const parsed = parse([...args, ...restText]);
   if (parsed.s !== session || "session" in parsed) {
     throw new Error("cli: could not read which session these arguments name. Write it as -s=<name>, and other flags as --flag=value.");
   }
   // The CLI prints help or its version and exits before running anything.
-  if (parsed.help || parsed.h || parsed.version || parsed.v) return { args, command: undefined, session, replace };
+  if (parsed.help || parsed.h || parsed.version || parsed.v) return { args: [...args, ...restText], command: undefined, session, replace };
   const command = parsed._[0];
   if (command === undefined) throw new Error("cli: name a command, for example: open <url>");
   if (!SESSION_COMMANDS.has(command)) {
@@ -113,11 +114,20 @@ export function buildArgs(rawArgv, { parse, configPath, checkout }) {
   if (idle !== undefined && !(/^\d+$/.test(String(idle)) && Number(idle) >= 1 && Number(idle) <= MAX_IDLE_MS)) {
     throw new Error(`cli: --idle-timeout is milliseconds, 1 to ${MAX_IDLE_MS}; a session that never idles out is how machines fill up.`);
   }
+  // Our flags go before a bare `--`: after it the CLI reads them as plain
+  // text, and `open` would take --config=... for its URL and run with none.
   if (command === "open") {
     args.push(`--config=${configPath}`);
     if (idle === undefined) args.push("--idle-timeout=600000");
   }
-  return { args, command, session, replace };
+  const final = [...args, ...restText];
+  if (command === "open") {
+    const ran = parse(final);
+    if (ran.config !== configPath || !(Number(ran["idle-timeout"]) >= 1 && Number(ran["idle-timeout"]) <= MAX_IDLE_MS)) {
+      throw new Error("cli: could not start the session with this skill's config and idle timeout; write options before any bare --.");
+    }
+  }
+  return { args: final, command, session, replace };
 }
 
 // Whether `list --json` shows the session open. Output this code does not
@@ -153,11 +163,13 @@ export function loadParser(dir = cliDir()) {
 }
 
 // What the CLI and its browser inherit: no variables that reconfigure the
-// session behind the flags checked above, never the preview secret, and a
-// global config folder of our own in place of the person's.
+// session behind the flags checked above (PW_CHROMIUM_ATTACH_TO_OTHER, a
+// SELENIUM_REMOTE_URL that sends the launch to a remote grid), never the
+// preview secret, and a global config folder of our own in place of the
+// person's.
 export function childEnv(env, globalHome = cliGlobalHome(env)) {
   const out = Object.fromEntries(Object.entries(env).filter(([k]) =>
-    !/^(PLAYWRIGHT_MCP_|PLAYWRIGHT_CLI_|PWTEST_)/.test(k) && k !== "PWDEBUG" && k !== "VERCEL_AUTOMATION_BYPASS_SECRET"));
+    !/^(PLAYWRIGHT_MCP_|PLAYWRIGHT_CLI_|PWTEST_|PW_|SELENIUM_REMOTE_)/.test(k) && k !== "PWDEBUG" && k !== "VERCEL_AUTOMATION_BYPASS_SECRET"));
   // The CLI's daily update notice suggests a global install, which would pull
   // an agent off the pinned version.
   return { ...out, PWTEST_CLI_GLOBAL_CONFIG: globalHome, NO_UPDATE_NOTIFIER: "1" };

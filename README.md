@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Thirty-six skills pulled from our private toolchain and
+We use these every day. Thirty-seven skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -168,8 +168,8 @@ eighteen abandoned daemons holding about 25 GB.
 This skill gives the agent a browser it can't misuse. `shot.mjs` takes one
 screenshot of a URL, a local file or a single mockup frame, then exits.
 `cli.mjs` runs a headless session on a pinned Playwright with a ten-minute idle
-timeout, and that session can't reach your own Chrome, your logins or another
-agent's session. `doctor.mjs` lists what automation left behind, and `reap.mjs`
+timeout, and refuses the commands and flags that would reach your own Chrome,
+your logins or other checkouts' sessions. `doctor.mjs` lists what automation left behind, and `reap.mjs`
 stops only the browsers an automation tool launched and then abandoned; your
 own browsers and apps never qualify.
 
@@ -177,9 +177,10 @@ It also covers protected Vercel previews, sending the bypass secret only to the
 preview host you name, and Linux servers where Chromium's sandbox isn't
 available.
 
-Unlike the rest of this collection, it ships Node scripts. Run its
-`scripts/setup.mjs` once per machine: it installs a pinned Playwright and its
-headless shell into `~/.cache/agent-browsing`, never into your project.
+Unlike the rest of this collection, it ships Node scripts, for macOS and Linux.
+Run its `scripts/setup.mjs` once per machine: it installs a pinned Playwright
+into `~/.cache/agent-browsing`, never into your project, and its headless-shell
+builds where Playwright keeps its browsers, about 450 MB in all.
 
 ## Engineering & Design Skills
 

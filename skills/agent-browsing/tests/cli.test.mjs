@@ -138,6 +138,7 @@ test("the CLI inherits no variable that reconfigures the session, never the prev
   const env = childEnv({
     PATH: "/bin", HOME: "/h", PLAYWRIGHT_MCP_BROWSER: "chrome", PLAYWRIGHT_MCP_HEADLESS: "false", PLAYWRIGHT_CLI_SESSION: "x",
     PWTEST_DAEMON_SESSION_DIR: "/tmp/x", PWTEST_CLI_GLOBAL_CONFIG: "/Users/me", PWDEBUG: "1", VERCEL_AUTOMATION_BYPASS_SECRET: "s3cret",
+    PW_CHROMIUM_ATTACH_TO_OTHER: "1", PW_EXTENSION_MODE: "1", SELENIUM_REMOTE_URL: "http://grid.example:4444",
   });
   assert.deepEqual(env, { PATH: "/bin", HOME: "/h", PWTEST_CLI_GLOBAL_CONFIG: "/h/.cache/agent-browsing/cli-home", NO_UPDATE_NOTIFIER: "1" });
 });
@@ -192,6 +193,17 @@ test("with the CLI's own parser, a refused command cannot hide behind a flag tha
     ["-s=x", "--json", "true", "kill-all"], ["--", "kill-all"], ["--raw", "attach", "x"], ["-g", "install"],
     ["-js", "someone-else", "close"], ["-s=ab-1234abcd-/../../x", "close"]]) {
     assert.throws(() => build(argv, { parse }), /refused|could not read which session|session name/, argv.join(" "));
+  }
+});
+
+test("with the CLI's own parser, a bare -- cannot push the skill's config and idle timeout out of reach", real, () => {
+  const parse = loadParser();
+  for (const argv of [["open", "--idle-timeout=60000", "--"], ["open", "--"], ["open", "--", "https://example.com"]]) {
+    const args = build(argv, { parse });
+    const ran = parse(args);
+    assert.equal(ran.config, "/c/playwright-cli.json", argv.join(" "));
+    assert.ok(Number(ran["idle-timeout"]) >= 1, argv.join(" "));
+    assert.equal(args.indexOf("--") > args.findIndex((a) => a.startsWith("--config=")), true, "our flags come before the --");
   }
 });
 

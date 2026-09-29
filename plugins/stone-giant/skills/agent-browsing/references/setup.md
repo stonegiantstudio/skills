@@ -4,7 +4,7 @@ Run `node <skill>/scripts/setup.mjs` once per machine and `--link` once after it
 
 ## macOS
 
-**Clean up after every Claude Code session.** Add a `SessionEnd` hook to `~/.claude/settings.json`, merged with any hooks already there:
+**Clean up after every Claude Code session** (on a Linux desktop too). Add a `SessionEnd` hook to `~/.claude/settings.json`, merged with any hooks already there:
 
 ```json
 {
@@ -18,7 +18,7 @@ Run `node <skill>/scripts/setup.mjs` once per machine and `--link` once after it
 
 It stops only browsers an automation tool launched and then abandoned (see the rules in `SKILL.md`), and does nothing when there are none. When the skill's scripts change, run `setup.mjs --link` again: the hook runs the linked copy.
 
-**Old browser builds.** Every Playwright version installs its own browser build into `~/Library/Caches/ms-playwright`. Playwright deletes a build on its next install once no installed copy of Playwright uses it, so builds that linger are held by old copies: stale `npx` caches in `~/.npm/_npx` and other projects' `node_modules`. Check the size with `du -sh ~/Library/Caches/ms-playwright`. Don't run `playwright uninstall` to tidy up: it removes the builds the running installation uses.
+**Old browser builds.** Every Playwright version installs its own browser build into `~/Library/Caches/ms-playwright`. Playwright deletes a build on its next install once no installed copy of Playwright uses it, so builds that linger are held by old copies: stale `npx` caches in `~/.npm/_npx` and other projects' `node_modules`. Check the size with `du -sh ~/Library/Caches/ms-playwright`. Don't run `playwright uninstall` to tidy up: it removes the builds the running installation uses. Setup keeps Playwright from deleting builds it does not know about, so after a version bump the skill's own superseded headless-shell builds stay too, about 200 MB each; remove a `chromium_headless_shell-<build>` folder once no Playwright on the machine uses it. Files a session saves (snapshots, screenshots, traces) collect in `~/.cache/agent-browsing/playwright-cli-output`; clear it when it grows. Every path under `~/.cache` here moves with `XDG_CACHE_HOME` or `AGENT_BROWSING_HOME`.
 
 **chrome-devtools-mcp, when you need it.** Its default mode opens the installed Chrome with a window and a shared profile. Register it isolated and headless instead:
 
@@ -72,4 +72,4 @@ AGENT_BROWSING_BYPASS_HOSTS=myapp-git-my-branch-myteam.vercel.app \
   node <skill>/scripts/shot.mjs https://myapp-git-my-branch-myteam.vercel.app/ /tmp/preview.png
 ```
 
-The list is comma-separated, each entry a `host` or `host:port`, over https unless the host is this machine. Wildcards are refused: `vercel.app` project names are first come, first served, so a pattern like `*-myteam.vercel.app` matches a name anyone can register. `shot.mjs` adds the header only to requests for a listed host, and fetches them without following redirects, so a redirect to a payment page or a sign-in provider arrives there without it. Fonts, analytics and scripts the page loads from other origins never see it, and it is kept out of the browser's environment, out of `cli.mjs` sessions, and out of Playwright's debug logging.
+The list is comma-separated, each entry a `host` or `host:port`, over https unless the host is this machine. Wildcards are refused: `vercel.app` project names are first come, first served, so a pattern like `*-myteam.vercel.app` matches a name anyone can register. `shot.mjs` adds the header only to requests to the target's own origin, when its host is listed (a host matches on any port, `host:port` on that port only, without regard to case), and fetches those without following redirects, so a redirect to a payment page or a sign-in provider arrives there without it. Fonts, analytics and scripts the page loads from other origins never see it, and it is kept out of the browser's environment, out of `cli.mjs` sessions, and out of Playwright's debug logging.

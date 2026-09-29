@@ -19,6 +19,7 @@ const LOCAL = new Set(["localhost", "127.0.0.1", "[::1]"]);
 export function parseArgs(argv) {
   const pos = argv.filter((a) => !a.startsWith("--"));
   if (pos.length !== 2) throw new Error(USAGE);
+  if (!/\.(png|jpe?g)$/i.test(pos[1])) throw new Error(`${pos[1]}: the screenshot is written as .png, .jpg or .jpeg`);
   const flags = argv.filter((a) => a.startsWith("--"));
   const known = /^--(viewport|wait|timeout)=|^--full-page$/;
   const bad = flags.find((f) => !known.test(f));
@@ -38,7 +39,7 @@ export function parseArgs(argv) {
 }
 
 // http:, https:, file:, data: and about: pass through; anything else is a
-// path. A #fragment on a path is the page anchor (mockup.html#frame-D2 shoots
+// path. A #fragment on a path is the page anchor (mockup.html#frame-2 shoots
 // one frame), unless a file with that exact name exists.
 export function toUrl(target, cwd, home, exists = existsSync) {
   if (/^(https?|file|about):/i.test(target)) return new URL(target).href;
@@ -56,10 +57,13 @@ export function toUrl(target, cwd, home, exists = existsSync) {
   return pathToFileURL(whole).href;
 }
 
-// The Vercel bypass header goes only to a host listed exactly in
-// AGENT_BROWSING_BYPASS_HOSTS (host, or host:port), over https unless the host
-// is this machine. No wildcards: vercel.app project names are first come, first
-// served, so anyone can register a name that matches a pattern like *-team.
+// The Vercel bypass header goes only to requests for the target's own origin,
+// and only when its host is listed exactly in AGENT_BROWSING_BYPASS_HOSTS: a
+// host (any port) or host:port, compared without case or a trailing dot, over
+// https unless the host is this machine. No wildcards: vercel.app project
+// names are first come, first served, so anyone can register a name that
+// matches a pattern like *-team.
+const bareHost = (h) => h.toLowerCase().replace(/\.$/, "");
 export function bypassFor(url, env) {
   const secret = env[SECRET_VAR];
   if (!secret || !/^https?:/i.test(url)) return null;
@@ -69,7 +73,13 @@ export function bypassFor(url, env) {
     throw new Error("AGENT_BROWSING_BYPASS_HOSTS takes exact hosts; a wildcard would match names anyone can register");
   }
   const u = new URL(url);
-  if (!listed.some((h) => h === u.host || h === u.hostname)) return null;
+  const host = bareHost(u.hostname);
+  const port = u.port || (u.protocol === "https:" ? "443" : "80");
+  const matches = (entry) => {
+    const m = entry.match(/^(.*?)(?::(\d+))?$/);
+    return bareHost(m[1]) === host && (m[2] === undefined || m[2] === port);
+  };
+  if (!listed.some(matches)) return null;
   if (u.protocol !== "https:" && !LOCAL.has(u.hostname)) return null;
   return { origin: u.origin, headers: { "x-vercel-protection-bypass": secret, "x-vercel-set-bypass-cookie": "true" } };
 }
@@ -97,7 +107,8 @@ export function redact(text, secret) {
 // What the browser process inherits: never the secret, and no debug switches
 // that would log request headers.
 export function browserEnv(env) {
-  return Object.fromEntries(Object.entries(env).filter(([k]) => k !== SECRET_VAR && k !== "DEBUG" && k !== "PWDEBUG"));
+  return Object.fromEntries(Object.entries(env).filter(([k]) =>
+    k !== SECRET_VAR && k !== "DEBUG" && k !== "PWDEBUG" && !/^(PW_|SELENIUM_REMOTE_)/.test(k)));
 }
 
 // Profiles left by a run that was killed outright. No run lasts an hour
@@ -136,9 +147,15 @@ async function main() {
     console.error(`shot: Playwright is not set up on this machine. Run once: node ${setup}`);
     return 2;
   }
-  // Playwright's debug logging would print request headers, secret and all.
-  delete process.env.DEBUG;
-  delete process.env.PWDEBUG;
+  // Playwright's debug logging would print request headers, secret and all,
+  // and a SELENIUM_REMOTE_URL or PW_ switch would change where and how it
+  // launches the browser.
+  for (const k of Object.keys(process.env)) {
+    if (k === "DEBUG" || k === "PWDEBUG" || /^(PW_|SELENIUM_REMOTE_)/.test(k)) delete process.env[k];
+  }
+  if (secret && /^https?:/i.test(url) && !bypass) {
+    console.error(`shot: ${SECRET_VAR} is set, but ${new URL(url).host} is not in AGENT_BROWSING_BYPASS_HOSTS, so no bypass header is sent`);
+  }
   const { chromium } = createRequire(path.join(dir, "package.json"))("playwright-core");
 
   mkdirSync(profileRoot(), { recursive: true });

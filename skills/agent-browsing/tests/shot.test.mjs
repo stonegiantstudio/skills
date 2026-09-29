@@ -58,17 +58,21 @@ test("arguments parse, and anything malformed or out of range is an error", () =
     ["--timeout=30s", /timeout/], ["--timeout=0", /timeout/], ["--timeout=1000000", /timeout/],
     ["--wait=abc", /wait/], ["--wait=999999", /wait/], ["--fullpage", /unknown/],
   ]) assert.throws(() => parseArgs(["a.html", "out.png", flag]), why, flag);
+  for (const out of ["out.gif", "out", "out.png.txt"]) assert.throws(() => parseArgs(["a.html", out]), /\.png, \.jpg or \.jpeg/, out);
+  assert.equal(parseArgs(["a.html", "OUT.JPEG"]).out, "OUT.JPEG");
   assert.throws(() => parseArgs(["a.html"]), /usage/);
 });
 
 test("bad arguments and a malformed URL exit 2, as documented", () => {
   assert.equal(runShot(["a.html", "o.png", "--timeout=30s"]).status, 2);
   assert.equal(runShot(["a.html", "o.png", "--viewport=0x0"]).status, 2);
+  assert.equal(runShot(["a.html", "o.gif"]).status, 2, "an output it cannot write is refused before any browser starts");
   assert.equal(runShot(["http://[::1", "o.png"]).status, 2);
 });
 
 test("an output that exists and is not a regular file is refused, since a FIFO would hang the exit", () => {
-  const dir = tempDir();
+  const dir = path.join(tempDir(), "x.png");
+  mkdirSync(dir);
   const r = runShot(["a.html", dir]);
   assert.equal(r.status, 2);
   assert.match(r.stderr, /not a regular file/);
@@ -99,6 +103,12 @@ test("the bypass secret goes only to hosts listed exactly, over https unless the
   assert.equal(bypassFor("http://127.0.0.1:4101/", listed), null);
   assert.equal(bypassFor("file:///a.html", listed), null);
   assert.equal(bypassFor("https://preview.example.org/", { AGENT_BROWSING_BYPASS_HOSTS: "preview.example.org" }), null);
+  const cased = { ...env, AGENT_BROWSING_BYPASS_HOSTS: "Preview.Example.org., 127.0.0.1:4100, secure.example.org:443" };
+  assert.equal(bypassFor("https://preview.example.org/", cased).origin, "https://preview.example.org", "case and a trailing dot do not matter");
+  assert.equal(bypassFor("https://PREVIEW.example.org./", cased).origin, "https://preview.example.org.", "on either side");
+  assert.equal(bypassFor("https://secure.example.org/", cased).origin, "https://secure.example.org", "an explicit :443 is https's own port");
+  assert.equal(bypassFor("https://secure.example.org:8443/", cased), null, "and not another");
+  assert.equal(bypassFor("https://preview.example.org:8443/", cased).origin, "https://preview.example.org:8443", "a bare host matches it on any port");
   for (const wild of ["*-myteam.vercel.app", "*", "*.example.org"]) {
     assert.throws(() => bypassFor("https://a-myteam.vercel.app/", { ...env, AGENT_BROWSING_BYPASS_HOSTS: wild }), /exact hosts/, wild);
   }
@@ -129,7 +139,8 @@ test("the route covers the target origin alone, fetches without following redire
 });
 
 test("the browser inherits neither the secret nor the switches that log request headers", () => {
-  const env = browserEnv({ PATH: "/bin", VERCEL_AUTOMATION_BYPASS_SECRET: "s3cret", DEBUG: "pw:*", PWDEBUG: "1", HOME: "/h" });
+  const env = browserEnv({ PATH: "/bin", VERCEL_AUTOMATION_BYPASS_SECRET: "s3cret", DEBUG: "pw:*", PWDEBUG: "1", HOME: "/h",
+    PW_CHROMIUM_ATTACH_TO_OTHER: "1", SELENIUM_REMOTE_URL: "http://grid.example:4444" });
   assert.deepEqual(env, { PATH: "/bin", HOME: "/h" });
 });
 

@@ -2,7 +2,7 @@
   "browsers": [
     {
       "name": "ab-1234abcd-mine",
-      "workspace": "c0f69df46b2d901f",
+      "workspace": "0123456789abcdef",
       "status": "open",
       "browserType": "chromium-headless-shell",
       "userDataDir": null,
@@ -14,7 +14,7 @@
     },
     {
       "name": "ab-1234abcd",
-      "workspace": "c0f69df46b2d901f",
+      "workspace": "0123456789abcdef",
       "status": "closed",
       "browserType": "chromium-headless-shell",
       "userDataDir": null,

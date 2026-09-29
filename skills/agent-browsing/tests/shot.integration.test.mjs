@@ -278,3 +278,19 @@ test("the browser runs with the sandbox setting setup recorded: without it only 
   assert.equal(/(^|\s)--no-sandbox(\s|$)/.test(root.args), !sandboxSetting(), root.args.slice(0, 300));
   if (process.platform !== "linux") assert.equal(sandboxSetting(), true);
 }));
+
+test("a secret set for a host that is not listed sends nothing, and says so", { skip }, async () => {
+  const seen = [];
+  const server = await listen((req, res) => { seen.push(req.headers["x-vercel-protection-bypass"] ?? null); res.end("<!doctype html>ok"); });
+  const host = `127.0.0.1:${server.address().port}`;
+  try {
+    const out = path.join(tempDir(), "o.png");
+    const r = await runShot([`http://${host}/`, out], { VERCEL_AUTOMATION_BYPASS_SECRET: "s3cret", AGENT_BROWSING_BYPASS_HOSTS: "other.example.org" });
+    assert.equal(r.code, 0, r.stderr);
+    assert.ok(seen.length > 0 && seen.every((h) => h === null));
+    assert.match(r.stderr, new RegExp(`${host.replace(/\./g, "\\.")} is not in AGENT_BROWSING_BYPASS_HOSTS`));
+    assert.doesNotMatch(r.stdout + r.stderr, /s3cret/);
+  } finally {
+    server.close();
+  }
+});

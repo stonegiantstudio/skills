@@ -1,13 +1,13 @@
 ---
 name: agent-browsing
-description: Give a coding agent a browser without slowing down or cluttering the machine. Use it to look at a page, whether that means screenshotting a local HTML file or design mockup, checking localhost or a deployed or preview URL, clicking through a flow, or reading what a page shows. Covers which tool fits which job, protected Vercel previews, headless Linux servers, and finding and stopping browsers an agent left running. Triggers on "screenshot", "look at the page", "open the mockup", "check the preview", "is the UI right", "click through", "browser", "headless", "playwright", "orphaned chrome".
+description: Give a coding agent a browser without slowing down or cluttering the machine. Use it to look at a page, whether that means screenshotting a local HTML file or design mockup, checking localhost or a deployed or preview URL, clicking through a flow, or reading what a page shows. Covers which tool fits which job, protected Vercel previews, headless Linux servers, and finding and stopping browsers an agent left running. Triggers on "screenshot", "look at the page", "open the mockup", "check the preview", "is the UI right", "click through", "browser", "headless", "playwright cli", "orphaned chrome". Not for writing Playwright tests; testing-ninja covers those.
 ---
 
 # Agent browsing
 
 There are two ways to see a page. One screenshot starts a browser, takes the picture and exits. A session keeps a browser open while you drive it one command at a time. Both run headless in a throwaway profile, so they never touch the person's own Chrome, bind no port, and leave nothing running when they finish.
 
-`<skill>` below means this skill's folder, the base directory shown when the skill loads.
+`<skill>` below means this skill's folder, the base directory shown when the skill loads. The scripts run on macOS and Linux, with Node 22 or newer.
 
 ## The rules
 
@@ -41,7 +41,7 @@ node <skill>/scripts/shot.mjs <url|path> <out.png|out.jpg> [--viewport=1280x800]
 node <skill>/scripts/shot.mjs docs/mockups/checkout.html#frame-2 /tmp/frame-2.png --viewport=1100x1300
 
 # The app running locally, at phone size
-node <skill>/scripts/shot.mjs http://localhost:5173/ /tmp/today.png --viewport=390x844
+node <skill>/scripts/shot.mjs http://localhost:5173/ /tmp/home-phone.png --viewport=390x844
 
 # A deployed page
 node <skill>/scripts/shot.mjs https://example.com /tmp/home.png
@@ -68,7 +68,7 @@ node <skill>/scripts/cli.mjs requests                   # network requests
 node <skill>/scripts/cli.mjs close
 ```
 
-A snapshot is written to a file and only its path is printed. Read the file when you need it. A session can't open `file:` URLs; screenshot a local file with `shot.mjs`, or serve its folder and open the `http://` address. Commands that act on your session pass through. `node <skill>/scripts/cli.mjs --help` prints the CLI's whole list, including the commands below that `cli.mjs` refuses, and names Playwright's own agent skill; this skill's rules are the ones that apply. Commands that reach beyond your session (`kill-all`, `close-all`, `attach`, `show`, the installers) are refused. So are flags that reach the person's own Chrome, open a window, or swap in another config (`--profile`, `--persistent`, `--cdp`, `--extension`, `--headed`, `--browser`, `--config`), `list --all`, which reads every workspace and the person's Chrome profiles, and an `--idle-timeout` of 0 or over an hour.
+`open` and page actions save a snapshot of the page to a file and print its path; read the file when you need it. `snapshot` prints the elements directly, or saves them with `--filename=<path>`. A session can't open `file:` URLs; screenshot a local file with `shot.mjs`, or serve its folder and open the `http://` address. Commands that act on your session pass through. `node <skill>/scripts/cli.mjs --help` prints the CLI's whole list, including the commands below that `cli.mjs` refuses, and names Playwright's own agent skill; this skill's rules are the ones that apply. Commands that reach beyond your session (`kill-all`, `close-all`, `attach`, `show`, the installers) are refused. So are flags that reach the person's own Chrome, open a window, or swap in another config (`--profile`, `--persistent`, `--cdp`, `--extension`, `--headed`, `--browser`, `--config`), `list --all`, which reads every workspace and the person's Chrome profiles, and an `--idle-timeout` of 0 or over an hour.
 
 Two worktrees get two sessions. Two agents in one checkout share the default one, so a second `open` on a live session is refused, and so is one that starts at the same moment as another: pass `-s=<name>` for a session of your own, or `--replace` to start it over. A named session lives under the checkout's name, so `-s=main` in one worktree never reaches `-s=main` in another.
 
@@ -102,7 +102,7 @@ Apps you open, browsers you start by hand, a window you opened through Playwrigh
 ## First time on a machine
 
 ```bash
-node <skill>/scripts/setup.mjs            # about 200 MB, once
+node <skill>/scripts/setup.mjs            # about 450 MB, once
 node <skill>/scripts/setup.mjs --check    # exit 0 when ready, 3 when not
 node <skill>/scripts/setup.mjs --link     # a copy at ~/.local/share/agent-browsing/current for hooks and services
 node <skill>/scripts/setup.mjs --help
