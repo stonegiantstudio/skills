@@ -1,0 +1,58 @@
+name: agent-browsing
+
+# agent-browsing is the one skill that ships code. Its suite runs twice: with
+# no browser installed, where only the tests that launch one may be skipped,
+# then after setup installs the pinned browsers, where none may be.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/agent-browsing/**"
+      - ".github/workflows/agent-browsing.yml"
+  pull_request:
+    paths:
+      - "skills/agent-browsing/**"
+      - ".github/workflows/agent-browsing.yml"
+
+concurrency:
+  group: agent-browsing-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # Pinned to full commit SHAs (mutable tags can be repointed). Comments
+      # track the human-readable version; update SHA + comment together.
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+      - name: Without a browser, only the tests that need one are skipped
+        shell: bash
+        run: |
+          AGENT_BROWSING_HOME="$RUNNER_TEMP/not-set-up" npm run --silent test:agent-browsing -- --test-reporter=tap | tee tap.txt
+          for line in '# fail 0' '# cancelled 0' '# todo 0'; do grep -qx "$line" tap.txt; done
+          if grep '# SKIP' tap.txt | grep -vqE '# SKIP (run scripts/setup\.mjs first|the pinned CLI is not installed \(run scripts/setup\.mjs\))$'; then
+            echo "a test was skipped for a reason other than a missing browser"; exit 1
+          fi
+      - name: Set up the pinned browsers, ending with a real screenshot
+        run: node skills/agent-browsing/scripts/setup.mjs
+      - name: With them, every test runs, and none is skipped, cancelled or left to do
+        shell: bash
+        run: |
+          npm run --silent test:agent-browsing -- --test-reporter=tap | tee tap.txt
+          for line in '# fail 0' '# cancelled 0' '# skipped 0' '# todo 0'; do grep -qx "$line" tap.txt; done
+          test "$(sed -n 's/^# pass //p' tap.txt)" -ge 90
+      - name: No browser of any age left running, and no profile left on disk
+        shell: bash
+        run: |
+          node skills/agent-browsing/scripts/doctor.mjs --json --min-age=0 > doctor.json
+          node -e 'process.exit(JSON.parse(require("fs").readFileSync("doctor.json", "utf8")).browsers.length ? 1 : 0)'
+          test -z "$(ls -A ~/.cache/agent-browsing/profiles)"
