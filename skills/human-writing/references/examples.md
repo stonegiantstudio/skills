@@ -52,7 +52,7 @@ supplied on request. This list is the contract the rewrite is held to:
 - In-process was fastest but died on every deploy — twelve a day.
 - Memcached fixed that but lacks the sorted sets the leaderboard
   queries need.
-- Redis has them, so Redis won, mostly by elimination.
+- Redis has them, so we picked Redis, mostly by elimination.
 - p95 dropped to 140ms; the RDS bill fell 30% as read replicas went
   from three to one.
 - Invalidation is still the hard part. Two failures: stale session data
@@ -73,8 +73,8 @@ fact, so none of it had anything to survive as.
 >
 > We tried three options. In-process caching was fastest but died on
 > every deploy — twelve times a day. Memcached fixed that but lacks the
-> sorted sets our leaderboard queries need. Redis has them, so Redis
-> won, mostly by elimination.
+> sorted sets our leaderboard queries need. Redis has them, so we
+> picked Redis, mostly by elimination.
 >
 > The p95 dropped to 140ms and the RDS bill fell 30% because the read
 > replicas went from three to one.

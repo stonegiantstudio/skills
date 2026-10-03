@@ -36,7 +36,10 @@ him).
 
 - **Characters as subjects, actions as verbs.** "The committee decided"
   beats "a decision was reached by the committee." Readers parse
-  who-did-what fastest when grammar mirrors it.
+  who-did-what fastest when grammar mirrors it. When a person made the
+  call, the person is the subject: write "we rebuilt three of the games
+  in 3D," not "three of the games moved onto 3D boards." The detection
+  side is **false agents** in `references/ai-tells.md`.
 - **Old information before new.** Start sentences with what the reader
   already knows; land on what is new. Flow between sentences comes from
   this, not from connective words.
@@ -155,9 +158,10 @@ own, ask. One question costs less than a voice overwritten.
 7. **De-slop sweep as a check.** Load `references/ai-tells.md` and
    sweep. Here the sweep confirms; it does not construct, and its
    benchmark does not apply — see that file's Benchmark note. Run its
-   literal-question test on every phrase that sounds finished. A
-   grep matches words rather than shapes, and a fresh draft invents
-   its own flourishes rather than inheriting the original's.
+   literal-question test on every phrase that sounds finished, and its
+   false-agent pair test on every clause. A grep matches words rather
+   than shapes, and a fresh draft invents its own flourishes rather
+   than inheriting the original's.
 8. **Voice pass (last).** Does the whole read as one specific person —
    and, when the source supplied the voice sample, as *that* person?
    A rewrite that passes every other check and sounds like nobody has
@@ -181,8 +185,9 @@ own, ask. One question costs less than a voice overwritten.
 4. **De-slop pass.** Load `references/ai-tells.md` and sweep the draft
    against it; its benchmark says how much a real pass touches. Run
    its deletion test on every sentence that closes a paragraph or
-   section — closers are where filler hides, in every register — and
-   its literal-question test on every phrase that sounds finished.
+   section — closers are where filler hides, in every register — its
+   literal-question test on every phrase that sounds finished, and its
+   false-agent pair test on every clause.
    Worked demonstration: `references/examples.md`.
 5. **Experience pass.** First person where true, one anecdote, one
    thing that went wrong.

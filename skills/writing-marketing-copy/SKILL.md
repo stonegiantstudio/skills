@@ -201,6 +201,11 @@ Before delivering copy:
 - [ ] Is the CTA unmistakably clear?
 - [ ] Does it sound like a human, not a corporation? (Swept against
       the ai-tells catalogue?)
+- [ ] Wherever a person made the call, is the person the subject (we,
+      you, a named customer)? "We rebuilt the games," not "the games
+      moved"; software doing its job with no decision behind it ("the
+      app reminds you") stays. Run the false-agent pair test from the
+      ai-tells catalogue, which leaves a list of the clauses it checked.
 
 ## References
 

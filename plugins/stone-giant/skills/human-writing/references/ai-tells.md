@@ -38,7 +38,8 @@ active. Skills point here; none of them restate this.
   2's persuasive scaffolds (the not-X-but-Y family, rule-of-three,
   setup-colon-payoff, coaching imperatives) are direct-response craft
   when used deliberately; sweep them only when they read as filler
-  rather than persuasion.
+  rather than persuasion. False agents are not a scaffold and apply in
+  full: marketing copy is where they turn up most.
 - **technical-writing** — procedures and reference keep a neutral
   register and skip voice work entirely. Explanation-type docs may
   pair with human-writing, keeping one term one meaning and no
@@ -77,9 +78,8 @@ of them is a tell; the shape is, and a grep matches words rather than
 shapes. Run this test on anything that sounds finished. Move: answer
 the question in the prose, or cut the phrase.
 
-Paradox aphorisms (Signal 6) and agentless punch (Signal 2) are the
-two named forms this test catches most often; it is not limited to
-them.
+Paradox aphorisms (Signal 6) and false agents (Signal 2) are the two
+named forms this test catches most often; it is not limited to them.
 
 ## Signal 1 — predictable vocabulary
 
@@ -193,19 +193,48 @@ The same scaffolds, whatever the topic.
 - **Setup-colon-payoff** — "The result: …" / "The goal?" Move: a plain
   sentence.
 - **One-word fragment drama** — "Speed. Precision. Mastery." Move: cut.
-- **Agentless punch** — a short landing sentence whose subject cannot
-  perform its verb. "Neither noticed." Neither what? Two sessions, and
-  a session notices nothing. Same with "the system knows," "the
-  process caught it," "the run failed to flag it." The rhythm pass
-  asks for a short sentence after a long build, so the reach for one
-  comes before there is a subject to put in it, and a short sentence
-  reads as decisive even when its subject refers to nothing. This is
-  the detection side
-  of the Williams directive in `SKILL.md` — characters as subjects,
-  actions as verbs. Move: ask who did the thing. When the answer is a
-  session, a system, or a process, name the person or state what
-  happened instead: "the losses surfaced only when the two drafts were
-  compared."
+- **False agents** — a non-person subject standing in for the person who
+  decided or acted, in any clause, not only a short landing sentence. They
+  turn up most in product copy: the product is the topic, so the writer
+  puts the product, the page, or the table in the subject slot and gives
+  it a person's verb.
+  This is the detection side of the Williams directive in `SKILL.md`,
+  characters as subjects and actions as verbs.
+  - *Examples.* "Three of the games moved onto 3D boards." Games don't
+    move; a team rebuilt them. Same with "the update reached six games,"
+    "the post compares the options," "the app calls it a streak," "the
+    pricing page added a free tier," "the system knows," "the process
+    caught it." The short-landing form is **agentless punch**: "Neither
+    noticed." Neither what? Two sessions, and a session notices nothing.
+    A writer doing the rhythm pass reaches for a decisive short sentence
+    before there is a subject to put in it.
+  - *Pair test.* Read each clause's subject and verb alone ("games
+    moved," "post compares") and ask: is a person's decision or action
+    hiding behind this verb? If so, that person is the subject. Writers
+    miss it most in second clauses ("…, and the questions match your
+    level"), so test every clause, not only the openers. The test leaves
+    evidence: list each clause whose subject is not a person, with keep
+    or rewrite beside it. No list means the test did not run.
+  - *Move.* Make the actor the subject: the writer's company ("we rebuilt
+    three of the games in 3D"), the reader ("you score the same way"), or
+    a named person or organization ("Google added WebGL to Chrome in
+    version 9"). Don't escape into the passive ("three games were
+    rebuilt"); it hides the actor instead of naming it. When the actor is
+    unknown or beside the point, state the fact as a state: "the site has
+    had a 3D mode since 2026."
+  - *Not a tell.* States (is, has, contains, costs, lasts, depends on,
+    takes a duration); literal physical events (the ball bounces, the
+    paddle grows); characters acting inside a story or game; a publisher
+    as speaker ("MDN notes"); quoted text; a tool or change as the cause
+    of an effect ("caching cut p95 latency in half"). Software or a step
+    doing its job also stays wherever no person made the call: in
+    technical or instructional prose ("the function returns a list," "a
+    grep matches words") and in product copy ("the app reminds you each
+    evening"). The test targets the verbs that stand in for someone's
+    decision.
+  - *Sweep* (best-effort; proper names such as product names slip past
+    any word list, so the pair test is the check):
+    `grep -inE "\b((the|this|that|our|your|each|every|a|an|its|their|these|those|all|some|both|two|three|four|five|six|seven)\s+)?((new|free|old|latest|first|next|main|whole)\s+)?(tables?|charts?|posts?|pages?|articles?|guides?|sections?|lists?|panels?|switch(es)?|buttons?|updates?|releases?|games?|apps?|tools?|boards?|features?|tiers?|plans?|courses?|systems?|process(es)?|dashboards?|questions?|reports?|data|products?|platform|site)\s+(shows?|showed|covers?|covered|compares?|compared|moves?|moved|keeps?|kept|asks?|asked|calls?|called|lets?|uses?|used|offers?|offered|hands?|handed|brings?|brought|gives?|gave|reach(es)?|reached|walks?|walked|takes?|took|teach(es)?|taught|helps?|helped|makes?|made|wants?|wanted|knows?|knew|decides?|decided|builds?|built|catch(es)?|caught|notices?|noticed|match(es)?|matched|stays?|stayed|sits?|sat|draws?|drew)\b" draft.md`
 - **Coaching imperatives** — "Remember:", "Ask yourself…". Move: state
   the fact.
 - **Thesis-preview openers** — "In this section we'll explore…". Move:
