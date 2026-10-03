@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **human-writing** — the ai-tells catalogue's "agentless punch" entry
+  becomes **false agents**: a non-person subject standing in for the
+  person who decided or acted, in any clause, not only a short landing
+  sentence. Most of them turn up in product copy ("three of the games
+  moved onto 3D boards," "the update reached six games"). The entry now
+  includes a pair test that asks whether a person's decision hides behind
+  the verb and requires a list of the clauses it checked; a move that
+  names the real actor, or states the fact as a state, instead of escaping
+  into the passive; the cases that are not a tell; and a broader sweep,
+  checked against its own examples. Both rewrite workflows include the
+  pair test, the Williams directive covers the product case, and the
+  worked example in `examples.md` now passes it ("so we picked Redis").
+- **writing-marketing-copy** — false agents apply in full under this
+  skill, since they are not a persuasive scaffold, and the quality
+  checklist includes the pair test.
+
 ## [1.5.0] — 2026-09-28
 
 ### Added
