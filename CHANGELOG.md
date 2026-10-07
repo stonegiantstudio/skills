@@ -6,7 +6,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **npm-security-advisory** — the technique review for 2026-05-18 to
+  2026-10-07. Five new Step 4 checks: a `binding.gyp` that runs code
+  during install with no `scripts` entry (4h, the worm StepSecurity
+  reported on 2026-06-03); a payload
+  that runs when the module loads instead of at install (4i, AsyncAPI,
+  MemTensor, `@subql`); git, URL and file dependencies, and dependencies
+  created less than 48 hours before the release (4j); agent and editor
+  files that run on open, such as `.claude/settings.json` and
+  `.vscode/tasks.json` (4k); and a tarball more than 3× the size of the
+  previous one (4l). Provenance is no longer taken as proof: a
+  hijacked pipeline publishes with genuine attestations, so 4d compares
+  the attested workflow and ref with the previous version's
+  (`PROVENANCE_DRIFT`), and checks the attested repository against the
+  manifest's, since a worm can mint its own certificate. 4f searches file contents instead of file names
+  and adds the registry token API, the Bun dropper and decentralized
+  command channels. Eleven catalog rows and their tier rows,
+  `last_technique_review` set to 2026-10-07.
+
 ### Changed
+
+- **npm-security-advisory** — Step 4 reads npm 12's `npm view --json`
+  arrays (the last element), compares each version with the previous
+  one on the same major line (the previous major's last release for a
+  new major), and demotes the cadence checks to INFO on a types-only
+  tarball. Each fixes a false result found by running the rules on real
+  packages: backports to old majors (`ws`, `postgres-bytea`) and a
+  DefinitelyTyped follow-up fix (`@types/pg@8.23.1`).
 
 - **human-writing** — the ai-tells catalogue's "agentless punch" entry
   becomes **false agents**: a non-person subject standing in for the
