@@ -1,7 +1,7 @@
 ---
 description: Security advisory pre-check for npm packages using Socket.dev and OSV.dev. Triggers when installing, updating, evaluating, or adding npm packages. Use BEFORE any install, update, or evaluate operation to detect compromised, malicious, or vulnerable packages and their transitive dependencies.
 metadata:
-  last_technique_review: "2026-05-18"
+  last_technique_review: "2026-10-07"
   technique_stale_after_days: "30"
 ---
 
@@ -222,9 +222,13 @@ Fetch all the metadata Step 4 needs in a single call per package version:
 npm view <pkg>@<version> --json
 ```
 
-This returns `time`, `scripts`, `_npmUser`, `dist.tarball`, `dist.attestations`, `dist.signatures`, and `maintainers` in one response. Cache the result keyed by `<pkg>@<version>` for the duration of the skill invocation. Subsequent sub-steps (4a–4f) read from the cache instead of issuing separate `npm view <pkg>@<version> time.<version>` / `... scripts` / `... _npmUser` calls. Without batching, Step 4 issues ~5 HTTP requests per package and exceeds 500 requests on midsize projects; with batching it issues 1 per package per version. The illustrative commands in sub-steps below are the unbatched form for clarity — implementations should use the batched form.
+This returns `time`, `scripts`, `_npmUser`, `dist.tarball`, `dist.attestations`, `dist.signatures`, and `maintainers` in one response. Cache the result keyed by `<pkg>@<version>` for the duration of the skill invocation. Subsequent sub-steps (4a–4l) read from the cache instead of issuing separate `npm view <pkg>@<version> time.<version>` / `... scripts` / `... _npmUser` calls. Without batching, Step 4 issues ~5 HTTP requests per package and exceeds 500 requests on midsize projects; with batching it issues 1 per package per version. The illustrative commands in sub-steps below are the unbatched form for clarity — implementations should use the batched form.
 
 On `npm view` failure, retry once after 2 seconds. A second failure for a given package → tag `STEP4_UNAVAILABLE` for that package and continue with the rest of the scan.
+
+**Normalize the response shape.** Since npm 12.0.0 (2026-07-08), `npm view --json` always returns an array, even for one exact version. Take the last element when the result is an array and the caller expected an object. An implementation that reads `.scripts` or `.dist` off the array silently gets `undefined` and reports a clean package.
+
+**Compare within the release line.** Every "previous version" comparison in this step (4b, 4c, 4d, 4i, 4l) uses the highest stable version *below the target on the same major line*, not the most recently published version. For the first release of a new major, it is the highest stable version of the previous major (otherwise every file in `bcrypt@6.0.0` looks new). Maintainers publish backports to old majors (`ws` shipped four in three minutes on 2026-07-14; `postgres-bytea@1.0.1` landed after 3.0.0), and comparing a backport with a different major makes every check noisy.
 
 ### 4a. Publish Timestamp & Age
 
@@ -272,7 +276,7 @@ Fetch the publish history:
 npm view <pkg> time --json
 ```
 
-From the last 10 stable versions (ignore prereleases like `-alpha`, `-beta`, `-rc`, `-next`):
+From the last 10 stable versions on the target's major line (ignore prereleases like `-alpha`, `-beta`, `-rc`, `-next`):
 
 1. `median_gap` = median gap between consecutive publish timestamps.
 2. `current_gap` = gap between target version and the version immediately before it.
@@ -284,6 +288,8 @@ Flag conditions:
 - `current_gap < median_gap * 0.1` AND `median_gap > 7 days` → tag `CADENCE_ANOMALY` (tier HIGH).
 
 Skip these checks for packages with fewer than 5 historical stable versions (not enough signal).
+
+**Types-only guardrail.** A tarball that holds only `.d.ts`/`.d.mts` files, documentation and `package.json`, with no lifecycle script, cannot run code at install or load time. Demote `CADENCE_BURST` and `CADENCE_ANOMALY` to INFO for it: DefinitelyTyped's automation publishes follow-up fixes within hours (`@types/pg@8.23.1`, 2.5 h after 8.23.0, same `types` account).
 
 ### 4d. Provenance Attestation
 
@@ -298,6 +304,15 @@ Look at `dist.attestations` (and optionally `dist.signatures`).
 - Target has provenance → tag `PROVENANCE_OK` (tier INFO, positive signal).
 - Current had provenance, target does not → tag `PROVENANCE_REGRESSION` (tier HIGH). A strong compromise signal: an attacker can't reproduce the legitimate CI build, so they publish without attestation.
 - Neither has provenance → no tag (most packages don't have it yet, so absence isn't itself a signal).
+
+**Provenance can be real and still hostile.** Since mid-2026, attackers who reach a project's CI publish with genuine provenance: Red Hat's pipeline via GitHub Actions OIDC (2026-06-01), AsyncAPI through unsigned pushes to unprotected branches (2026-07-14), `keyv@6.0.0` (2026-08-04), `@subql` through a temporary branch that edited `publish.yml` (2026-10-05). `PROVENANCE_OK` alone proves where a build ran, not that the right workflow ran it. When both versions carry provenance, read the SLSA statement from `dist.attestations.url` (the DSSE envelope's base64 `payload` → `predicate.buildDefinition.externalParameters.workflow` = `{repository, path, ref}`) and compare:
+
+- The workflow `repository` or `path` differs from the previous version's → tag `PROVENANCE_DRIFT` (tier HIGH). Before escalating, note that npm allows several trusted-publishing configurations per package since 2026-09-03, so a second workflow *in the same repository* can be legitimate; a different repository never is.
+- The previous version was built from a tag (`refs/tags/…`) and the target from a branch (`refs/heads/…`) → tag `PROVENANCE_DRIFT` (tier HIGH).
+- The attested workflow `repository` differs from the manifest's `repository` (compare after normalizing: lowercase, drop `git+`, `.git`, a trailing slash and `#…`) → tag `PROVENANCE_DRIFT` (tier HIGH). A worm can mint a genuine Sigstore certificate, but only for a repository it controls.
+- The target carries the first attestation the package has ever had → tag `FIRST_PROVENANCE` (tier INFO). With `FRESH`, or with a `repository` change in the same version → HIGH. Worms now mint their own provenance: StepSecurity reports the `binding.gyp` worm requesting a Fulcio certificate and a Rekor entry for a SLSA attestation (2026-06-03), so provenance appearing on a package that never had it is a reason to look, not to relax.
+
+An attestation that can't be fetched or parsed is reported as `STEP4_UNAVAILABLE` for this check, never treated as absent.
 
 ### 4e. Maintainer & Publisher Anomaly
 
@@ -317,14 +332,14 @@ Worm payloads almost always live in a JS file inside the tarball, *not* in `pack
 
 **Layer 1 — lifecycle script body** (from 4b, no extra fetch). Run pattern matches against the normalized script source.
 
-**Layer 2 — tarball payload** (only when 4b tagged `SCRIPT_ADDED` or `SCRIPT_CHANGED`, or when 4a tagged `FRESH`). Otherwise, layer 2 is too expensive to run on every package.
+**Layer 2 — tarball payload** (when 4b tagged `SCRIPT_ADDED` or `SCRIPT_CHANGED`, when 4a tagged `FRESH`, or when 4h, 4i, 4k or 4l raised anything). Otherwise, layer 2 is too expensive to run on every package.
 
 Layer 2 procedure:
 
 1. From the cached `npm view` response, read `dist.tarball` (a tgz URL).
 2. Download the tarball: `curl -sL --max-time 30 -o /tmp/<pkg>-<version>.tgz <dist.tarball>`. Cap at 50 MB; abort and tag `TARBALL_OVERSIZED` (tier INFO) on larger packages.
 3. List entries without extracting: `tar -tzf /tmp/<pkg>-<version>.tgz`.
-4. Identify suspect-named files: `bundle.js`, `setup_bun.js`, `processor.js`, `dist/bundle.js`, `worm.js`, `index.payload.js`, plus any JS file >500KB (worms are typically minified+packed and unusually large).
+4. Identify suspect files: the entry module (`main`/`exports`), any file the lifecycle script or `binding.gyp` names, any JS file >500KB (worms are typically minified+packed and unusually large), and every `.js`/`.mjs`/`.cjs` file that is new since the previous version. Don't rely on file names: payloads moved from `bundle.js`/`setup_bun.js` to `setup.mjs`, `math_init.js`, `Math_Symbol.js`, `setup.cjs` and `opensearch_init.js` during 2026.
 5. Extract only those files: `tar -xzf /tmp/<pkg>-<version>.tgz -C /tmp/<pkg>-scan/ <suspect-paths>`.
 6. Run pattern matches against the extracted contents.
 
@@ -338,7 +353,9 @@ Layer 2 procedure:
 | String `"Shai-Hulud"`, `"shai-hulud"`, `"shai_hulud"` | Worm self-signature |
 | `trufflehog`, `gitleaks` binary refs in non-test files | Credential-scanner abuse |
 | `process\.env` enumerated AND POSTed to an external URL | Env exfiltration (look for `Object.keys(process.env)` or `JSON.stringify(process.env)` near `fetch(` / `XMLHttpRequest` / `https.request`) |
-| `npm publish` / `npm token` shell-out from a runtime file | Self-propagation primitive |
+| `npm publish` / `npm token` shell-out from a runtime file, or `/-/npm/v1/tokens` / `bypass_2fa` in any file | Self-propagation primitive (ChainDrop calls the registry API directly, so the shell-out pattern alone misses it) |
+| `oven-sh/bun/releases` | Bun-dropper loader (downloads Bun to run a second-stage payload), whatever the file is called |
+| `ipfs://`, `.ipfs.`, `wss://relay.` (Nostr), Ethereum `eth_call`, BitTorrent DHT bootstrap hosts | Decentralized payload hosting or command channel (AsyncAPI 2026-07, Unit 42). Low confidence alone: report as HIGH unless another pattern in this table also matches, then `IOC_MATCH` |
 | Embedded private SSH key headers (`-----BEGIN OPENSSH PRIVATE KEY-----`) | Credential staging |
 
 A match → tag `IOC_MATCH` at tier **MALWARE** (HARD STOP). Include the matched pattern name in the report so the user can verify. Override requires explicit user confirmation that names the specific pattern matched — this prevents a careless "y" from approving an actual worm.
@@ -357,6 +374,46 @@ npm view <pkg> versions --json
 
 - Installed version absent from the `versions` array → tag `YANKED` (tier **HIGH**). Recommend: update to the latest unaffected version, or pin to a known-good prior version. This is a signal that the ecosystem has retracted what you have installed.
 - Installed version still present but marked deprecated → tag `DEPRECATED_INSTALLED` (tier INFO). Check `npm view <pkg>@<version> deprecated` for the deprecation message; surface it.
+
+**When to read the tarball (4h–4l).** 4l, and the manifest halves of 4h (`gypfile`) and 4j (dependency specs), need only the cached metadata. 4h's `binding.gyp`, 4i and 4k read the tarball and the previous version's. In targeted mode (the packages being installed or updated, and their depth-1 dependencies) read both tarballs for every target. In full-scan mode, read them only for packages that 4a tagged `FRESH`, 4l tagged `SIZE_JUMP`, or whose `gypfile` flag or dependency specs changed — downloading every installed package's tarball twice is the cost Layer 2 already avoids.
+
+### 4h. Native Build Hook (`binding.gyp`)
+
+npm runs `node-gyp rebuild` for any package that ships a `binding.gyp`, with no entry in `scripts`, so 4b never sees it. The `binding.gyp` worm StepSecurity reported on 2026-06-03 shipped a 157-byte `binding.gyp` whose `sources` ran `<!(node index.js > /dev/null 2>&1 && echo stub.c)`, with no install script in `package.json`. A command expansion executes during the install.
+
+- Target has `binding.gyp` in the tarball, or `gypfile: true` in the manifest, and the previous version had neither → tag `GYP_ADDED` (tier HIGH).
+- `GYP_ADDED` **and** the new `binding.gyp` has a `<!(…)` or `<!@(…)` command expansion that runs a script file (`node <path>`), a shell (`sh`, `bash`) or a download tool (`curl`, `wget`) → `IOC_MATCH` (MALWARE). Expansions that only print a value (`node -p "require('node-addon-api').include"`) are how legitimate addons find headers.
+- A `binding.gyp` the previous version already had gains an expansion it didn't have → tag `GYP_EXPANSION_ADDED` (tier HIGH). Removed or unchanged expansions are not a signal: `better-sqlite3` has long run `<!(node lib/binding.js)` and `bcrypt` `<!(node -p …)`.
+
+npm 12 (2026-07-08) blocks dependency lifecycle scripts unless the root project's `allowScripts` permits them; GitHub's 2026-06-09 changelog says the implicit `node-gyp` build is covered too (the v12 release notes don't mention it). Projects on npm ≤11, pnpm, yarn and bun still run it.
+
+### 4i. Load-Time Payload (no install hook)
+
+Payloads now run when the package is *loaded*, which gets past every hook check, `--ignore-scripts`, and npm 12's script blocking: AsyncAPI (2026-07-14), MemTensor/sckit (2026-09-23, Go binaries under `lib/` spawned on load), `@subql/common@5.8.3` (2026-10-05, a `require.main !== module` branch in `readers/index.js`).
+
+Compare the target's entry module with the previous version's (same release line):
+
+- The entry module **gains** a capability it never used before — `child_process`, `detached: true`, `new Function`, `eval(` — or the added lines carry a base64/XOR blob of 1 KB or more → tag `LOADTIME_PAYLOAD` (tier HIGH). Judge by capability, not by changed lines: `esbuild` has always spawned its binary through `child_process`, and a reformatted line that mentions it is not a new capability.
+- An ELF, Mach-O or PE executable appears in the tarball that the previous version didn't ship → `LOADTIME_PAYLOAD` (tier HIGH). Node addons (`.node` files) are exempt in a package that ships `binding.gyp` or depends on `node-gyp-build`, `prebuildify`, `node-addon-api` or `@mapbox/node-pre-gyp`: that is how native packages ship prebuilt code (`bufferutil@4.1.0` added `prebuilds/*/bufferutil.node`). An executable that isn't an addon — MemTensor's Go binaries under `lib/` — is the signal.
+
+Two or more `LOADTIME_PAYLOAD` reasons on one package → CRITICAL (the combining rule below applies).
+
+### 4j. Dependency Source Anomalies
+
+- A dependency whose spec is `github:`, `git+`, `git:`, `https:` or `file:` and that the previous version didn't have in that form → tag `NONREGISTRY_DEP` (tier HIGH). Attacks pinned orphan commits this way (`github:owner/repo#<sha>` in `optionalDependencies`: TanStack 2026-05-11, @antv 2026-05-19, ChainDrop 2026-08-04). npm 12 refuses these by default (`allow-git`, `allow-remote` default to `none`); other package managers don't.
+- A dependency added in the target version whose own package was created less than 48 hours before the target was published → tag `NEW_PACKAGE_DEP` (tier HIGH). Read `time.created` for each added dependency. Mastra (2026-06-17) pulled in `easy-day-js`, published clean one day and malicious the next.
+
+### 4k. Agent and Editor Configuration Files
+
+Files that coding agents and editors execute on open turned up inside published tarballs during 2026 (ChainDrop, the `binding.gyp` worm, Red Hat): `.claude/settings.json` (a `SessionStart` hook), `.claude/*.mjs`, `.vscode/tasks.json` (`runOn: folderOpen`), `.cursor/rules/*.mdc`, `.gemini/settings.json`.
+
+- Any of these paths in the tarball → tag `AGENT_CONFIG` (tier HIGH). With `FRESH` → MALWARE. A published library has no reason to ship them; they run the moment someone opens `node_modules/<pkg>` (or a vendored copy) in an agent or editor.
+
+### 4l. Size Jump
+
+A cheap signal that catches several techniques at once: Red Hat's compromised packages went from about 200 KB to 4.29 MB unpacked.
+
+- `dist.unpackedSize` or `dist.fileCount` more than 3× the previous version's on the same release line → tag `SIZE_JUMP` (tier INFO). With `FRESH` → HIGH, and run 4f layer 2. It stays INFO on its own because legitimate packages grow too: `bcrypt@6.0.0` is 10× `5.1.1` because it began shipping prebuilt addons.
 
 ### Technique Catalog (Covered Techniques)
 
@@ -379,6 +436,17 @@ The catalog below is the authoritative list of supply-chain attack techniques th
 | Self-propagation primitive (`npm publish` shell-out) | 4f IoC pattern | Shai-Hulud, Sep 2025 |
 | Yanked-version installed (post-incident) | 4g `YANKED` | Generic remediation gap |
 | Transitive-dep compromise (axios → plain-crypto-js pattern) | Step 6 + Step 4 on transitive | axios, Mar 2026 |
+| Native build hook payload (`binding.gyp` command expansion) | 4h `GYP_ADDED` / `GYP_EXPANSION_ADDED` / `IOC_MATCH` | `binding.gyp` worm (StepSecurity), Jun 2026 |
+| Load-time payload with no install hook | 4i `LOADTIME_PAYLOAD` | AsyncAPI, Jul 2026 |
+| CI hijack publishing with genuine provenance | 4d `PROVENANCE_DRIFT` | Red Hat, Jun 2026 |
+| Worm-minted provenance (own Sigstore certificate) | 4d `PROVENANCE_DRIFT` (attested repo ≠ manifest) / `FIRST_PROVENANCE` | `binding.gyp` worm (StepSecurity), Jun 2026 |
+| Git or URL dependency pinned to an orphan commit | 4j `NONREGISTRY_DEP` | TanStack, May 2026 |
+| Freshly created package added as a dependency | 4j `NEW_PACKAGE_DEP` | Mastra, Jun 2026 |
+| Agent/editor configuration that runs on open | 4k `AGENT_CONFIG` | ChainDrop, Aug 2026 |
+| Payload inflating the tarball | 4l `SIZE_JUMP` | Red Hat, Jun 2026 |
+| Self-propagation through the registry token API | 4f IoC pattern (`/-/npm/v1/tokens`, `bypass_2fa`) | ChainDrop, Aug 2026 |
+| Bun-dropper loader under varying file names | 4f IoC pattern (`oven-sh/bun/releases`) | 2026 variants of Shai-Hulud 2.0 |
+| Decentralized payload hosting or command channel | 4f IoC pattern (IPFS, Nostr, Ethereum, DHT) | AsyncAPI, Jul 2026 |
 
 **Maintainer contract.** All catalog edits happen in the skill's source repository (see `repository` in `<plugin-root>/.claude-plugin/plugin.json`), not in consuming app repos. The catalog is the source of truth: a technique is "covered" only if it has a row.
 
@@ -474,14 +542,27 @@ Matching advisories are moved to a "Suppressed" section in the report — never 
 | `CADENCE_BURST` | HIGH | Warn, confirm |
 | `CADENCE_ANOMALY` | HIGH | Warn, confirm |
 | `PROVENANCE_REGRESSION` | HIGH | Warn, confirm |
+| `PROVENANCE_DRIFT` | HIGH | Warn, confirm |
+| `FIRST_PROVENANCE` + `FRESH` or `repository` changed | HIGH | Warn, confirm |
 | `NEW_PUBLISHER` + `FRESH` | HIGH | Warn, confirm |
+| `GYP_ADDED` | HIGH | Warn, confirm (with an expansion that runs a file, shell or download tool: `IOC_MATCH`) |
+| `GYP_EXPANSION_ADDED` | HIGH | Warn, confirm |
+| `LOADTIME_PAYLOAD` | HIGH | Warn, confirm |
+| `NONREGISTRY_DEP` | HIGH | Warn, confirm |
+| `NEW_PACKAGE_DEP` | HIGH | Warn, confirm |
+| `AGENT_CONFIG` + `FRESH` | MALWARE | HARD STOP |
+| `AGENT_CONFIG` | HIGH | Warn, confirm |
+| `SIZE_JUMP` + `FRESH` | HIGH | Warn, confirm; run 4f layer 2 |
 | `YANKED` | HIGH | Warn — installed version no longer in registry; remediate |
 | `SCRIPT_ADDED` (alone, target ≥72h) | INFO | Report |
 | `SCRIPT_CHANGED` (alone, target ≥72h) | INFO | Report |
 | `FRESH` (alone) | INFO | Report (callers may quarantine) |
 | `SCRIPT_PRESENT` (new install) | INFO | Report |
 | `DEPRECATED_INSTALLED` | INFO | Report deprecation message |
-| `PROVENANCE_OK` | INFO | Report (positive signal) |
+| `PROVENANCE_OK` | INFO | Report (positive signal; not proof the right workflow built it — see 4d) |
+| `FIRST_PROVENANCE` (alone) | INFO | Report |
+| `SIZE_JUMP` (alone) | INFO | Report |
+| `CADENCE_BURST` / `CADENCE_ANOMALY` on a types-only tarball | INFO | Report (see the 4c guardrail) |
 | `TARBALL_OVERSIZED` | INFO | Report (scan skipped on package >50MB) |
 | `STEP4_UNAVAILABLE` | INFO | Report and surface — never silently skip |
 
