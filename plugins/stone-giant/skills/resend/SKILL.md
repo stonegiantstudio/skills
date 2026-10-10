@@ -22,8 +22,41 @@ Resend is the email API for developers. TypeScript-first, excellent DX.
 <pkg> add resend
 
 # Environment
-RESEND_API_KEY=re_xxxxxxxxx  # Get from resend.com/api-keys
+RESEND_API_KEY=re_xxxxxxxxx  # Get from resend.com/api-keys, or make one with the CLI (below)
 ```
+
+## The CLI: account setup without the console
+
+Resend's official CLI (`resend`, [docs](https://resend.com/docs/cli), [repo](https://github.com/resend/resend-cli)) covers
+the whole API: domains, API keys, emails, webhooks, logs, audiences. **It is installed on Jon's machine and logged in**
+(profile `default`, credentials in the macOS Keychain, 2026-10-10), so a session configures Resend from the terminal and
+never needs the console. Install elsewhere with `brew install resend/cli/resend`; `resend login` opens a browser.
+
+- **Agent mode.** Add `--json` (or pipe the output) and every command prints JSON with stable exit codes; `-q` drops the
+  spinners. `resend whoami` shows the profile. In CI, `RESEND_API_KEY` in the environment replaces the login.
+- **What exists.** `resend domains list`, `resend api-keys list`. Jon's account holds one verified domain per product,
+  always a subdomain of the product's domain: `account.periodicmole.com`, `account.projectcampfire.io`,
+  `account.twospeed.app`, `account.brandhandle.io`; `mail.stonegiantstudio.com` is the studio's own sender for ops
+  mail (alerts, reports to Jon). Follow the pattern: a product sends from `account.<its domain>`, never from the apex.
+- **A new domain.** `resend domains create --name account.<domain> --json` returns the DNS records (one DKIM TXT, an MX
+  and a TXT for SPF). Add them where the domain's DNS lives (`dig +short NS <domain>` says where), then
+  `resend domains verify <id>` and `resend domains get <id> --json` until `status` is `verified`.
+- **A key per project, send-only, never printed.** Pipe the new key straight into where it is used, so it never lands in
+  a terminal, a chat or a file:
+
+  ```bash
+  resend api-keys create --name <project>-<purpose> --permission sending_access --json \
+    | jq -r .token | gh secret set RESEND_API_KEY --repo <owner>/<repo>
+  ```
+
+  For a Vercel project: `| vercel env add RESEND_API_KEY production`. Name keys `<project>-<purpose>` (`holy-grid-alerts`,
+  `twospeed-prod-key`), one per deployment, so one can be revoked (`resend api-keys delete <id>`) without touching another.
+- **Sending from a script or a workflow** that has no SDK: `resend emails send --from "Name <addr>" --to <addr>
+  --subject "..." --text "..."` with `RESEND_API_KEY` set, or the plain `POST https://api.resend.com/emails` with curl
+  and a JSON body (the Holy Grid's three GitHub workflows do the latter, since a runner has curl and jq but not the CLI).
+- **A test send** goes to `delivered@resend.dev`, never to a made-up address at a real provider (see Testing).
+- **Logs and delivery.** `resend logs list --json` and `resend emails get <id> --json` answer "did it go out" without the
+  dashboard; `resend webhooks listen` forwards events to a local server while developing a webhook handler.
 
 ## Decision: Single vs Batch
 
