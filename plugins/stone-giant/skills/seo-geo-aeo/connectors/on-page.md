@@ -43,7 +43,7 @@ score — a single page in isolation hides them. This is why the on-page pass ru
 - **Dim 2 (Content extractability):** heading hierarchy and H1 singularity overlap
   with the AEO checklist; share findings, don't double-count.
 
-## Honesty rail
+## Calibration rail
 
 These are **classic SEO hygiene**, not AI-specific magic — Tier 2 at best (sound,
 lightly quantified). A perfect on-page profile does not by itself produce AI

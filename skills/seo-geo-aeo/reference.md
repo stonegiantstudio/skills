@@ -34,14 +34,14 @@ research frontier or platform guidance moves. Each entry notes what it backs.
 - **Google — "Optimizing your website for generative AI features on Google Search"** (May
   2026): <https://developers.google.com/search/docs/fundamentals/ai-optimization-guide>
   (announcement: <https://developers.google.com/search/blog/2026/05/a-new-resource-for-optimizing>)
-  - Backs the honesty rails: "AI search is still search"; no AI-specific files /
+  - Backs the calibration rails: "AI search is still search"; no AI-specific files /
     markup required; **structured data is not required** for AI Overviews / AI
     Mode; no ideal content length; chasing inauthentic mentions does not help.
 - Corroborating practitioner coverage that Google frames AEO/GEO as "still SEO":
   Search Engine Land, Semrush, Search Engine Journal. Secondary — use to
   illustrate, not as the backbone claim.
 
-## llms.txt (present honestly, low-confidence)
+## llms.txt (present plainly, low-confidence)
 
 - **llms.txt specification** — Jeremy Howard (Answer.AI), Sept 2024:
   <https://llmstxt.org/>. The spec itself: root `/llms.txt` markdown with an H1

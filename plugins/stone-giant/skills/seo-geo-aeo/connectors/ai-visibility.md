@@ -10,7 +10,7 @@ depth: manual protocol (default) + API/MCP
 **Unique data:** whether the brand/page is actually **cited inside AI answers**
 (ChatGPT, Perplexity, Google AI Overviews/AI Mode, Gemini, Claude) — the core
 GEO/AEO outcome. This is the **least automatable for free**, so the default is a
-manual protocol; treat it honestly.
+manual protocol; report its results as low-confidence.
 
 ## Ingestion (preference order)
 

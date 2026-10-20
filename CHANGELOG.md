@@ -6,8 +6,48 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.6.0] — 2026-10-20
+
+### Added
+
+- **business-feature-writing** — newspaper-style business features built
+  from a documented record, with every fact graded documented, recalled, or
+  inferred on a provenance sheet. Ships with its baseline test scenario.
+- **human-writing** — a "Writing a fresh draft" section: write the
+  provenance sheet before the first sentence, and nothing reaches the
+  draft that isn't on it, including scenes, customers, and promises about
+  what comes next. The draft ships with the pair test's clause list.
+- **human-writing** — four catalogue entries in `ai-tells.md`: absolutes
+  about people (test the subject, not the word), stretched figures (a
+  number true of one group stated for everyone, or a correlation stated as
+  a cause), didactic framing ("the real lesson here"), and data as speaker
+  under false agents ("the number tells us," "this post explains"). The
+  stretched-figures entry names both directions: a figure for one group
+  stated for everyone, and a figure for everyone attached to one group. The
+  fragment entry gains the verbless summary line, and the pair test's
+  "publisher as speaker" exemption now says a publisher is an organization,
+  never a document or a figure. The new and widened sweeps were checked
+  against their own examples and controls.
+- **human-writing**, **writing-marketing-copy** — fresh-draft test
+  scenarios, run through the API with no host instructions in context and
+  graded blind, with their results. Every new entry answers a failure the
+  previous text produced; patterns it already handled were left out. Over
+  three rounds, landing-page drafts went from 9 failures to 0 or 1, and
+  blog drafts from 16 to 5; the remaining blog failure (data as speaker in
+  headings) is recorded in the results file.
+
 ### Changed
 
+- **writing-marketing-copy** — copy starts from a provenance list; a claim
+  about what another organization does, expects, or assumes needs a source;
+  urgency comes only from a real deadline, limit, or price change, and the
+  reference files say so where they teach urgency.
+- **human-writing** — "Volunteer one failure" and both experience passes
+  apply only when the source supplies a failure or an anecdote.
+- **Word ban** — sincerity words come out of every skill, and the
+  `ai-tells.md` sweep now covers the noun and adjective forms. The
+  `seo-geo-aeo` rails section is now "Calibration rails", and `score` reads
+  "A real 93 beats a gamed 96."
 - **human-writing** — the ai-tells catalogue's "agentless punch" entry
   becomes **false agents**: a non-person subject standing in for the
   person who decided or acted, in any clause, not only a short landing

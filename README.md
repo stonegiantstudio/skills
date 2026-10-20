@@ -263,6 +263,7 @@ production-tested knowledge — no stack-specific assumptions.
 
 **Writing, product & focus**
 
+- **business-feature-writing** — newspaper-style business features built from a documented record, with every fact graded on a provenance sheet
 - **human-writing** — prose with a human voice, built on Zinsser, Strunk & White, Williams, and Pinker; the de-slop tells catalogue is the reference, not the skill
 - **technical-writing** — documentation that readers can follow: STE-derived sentence discipline, Diátaxis doc types, fresh-reader review
 - **writing-markdown** — lint-compliant, well-structured markdown

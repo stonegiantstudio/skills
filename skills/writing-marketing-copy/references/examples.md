@@ -13,7 +13,7 @@ A swipe file of legendary copy to study and learn from.
 **Why it works:**
 
 - Counterintuitive in an era of "bigger is better"
-- Radical honesty—acknowledges the car is small
+- Radical candor: acknowledges the car is small
 - Minimal copy, maximum white space
 - Turned a weakness into a selling point
 
@@ -124,7 +124,7 @@ Because the people who are crazy enough to think they can change the world are t
 - Turns disadvantage into advantage
 - "Try harder" implies better service
 - List of specific negatives they avoid
-- Honest, human tone
+- Candid, human tone
 
 *Lesson: Position against the leader by reframing the competition.*
 
@@ -167,7 +167,6 @@ Because the people who are crazy enough to think they can change the world are t
 **Curiosity:**
 
 - "weird question..."
-- "can I be honest?"
 - "this might sound crazy"
 - "I was wrong about [topic]"
 
@@ -177,7 +176,7 @@ Because the people who are crazy enough to think they can change the world are t
 - "Your [problem] is solved"
 - "The fastest way to [result]"
 
-**Urgency:**
+**Urgency** (each one only when the deadline is real):
 
 - "final reminder"
 - "closing tonight"

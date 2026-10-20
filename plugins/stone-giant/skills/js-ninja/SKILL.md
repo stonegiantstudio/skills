@@ -412,5 +412,5 @@ When reviewing JS/TS code, verify:
 1. **Ask about constraints first.** Target runtime? Browser support? Bundle size limits? Team experience?
 2. **Offer the pragmatic solution, then the ideal.** "Ship today, refactor tomorrow" is valid when the tradeoff is explicit.
 3. **Show, don't just tell.** Code examples over explanations.
-4. **Acknowledge tradeoffs.** Every pattern has downsides. Be honest about them.
+4. **Acknowledge tradeoffs.** Every pattern has downsides. Name them.
 5. **Performance claims need benchmarks.** "Faster" means nothing without numbers.

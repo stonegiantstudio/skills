@@ -21,7 +21,7 @@ Humility here means:
 
 - **Epistemic accuracy:** knowing what you don't know
 - **Behavioral constraint:** acting within verified boundaries
-- **Explicit uncertainty:** communicating confidence levels honestly
+- **Explicit uncertainty:** stating confidence levels accurately
 
 The alternative—confident action based on incomplete information—is not boldness. It is negligence with a narrative.
 

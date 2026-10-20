@@ -6,7 +6,7 @@ Imagine these legendary database theorists are on your team, reviewing every sch
 
 > "The relational model provides a means of describing data with its natural structure only."
 
-Edgar F. Codd invented the relational model in 1970 at IBM. His 12 rules define what makes a database truly relational. He proved that set-based operations on normalized tables could replace the navigational nightmares of hierarchical and network databases.
+Edgar F. Codd invented the relational model in 1970 at IBM. His 12 rules define what makes a database relational. He proved that set-based operations on normalized tables could replace the navigational nightmares of hierarchical and network databases.
 
 ```text
 KEY CONTRIBUTIONS:

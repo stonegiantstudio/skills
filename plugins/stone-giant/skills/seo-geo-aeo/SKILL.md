@@ -14,7 +14,7 @@ the same substrate — crawlable, well-structured, genuinely authoritative conte
 surfaces**: organic rank (SEO), citations inside AI answers (GEO), and
 answer-box / featured presence (AEO).
 
-Two rules keep this honest:
+Two rules keep this calibrated:
 
 - **Evidence-ranked, not vibes.** The moves are quantified (see the ladder). Lead
   with what is measured; the field is full of confident tactics that do nothing.
@@ -26,7 +26,7 @@ Two rules keep this honest:
 The credibility edge is **calibration**: Google's own guidance (2026) says AI
 search is *still search* and that structured data and llms.txt are *not
 required*; Ahrefs' server logs show 97% of llms.txt files are never fetched.
-A skill that oversells those tactics is worse than useless. See "Honesty rails."
+A skill that oversells those tactics is worse than useless. See "Calibration rails."
 
 ## Modes
 
@@ -308,7 +308,7 @@ by reasoning and tag the result **estimated**.
    rank, referring-domain count, anchor health, **competitor link gap**) is the
    part GSC can't show. *Feeds: DataForSEO Backlinks, Ahrefs, Semrush, on-page parse.*
 5. **Structured data** — JSON-LD validity (FAQPage, HowTo, QAPage, Article,
-   Organization). *Labeled honestly: helps SEO and non-Google engines, but
+   Organization). *Labeled plainly: helps SEO and non-Google engines, but
    **Google does not require it** for AI features.* *Feeds: schema validator.*
 6. **AI-surface presence** — is the brand/page actually cited in ChatGPT,
    Perplexity, Google AI Overviews/AI Mode, Claude? Default to the manual
@@ -519,7 +519,7 @@ competitor data the connectors already expose into a ranked head-to-head.
    - **AI share-of-voice:** LLM Mentions `cross_aggregated_metrics` — mention counts
      per site on the same query universe (dim 6).
    - **Keyword gap + winnability:** the methods in `connectors/dataforseo.md`.
-4. **Provenance asymmetry — handle it honestly (this is the discipline, not a bug).**
+4. **Provenance asymmetry — handle it openly (this is the discipline, not a bug).**
    Owned-only sources (**GSC, GA4**) exist for the target but **never for
    competitors**. So competitor dimension scores draw on **public/third-party
    sources only** (on-page parse, Lighthouse, DataForSEO, schema) and are tagged
@@ -533,7 +533,7 @@ competitor data the connectors already expose into a ranked head-to-head.
    list — winnable dimensions where a competitor is ahead — which feeds straight
    into `playbook`. Plan-only; it never edits any site.
 
-## Honesty rails (calibration)
+## Calibration rails
 
 Bake these into every assessment and playbook — they are the differentiator:
 

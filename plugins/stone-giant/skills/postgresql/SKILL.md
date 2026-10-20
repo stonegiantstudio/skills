@@ -390,7 +390,7 @@ CREATE INDEX posts_tags_idx ON posts USING GIN ((metadata->'tags'));
 
 **Use JSONB for:**
 
-- Truly dynamic/schemaless data
+- Data with no fixed schema
 - Configuration/settings
 - Metadata/tags that vary per record
 - Third-party API responses you need to store

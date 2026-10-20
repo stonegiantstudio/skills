@@ -143,7 +143,7 @@ John Caples tested thousands of headlines. These patterns consistently won:
 
 ### Power Words for Headlines
 
-**Urgency:** Now, Today, Hurry, Limited, Last chance, Deadline
+**Urgency:** Now, Today, Hurry, Limited, Last chance, Deadline (only with a real deadline or limit behind them)
 **Exclusivity:** Secret, Insider, Private, Members-only, Hidden
 **Value:** Free, Bonus, Save, Discount, Bargain, Value
 **Transformation:** Transform, Breakthrough, Revolutionary, Discover
@@ -184,7 +184,7 @@ Action-oriented, specific, low-friction:
 ### CTA Surrounding Copy
 
 - **Remove risk:** "Start your free trial—cancel anytime"
-- **Add urgency:** "Only 3 spots left at this price"
+- **Add urgency, when it is real:** "Only 3 spots left at this price" (only if three spots are left)
 - **Stack value:** "Get instant access to [X], [Y], and [Z]"
 - **Repeat benefit:** "Start getting [result] today"
 
@@ -229,7 +229,7 @@ Based on Gary Halbert and Eugene Schwartz principles:
 11. **Bonuses:** Added value
 12. **Price justification:** Why it's worth more
 13. **Guarantee:** Risk reversal
-14. **Scarcity/Urgency:** Why act now
+14. **Scarcity/Urgency:** Why act now (a real deadline, limit, or price change)
 15. **CTA:** Clear instruction to buy
 16. **P.S.:** Restate key benefit, urgency, or guarantee
 

@@ -7,7 +7,7 @@ cost: free
 ```
 
 **Unique data:** whether the page's JSON-LD is valid and eligible for rich
-results / entity understanding. **Honesty rail:** schema helps SEO and non-Google
+results / entity understanding. **Calibration rail:** schema helps SEO and non-Google
 engines but is **not required by Google** for AI Overviews/AI Mode — score it,
 do not over-weight it.
 
