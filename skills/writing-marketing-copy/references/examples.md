@@ -191,7 +191,7 @@ The P.S. is often read first. Use it for:
 1. **Restate the main benefit:**
    "P.S. Remember, you're getting [big result] in just [timeframe]."
 
-2. **Add urgency:**
+2. **Add urgency, when the deadline is real:**
    "P.S. This offer expires at midnight Friday. After that, the price goes up to $497."
 
 3. **Repeat guarantee:**
@@ -200,7 +200,7 @@ The P.S. is often read first. Use it for:
 4. **Add social proof:**
    "P.S. Already 2,347 people have joined. See what they're saying..."
 
-5. **Create FOMO:**
+5. **Create FOMO, when the limit is real:**
    "P.S. I'm only accepting 50 people. 38 spots already taken."
 
 ---

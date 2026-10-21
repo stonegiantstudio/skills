@@ -1,6 +1,6 @@
 # Stone Giant Studio Skills
 
-We use these every day. Thirty-seven skills pulled from our private toolchain and
+We use these every day. Thirty-eight skills pulled from our private toolchain and
 published for anyone building with AI coding agents.
 
 Works with Claude Code, Cursor, Codex, and Gemini CLI.
@@ -75,7 +75,7 @@ Score builds a rubric tailored to your specific artifact, weighted by what
 actually matters (security gets more weight on an API, clarity gets more
 weight on a landing page). It scores each dimension, tells you exactly what
 would raise the number, and can auto-apply improvements until you hit your
-target. Built-in guardrails prevent gaming: an honest 93 beats a padded 96.
+target. Built-in guardrails prevent gaming: a real 93 beats a padded 96.
 
 Stop guessing. Set a target and let it iterate.
 
@@ -115,7 +115,7 @@ measured (adding quotations lifts AI visibility most; keyword-stuffing *hurts*)
 Console, GA4, Lighthouse, DataForSEO (pay-per-use SERP, backlinks, and AI-answer
 citations — no subscription needed), Semrush, and Ahrefs via API, MCP, or a pasted
 screenshot, and labels every number measured or estimated so you never act on a
-guess. It stays honest where the field is hype: Google says structured data and
+guess. It stays calibrated where the field is hype: Google says structured data and
 llms.txt aren't required, and it tells you so.
 
 ```text

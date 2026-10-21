@@ -9,9 +9,9 @@ the point, then the evidence in sections, then a line from the record to end on.
 The reader is a stranger who knows the industry but not the people. Everything in
 the piece traces to a source the writer can name.
 
-**REQUIRED SUB-SKILL:** stone-giant:human-writing governs the sentences. This skill
+**REQUIRED SUB-SKILL:** human-writing governs the sentences. This skill
 governs what goes in and in what order. For a print PDF, pair with
-stone-giant:pdf-create.
+pdf-create.
 
 ## Before writing: the provenance sheet
 
@@ -48,7 +48,9 @@ say it, the sentence goes without it.
 7. **Sections with subheads**, in the order the events happened. Each section opens
    on its most concrete fact. Each carries at least one dated quotation or number.
 8. **The mistake**: one thing that went wrong, told with its date, its cause, and
-   how long the fix took. A feature without one reads as a press release.
+   how long the fix took, as far as the record gives them. A feature without one
+   reads as a press release, but a mistake the record doesn't hold is invented:
+   when there is none, leave this part out and say so in your notes.
 9. **The money**: a table if there are more than four figures. Rates, totals, and
    what changed when.
 10. **What each side wanted**, in their own words where the record has them. The
@@ -68,7 +70,7 @@ say it, the sentence goes without it.
 | Dates | Month abbreviated with a day: Sept. 7, 2026. Full month name without a day: September 2026. |
 | Numbers | Numerals for money, hours, counts, percentages. Spell out one through nine elsewhere. |
 | Company on first reference | Full name, what it does, where it is, how big it is. |
-| Dashes | None in the prose. Use a comma, a period, or a colon. The one dash in the piece is the dateline separator: PLANO, Texas — On the afternoon of... |
+| Dashes | None in the prose. Use a comma, a period, or a colon. The one dash in the piece is the dateline separator: TULSA, Oklahoma — On the afternoon of... |
 | Time references | Absolute. "In August 2024," never "last month" or "recently." |
 | Rhetorical questions | None. |
 | Characterizing sentences | None. "The arrangement had outgrown its origins" and "what held it together was smaller than the figure suggests" are the writer's opinion. Let a dated fact or a quotation carry the judgment. |
@@ -92,8 +94,8 @@ say it, the sentence goes without it.
 - Every fact not marked documented is attributed or absent.
 - Nut graf is in the first four paragraphs and contains the headline numbers.
 - Honorifics on every second reference. Mechanical test: for each surname in the piece, find every occurrence after the first; each must be immediately preceded by "Mr." or "Ms." Fix each one before delivering. Three test drafts in a row failed this by eye and passed it only with the search.
-- One mistake told plainly. Both parties' motives present.
+- One mistake told plainly, if the record holds one. Both parties' motives present.
 - Last paragraph is a quotation or a dated fact.
-- Fairness pass: read every sentence about a named person as if they will read it. Private plans, health, security incidents at their company, and details lifted from someone's personal notes stay out unless they are the story. A fact meant as praise (the software was easy enough to run a meeting on cold) must not arrive as a dig at the person (he opened it at 12:40 a.m. and looked for two minutes).
-- Run the stone-giant:human-writing de-slop sweep as the final pass.
+- Fairness pass: read every sentence about a named person as if they will read it. Private plans, health, security incidents at their company, and details lifted from someone's personal notes stay out unless they are the story. A fact meant as praise (the software was easy enough to run a meeting on cold) must not arrive as a dig at the person (he opened it minutes before the meeting and looked for two minutes).
+- Run the human-writing de-slop sweep as the final pass.
 - Test file for this skill: `tests/scenario-larkspur.md`. A new draft of the skill is verified by running that scenario with the skill and scoring the twelve checks.

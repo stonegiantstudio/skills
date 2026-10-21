@@ -126,9 +126,9 @@ Support claims with:
 - Third-party validation
 - Risk reversal (guarantees)
 
-**Claims about other people need a source too.** A brief may ask you to
-position against what competitors, schools, or customers do, expect, or
-assume. Find the source that says so. Without one, build the positioning
+**Claims about other people and organizations need a source too.** A
+brief may ask you to position against what competitors, partners, or
+customers do, expect, or assume. Find the source that says so. Without one, build the positioning
 from what you can show about your own product, and say in your notes why
 you left the claim out: one claim a reader in that field knows is false
 costs the copy its credibility.
@@ -154,7 +154,7 @@ costs the copy its credibility.
 
 - Long copy outsells short copy (when reader is motivated)
 - Gary Halbert "A-pile" test: Would this look like personal mail or junk?
-- Story-driven opening → Problem → Solution → Proof → Offer → Urgency → CTA
+- Story-driven opening → Problem → Solution → Proof → Offer → Urgency (when real) → CTA
 
 ### Advertisements
 
@@ -212,12 +212,13 @@ Before delivering copy:
 - [ ] Is there a real reason to act now? Urgency comes from a deadline,
       limit, or price change you can point to. If the brief asks for
       urgency and there is none, give the true reason to start today (a
-      free first step, a small daily commitment) and say in your notes
-      that you left out invented urgency. Loss framing the record doesn't
-      support ("every day you wait…", "your next class is coming either
-      way") is invented urgency too.
+      free trial, a guarantee, or a cost the reader pays now) and say in
+      your notes that you left out invented urgency. Loss framing the
+      record doesn't support ("don't get left behind", "while your
+      competitors pull ahead") is invented urgency too.
 - [ ] Does every fact, figure, and quote trace to the provenance list,
-      and does every claim about another organization have a source?
+      and does every claim about other people or organizations have a
+      source?
 - [ ] Is the CTA unmistakably clear?
 - [ ] Does it sound like a human, not a corporation? (Swept against
       the ai-tells catalogue?)

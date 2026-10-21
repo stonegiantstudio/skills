@@ -89,19 +89,18 @@ Before the first sentence, write the **provenance sheet**: every fact,
 number, name, date, quotation, and example the piece will use, one line
 each, with its source. Strike any line the source can't back, and put
 nothing in the draft that isn't on the sheet. That covers the
-connective tissue as well as the headline facts: a scene, a customer, "the
-question we hear most," and a promise about what comes next each need a
-source. A hypothetical framed as one ("say you learn ten words on
-Monday") does not. For work built from a record, the
-`business-feature-writing` skill has the writer grade each line
-documented, recalled, or inferred.
+connective tissue as well as the headline facts: a scene, a customer, a
+quoted question, and a promise about what comes next each need a source.
+A hypothetical framed as one ("suppose your team ships twice a week")
+does not. For work built from a record, grade each line documented,
+recalled, or inferred, as `business-feature-writing` describes.
 
 Then write from the Directives, and finish with the read-aloud test, the
 sweep in `references/ai-tells.md`, and the voice pass. The sweep includes
-the literal-question test and the false-agent pair test. Deliver the pair
-test's clause list with the draft: every clause whose subject is not a
-person, each with keep or rewrite beside it. A missing list means the test
-didn't run.
+the literal-question test and the false-agent pair test. Keep the pair
+test's clause list and deliver it with the draft: every clause whose
+subject is not a person, each with keep or rewrite beside it. If you have
+no list, you didn't run the test.
 
 ## Working on an existing draft
 
@@ -150,7 +149,7 @@ own, ask. One question costs less than a voice overwritten.
    they look — a qualifier someone added deliberately reads as
    removable right up until it is gone. Then fill the gaps: ask the
    author for the specifics the draft only gestures at, and cut every
-   claim nobody can substantiate. A rewrite invents nothing, so an
+   claim no source supports. A rewrite invents nothing, so an
    abstraction with no fact behind it has to leave rather than be
    restated in plainer words. If that empties the list, stop and say
    so — the draft had no content, and what the author needs is the
@@ -182,7 +181,7 @@ own, ask. One question costs less than a voice overwritten.
    sweep. Here the sweep confirms; it does not construct, and its
    benchmark does not apply — see that file's Benchmark note. Run its
    literal-question test on every phrase that sounds finished, and its
-   false-agent pair test on every clause. A grep matches words rather
+   false-agent pair test on every clause, keeping its clause list. A grep matches words rather
    than shapes, and a fresh draft invents its own flourishes rather
    than inheriting the original's.
 8. **Voice pass (last).** Does the whole read as one specific person —
@@ -210,7 +209,7 @@ own, ask. One question costs less than a voice overwritten.
    its deletion test on every sentence that closes a paragraph or
    section — closers are where filler hides, in every register — its
    literal-question test on every phrase that sounds finished, and its
-   false-agent pair test on every clause.
+   false-agent pair test on every clause, keeping its clause list.
    Worked demonstration: `references/examples.md`.
 5. **Experience pass.** First person where true; one anecdote and one
    thing that went wrong, if the author or the source supplies them.
