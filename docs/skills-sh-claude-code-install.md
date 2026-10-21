@@ -207,7 +207,7 @@ move anything. Revised approach — **both done 2026-06-09:**
 This cannot be fixed in our repo — it's the CLI's project-scope skip + UI. The
 fix is small and lives in their repo. Two parts:
 
-- **Honest reporting (low-risk, clearly correct):** the preview
+- **Accurate reporting (low-risk, clearly correct):** the preview
   (`add.ts:220` `buildAgentSummaryLines`) should not list an agent under
   `symlink →` if it will be skipped; and the result (`add.ts:276`
   `buildResultLines`) should print a `skipped: <agent> (no .claude/ in project —

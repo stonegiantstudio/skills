@@ -146,7 +146,7 @@ Present the score in this format:
 - **40-59** — Needs work. Core structure is there but significant gaps remain.
 - **Below 40** — Major rethink needed. Fundamental issues with approach or completeness.
 
-Be honest. A score of 95 should be rare and earned. Most first drafts land in the 55-75 range, and that's normal.
+Be accurate. A score of 95 should be rare and earned. Most first drafts land in the 55-75 range, and that's normal.
 
 **Self-evaluation bias:** If you wrote or generated the artifact being scored, call that out explicitly. Acknowledge the conflict of interest and be extra critical to compensate.
 
@@ -156,7 +156,7 @@ Be honest. A score of 95 should be rare and earned. Most first drafts land in th
 
 ## Anti-Gaming Guardrails
 
-When chasing a target score, it is tempting to invent changes that look like improvements. Do not. A higher score on a worse artifact is a failure, not a success. **An honest 93 beats a gamed 96.**
+When chasing a target score, it is tempting to invent changes that look like improvements. Do not. A higher score on a worse artifact is a failure, not a success. **A real 93 beats a gamed 96.**
 
 **Never introduce any of these to raise a score:**
 

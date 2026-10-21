@@ -24,8 +24,8 @@ This skill draws on principles from legendary copywriters. For detailed techniqu
 
 ### Creative Revolution
 
-- **Bill Bernbach** — Concept-driven advertising, art-copy integration, honest messaging
-- **Julian Koenig** — Radical simplicity, self-deprecating honesty (VW "Think Small")
+- **Bill Bernbach** — Concept-driven advertising, art-copy integration, truthful messaging
+- **Julian Koenig** — Radical simplicity, self-deprecating candor (VW "Think Small")
 
 ### Brand Masters
 
@@ -112,13 +112,26 @@ Every element pulls the reader to the next:
 
 **"The consumer is not a moron; she is your wife."** — David Ogilvy
 
+Before writing, list every fact, figure, quote, and customer story the
+copy will use, each with its source: the provenance sheet in the
+`human-writing` skill. The copy uses nothing that isn't on the list.
+
 Support claims with:
 
-- Specific numbers (not "many customers" but "11,847 customers")
-- Testimonials with names and specifics
+- Specific numbers from your own records (not "many customers" but the
+  real count, "11,847 customers"), never a plausible one
+- Testimonials with names and specifics, from customers who agreed to be
+  quoted
 - Demonstrations and proof elements
 - Third-party validation
 - Risk reversal (guarantees)
+
+**Claims about other people and organizations need a source too.** A
+brief may ask you to position against what competitors, partners, or
+customers do, expect, or assume. Find the source that says so. Without one, build the positioning
+from what you can show about your own product, and say in your notes why
+you left the claim out: one claim a reader in that field knows is false
+costs the copy its credibility.
 
 ## Copy Types
 
@@ -141,7 +154,7 @@ Support claims with:
 
 - Long copy outsells short copy (when reader is motivated)
 - Gary Halbert "A-pile" test: Would this look like personal mail or junk?
-- Story-driven opening → Problem → Solution → Proof → Offer → Urgency → CTA
+- Story-driven opening → Problem → Solution → Proof → Offer → Urgency (when real) → CTA
 
 ### Advertisements
 
@@ -196,7 +209,16 @@ Before delivering copy:
 - [ ] Is the copy specific (numbers, names, details)?
 - [ ] Are all claims supported with proof?
 - [ ] Does it address the reader's objections?
-- [ ] Is there clear urgency or reason to act now?
+- [ ] Is there a real reason to act now? Urgency comes from a deadline,
+      limit, or price change you can point to. If the brief asks for
+      urgency and there is none, give the true reason to start today (a
+      free trial, a guarantee, or a cost the reader pays now) and say in
+      your notes that you left out invented urgency. Loss framing the
+      record doesn't support ("don't get left behind", "while your
+      competitors pull ahead") is invented urgency too.
+- [ ] Does every fact, figure, and quote trace to the provenance list,
+      and does every claim about other people or organizations have a
+      source?
 - [ ] Is the CTA unmistakably clear?
 - [ ] Does it sound like a human, not a corporation? (Swept against
       the ai-tells catalogue?)

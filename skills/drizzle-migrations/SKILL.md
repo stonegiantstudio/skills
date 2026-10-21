@@ -27,7 +27,7 @@ AI agents must:
 
 1. **Always use `generate` + `migrate`** for schema changes
 2. **Never execute `push`** directly - it will freeze waiting for user input
-3. **If push is truly needed**, instruct the user to run it manually (see below)
+3. **If a push is needed**, instruct the user to run it manually (see below)
 
 ## Core Commands
 

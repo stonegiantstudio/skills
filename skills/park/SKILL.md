@@ -418,7 +418,7 @@ The `review`, `log`, `punch`, and `triage` subcommands are documented in
   meant to reach zero.
 - **Triage prevents junk drawers.** Silent accumulation of active receipts
   degrades trust in the system. Forced keep/kill/defer decisions keep the
-  index honest.
+  index accurate.
 - **Don't be precious.** If someone says "nothing to note," accept it. No
   guilt, no coaching, no "are you sure?"
 

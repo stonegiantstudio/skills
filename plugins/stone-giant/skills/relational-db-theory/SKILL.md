@@ -344,13 +344,13 @@ entity_attributes(
 
 GOOD (proper tables):
 products(id, name, price, weight, category_id)
--- If truly variable attributes needed, use typed columns + JSONB for extras
+-- If the attributes vary per row, use typed columns + JSONB for extras
 ```
 
 **When EAV seems tempting**, ask:
 
 - Can I enumerate the attributes? (Then create columns)
-- Are attributes truly unlimited and unknowable? (Rare; maybe JSONB for extras)
+- Are the attributes unlimited and unknowable? (Rare; maybe JSONB for extras)
 - Am I building a forms engine? (Different problem entirely)
 
 ### Polymorphic Foreign Keys

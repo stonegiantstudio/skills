@@ -6,8 +6,56 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.6.0] — 2026-10-20
+
+### Added
+
+- **business-feature-writing** — newspaper-style business features built
+  from a documented record, with every fact graded documented, recalled, or
+  inferred on a provenance sheet. Ships with its baseline test scenario. The
+  required mistake section now applies only when the record holds one.
+- **human-writing** — a "Writing a fresh draft" section: write the
+  provenance sheet before the first sentence, and put nothing on the draft
+  that isn't on it, including scenes, customers, and promises about what
+  comes next. All three workflows keep the pair test's clause list.
+- **human-writing** — new `ai-tells.md` entries:
+  - absolutes about people, with a not-a-tell for system rules and enforced
+    guarantees;
+  - stretched figures, in both directions;
+  - didactic framing;
+  - data as speaker under false agents, which covers a record drawing a
+    conclusion and leaves alone a record reporting its own contents;
+  - the verbless summary line, for running prose only.
+
+  "Scope by skill" adds business-feature-writing. We ran every new or
+  widened sweep against its listed examples and controls: each hits all of
+  its examples and none of its controls.
+- **human-writing**, **writing-marketing-copy** — fresh-draft test
+  scenarios, run through the API with no host instructions in context and
+  graded blind, with their results. We added an entry only where the
+  pre-1.6 text failed a check, and the examples in the skills come from
+  outside the test fixture.
+
+  In the final run on the shipped text, with one blind grader for all three
+  arms, blog drafts failed 20 checks with no skill, 15 with the pre-1.6 text,
+  and 6 with 1.6.0. Landing-page drafts failed 12, 10, and 1. The open
+  failure, a number or the post as the speaker (all five 1.6.0 blog drafts),
+  is written up in `human-writing/tests/results-2026-10-20.md`.
+
 ### Changed
 
+- **writing-marketing-copy** — copy starts from a provenance list; a claim
+  about what other people or organizations do, expect, or assume needs a
+  source; urgency comes only from a real deadline, limit, or price change,
+  and the skill and its references attach that condition wherever they
+  teach urgency.
+- **human-writing** — "Volunteer one failure" and both experience passes
+  apply only when the source supplies a failure or an anecdote.
+- **Word ban** — sincerity words come out of every skill, the README, and
+  the docs. The `ai-tells.md` entry, renamed "Sincerity words", covers the
+  noun and adjective forms and exempts quoted text, proper names, and legal
+  terms of art. The `seo-geo-aeo` rails section is now "Calibration rails",
+  and `score` reads "A real 93 beats a gamed 96."
 - **human-writing** — the ai-tells catalogue's "agentless punch" entry
   becomes **false agents**: a non-person subject standing in for the
   person who decided or acted, in any clause, not only a short landing
@@ -288,7 +336,11 @@ Initial public release. Extracted from private `stone-giant-skills` repo.
 - **eval-npm** — NPM package evaluation
 - **npm-security-advisory** — Security pre-check for npm packages
 
-[unreleased]: https://github.com/stonegiantstudio/skills/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/stonegiantstudio/skills/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/stonegiantstudio/skills/compare/v1.5.0...v1.6.0
+[1.5.0]: https://github.com/stonegiantstudio/skills/compare/v1.4.0...v1.5.0
+[1.4.0]: https://github.com/stonegiantstudio/skills/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/stonegiantstudio/skills/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/stonegiantstudio/skills/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/stonegiantstudio/skills/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/stonegiantstudio/skills/releases/tag/v1.0.0

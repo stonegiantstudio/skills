@@ -13,7 +13,7 @@ A swipe file of legendary copy to study and learn from.
 **Why it works:**
 
 - Counterintuitive in an era of "bigger is better"
-- Radical honesty—acknowledges the car is small
+- Radical candor: acknowledges the car is small
 - Minimal copy, maximum white space
 - Turned a weakness into a selling point
 
@@ -124,7 +124,7 @@ Because the people who are crazy enough to think they can change the world are t
 - Turns disadvantage into advantage
 - "Try harder" implies better service
 - List of specific negatives they avoid
-- Honest, human tone
+- Candid, human tone
 
 *Lesson: Position against the leader by reframing the competition.*
 
@@ -167,7 +167,6 @@ Because the people who are crazy enough to think they can change the world are t
 **Curiosity:**
 
 - "weird question..."
-- "can I be honest?"
 - "this might sound crazy"
 - "I was wrong about [topic]"
 
@@ -177,7 +176,7 @@ Because the people who are crazy enough to think they can change the world are t
 - "Your [problem] is solved"
 - "The fastest way to [result]"
 
-**Urgency:**
+**Urgency** (each one only when the deadline is real):
 
 - "final reminder"
 - "closing tonight"
@@ -192,7 +191,7 @@ The P.S. is often read first. Use it for:
 1. **Restate the main benefit:**
    "P.S. Remember, you're getting [big result] in just [timeframe]."
 
-2. **Add urgency:**
+2. **Add urgency, when the deadline is real:**
    "P.S. This offer expires at midnight Friday. After that, the price goes up to $497."
 
 3. **Repeat guarantee:**
@@ -201,7 +200,7 @@ The P.S. is often read first. Use it for:
 4. **Add social proof:**
    "P.S. Already 2,347 people have joined. See what they're saying..."
 
-5. **Create FOMO:**
+5. **Create FOMO, when the limit is real:**
    "P.S. I'm only accepting 50 people. 38 spots already taken."
 
 ---

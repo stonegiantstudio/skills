@@ -77,7 +77,7 @@ Co-founder of DDB, father of the Creative Revolution.
 - **Art and copy work together.** First to pair copywriters with art directors as teams.
 - **Respect the consumer.** "The consumer is not a moron; she is your wife."
 - **Surprise and delight.** Break rules, subvert expectations.
-- **Simplicity and honesty.** The VW campaign succeeded through radical transparency.
+- **Simplicity and candor.** The VW campaign succeeded through radical transparency.
 
 **Signature Technique:** Turn weaknesses into strengths. "Lemon" ad for VW admitted imperfection to prove quality control. "We're #2" (Avis) made second place a selling point.
 
@@ -143,7 +143,7 @@ Founder of Leo Burnett Company, creator of brand icons.
 **Core Principles:**
 
 - **Find the inherent drama.** Every product has something interesting—find it.
-- **Believability first.** Don't make outlandish claims; be transparently honest.
+- **Believability first.** Don't make outlandish claims; state only what you can prove.
 - **Create brand characters.** Icons that embody brand values and last for decades.
 - **Soft sell.** Persuade through charm, not pressure.
 
@@ -243,7 +243,7 @@ Pioneer of direct response in print and TV, BluBlocker founder.
 **Core Principles:**
 
 - **There must always be an offer.** Not branding—response.
-- **Give a reason to respond NOW.** Urgency, scarcity, deadlines.
+- **Give a reason to respond NOW.** Urgency, scarcity, and deadlines, when they are real. An invented one is a claim the reader can check.
 - **Track everything.** If you can't measure it, don't do it.
 - **Results rule.** Ignore vanity metrics; only conversions matter.
 - **Write emotionally, with enthusiasm, conversationally.**

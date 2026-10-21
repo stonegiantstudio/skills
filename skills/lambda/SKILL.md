@@ -82,7 +82,7 @@ Direct invocation:       Up to 15 minutes
 Event processing:        Match SQS visibility timeout
 
 Rule: Set timeout to 2-3x expected execution time
-      Never use max (15 min) unless truly needed
+      Never use max (15 min) unless the job needs it
 ```
 
 ### Essential Configuration
@@ -765,7 +765,7 @@ When to avoid VPC:
 If using VPC:
 - Use VPC endpoints for AWS services (no NAT needed)
 - Place Lambda in private subnets
-- NAT Gateway only if internet access truly required
+- NAT Gateway only if the function needs internet access
 ```
 
 ### Input Validation

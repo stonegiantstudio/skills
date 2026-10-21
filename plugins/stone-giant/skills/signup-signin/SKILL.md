@@ -49,7 +49,7 @@ Every auth flow needs at least two of these recovery affordances. The first two 
 
 1. **Email recovery code, not magic link.** A 6-8 digit code the user can copy from one device and paste on another. Magic links break in three common environments: corporate email scanners that consume the token before the user clicks (Outlook safe-links, Mimecast), school WiFi blocking the magic-link domain, and cross-device flows (user clicked the email on phone, wants to sign in on the laptop they already had open). Codes survive all three.
 
-2. **A published support contact.** A real human-reachable path for the worst case — phone permanently lost, email locked out, every other channel exhausted. If the product can't commit to a live human, the contact has to disclose the constraint honestly ("Email replies within 24 hours. We're a small team — we'll do our best") rather than imply a Zendesk that doesn't exist. Don't lie to users about the safety net.
+2. **A published support contact.** A real human-reachable path for the worst case — phone permanently lost, email locked out, every other channel exhausted. If the product can't commit to a live human, the contact has to state the constraint plainly ("Email replies within 24 hours. We're a small team — we'll do our best") rather than imply a Zendesk that doesn't exist. Don't lie to users about the safety net.
 
 ### Strongly recommended (audience-dependent)
 

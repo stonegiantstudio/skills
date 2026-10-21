@@ -1,9 +1,9 @@
 # AI tells — the de-slop catalogue
 
 Detection signals, the patterns under each, and the rewrite move for
-every pattern. Loaded by both human-writing workflows: as the final
-check on fresh prose when rewriting from the essence, and as the
-mid-pipeline de-slop pass when editing in place.
+every pattern. Loaded by all three human-writing workflows: as the
+final check on a fresh draft and on prose rewritten from the essence,
+and as the mid-pipeline de-slop pass when editing in place.
 The sweep pays twice: readers discount prose that pattern-matches as
 machine output, and search engines punish thin scaled content hardest
 in core updates.
@@ -40,6 +40,10 @@ active. Skills point here; none of them restate this.
   when used deliberately; sweep them only when they read as filler
   rather than persuasion. False agents are not a scaffold and apply in
   full: marketing copy is where they turn up most.
+- **business-feature-writing** — every signal applies in full. A
+  document from the record may report its own contents ("the invoice
+  lists 22 technicians"), and attribution follows that skill's house
+  conventions (wrote, said, recalls).
 - **technical-writing** — procedures and reference keep a neutral
   register and skip voice work entirely. Explanation-type docs may
   pair with human-writing, keeping one term one meaning and no
@@ -152,17 +156,19 @@ what you need to know" · "Stay ahead of the curve"
   meaning without them. Move: delete. Tier 2 rather than Tier 1 —
   speech runs on these, so one in a paragraph is voice and three is
   the fingerprint.
-- **Sincerity prefaces** — honestly, frankly, to be honest, truth be
+- **Sincerity words** — honestly, frankly, to be honest, truth be
   told. Distinct from the intensifiers above: these imply the
   surrounding prose was not candid, which is both false and unflattering
   to the writer. They carry no information in any position. Move:
   delete the word and start on the next one; the sentence is shorter
   every time. Sweep every grammatical position, not just the sentence
   opener — the adverbial use mid-clause ("comments honestly describing
-  a compromise") is the one that survives a preface-only check. The
-  adjective keeps its meaning and stays: an honest mistake, honest
-  work.
-  `grep -inE "\b(honest(ly)?|frankly|truth be told)\b" draft.md`
+  a compromise") is the one that survives a preface-only check. The noun
+  and adjective make a related move: "an honest mistake" and "honesty
+  is our policy" assert good faith instead of showing it. Write "a
+  mistake," then what you did about it. Not a tell: quoted text, proper
+  names, and legal terms of art.
+  `grep -inE "\b(honest(ly|y)?|frankly|truth be told)\b" draft.md`
 
 ## Signal 2 — structural templates
 
@@ -193,6 +199,10 @@ The same scaffolds, whatever the topic.
 - **Setup-colon-payoff** — "The result: …" / "The goal?" Move: a plain
   sentence.
 - **One-word fragment drama** — "Speed. Precision. Mastery." Move: cut.
+  The longer cousin is the verbless summary line in running prose:
+  "Two minutes a ride, and a bike at every corner." Move: give it a
+  subject and a verb, or cut it. Headings, taglines, subheads, captions,
+  list items, and table cells are exempt; they are verbless by design.
 - **False agents** — a non-person subject standing in for the person who
   decided or acted, in any clause, not only a short landing sentence. They
   turn up most in product copy: the product is the topic, so the writer
@@ -208,6 +218,16 @@ The same scaffolds, whatever the topic.
     noticed." Neither what? Two sessions, and a session notices nothing.
     A writer doing the rhythm pass reaches for a decisive short sentence
     before there is a subject to put in it.
+  - *Data as speaker.* The most common form in analytical prose: a
+    record drawing a conclusion or making a promise. "The survey tells
+    us customers want it," "our numbers suggest the redesign worked,"
+    "the 30-day figure doesn't promise you the same result," "our data
+    didn't compare plans," "this guide explains why." The people who
+    read the record draw the conclusion, and the people who wrote the
+    guide explain. Move: "from that survey, we can't tell whether…," "we
+    didn't compare plans," "here we explain…" A record reporting its own
+    literal contents is not this pattern: "the logs show a 502 at 12:03,"
+    "RFC 9110 defines PATCH," "the license requires attribution."
   - *Pair test.* Read each clause's subject and verb alone ("games
     moved," "post compares") and ask: is a person's decision or action
     hiding behind this verb? If so, that person is the subject. Writers
@@ -223,9 +243,11 @@ The same scaffolds, whatever the topic.
     unknown or beside the point, state the fact as a state: "the site has
     had a 3D mode since 2026."
   - *Not a tell.* States (is, has, contains, costs, lasts, depends on,
-    takes a duration); literal physical events (the ball bounces, the
+    takes a duration, and a figure's population: "the figure covers only
+    paid accounts"); literal physical events (the ball bounces, the
     paddle grows); characters acting inside a story or game; a publisher
-    as speaker ("MDN notes"); quoted text; a tool or change as the cause
+    as speaker ("Mozilla notes"); a record reporting its own contents
+    (above); quoted text; a tool or change as the cause
     of an effect ("caching cut p95 latency in half"). Software or a step
     doing its job also stays wherever no person made the call: in
     technical or instructional prose ("the function returns a list," "a
@@ -234,7 +256,7 @@ The same scaffolds, whatever the topic.
     decision.
   - *Sweep* (best-effort; proper names such as product names slip past
     any word list, so the pair test is the check):
-    `grep -inE "\b((the|this|that|our|your|each|every|a|an|its|their|these|those|all|some|both|two|three|four|five|six|seven)\s+)?((new|free|old|latest|first|next|main|whole)\s+)?(tables?|charts?|posts?|pages?|articles?|guides?|sections?|lists?|panels?|switch(es)?|buttons?|updates?|releases?|games?|apps?|tools?|boards?|features?|tiers?|plans?|courses?|systems?|process(es)?|dashboards?|questions?|reports?|data|products?|platform|site)\s+(shows?|showed|covers?|covered|compares?|compared|moves?|moved|keeps?|kept|asks?|asked|calls?|called|lets?|uses?|used|offers?|offered|hands?|handed|brings?|brought|gives?|gave|reach(es)?|reached|walks?|walked|takes?|took|teach(es)?|taught|helps?|helped|makes?|made|wants?|wanted|knows?|knew|decides?|decided|builds?|built|catch(es)?|caught|notices?|noticed|match(es)?|matched|stays?|stayed|sits?|sat|draws?|drew)\b" draft.md`
+    `grep -inE "\b((the|this|that|our|your|each|every|a|an|its|their|these|those|all|some|both|two|three|four|five|six|seven)\s+)?((new|free|old|latest|first|next|main|whole)\s+)?(tables?|charts?|posts?|pages?|articles?|guides?|sections?|lists?|panels?|switch(es)?|buttons?|updates?|releases?|games?|apps?|tools?|boards?|features?|tiers?|plans?|courses?|systems?|process(es)?|dashboards?|questions?|reports?|data|numbers?|figures?|results?|logs?|surveys?|[0-9]+%|products?|platform|site)\s+((does|did|do|can|could|cannot|can't|doesn't|didn't|won't|will)\s+(not\s+)?)?(shows?|showed|tells?|told|says?|said|promises?|promised|suggests?|suggested|proves?|proved|means?|meant|explains?|explained|adds?|added|separates?|separated|compares?|compared|moves?|moved|keeps?|kept|asks?|asked|calls?|called|lets?|uses?|used|offers?|offered|hands?|handed|brings?|brought|gives?|gave|reach(es)?|reached|walks?|walked|takes?|took|teach(es)?|taught|helps?|helped|makes?|made|wants?|wanted|knows?|knew|decides?|decided|builds?|built|catch(es)?|caught|notices?|noticed|match(es)?|matched|stays?|stayed|sits?|sat|draws?|drew)\b" draft.md`
 - **Coaching imperatives** — "Remember:", "Ask yourself…". Move: state
   the fact.
 - **Thesis-preview openers** — "In this section we'll explore…". Move:
@@ -288,12 +310,38 @@ The same scaffolds, whatever the topic.
   importance of recall." Move: cut the clause or attribute the claim.
 - **Abstraction stacks** — claims with no number, name, date, or
   sensory fact anywhere near them. Move: ground or cut.
+- **Absolutes about people** — a universal claim with people as the
+  subject: "nobody reads the terms," "everyone hates meetings," "no one
+  has time for a 40-minute setup." A reader can't check it, it is
+  usually false at the edges, and the useful part, the reason, is
+  missing. Move: name the mechanism ("the terms run to 9,000 words") or
+  the people it is true for. Not a tell: an absolute about a system
+  ("the scheduler never runs a job twice") is a specification, and so
+  is a guarantee or permission the system enforces ("no one outside
+  your workspace can see this file"). Test the subject, not the word.
+  `grep -inE "\b(nobody|everyone|everybody|no one)\b([^-]|$)" draft.md`
 
 ## Signal 6 — significance inflation
 
 - **Welded-on meaning** — "marks a pivotal moment," "reflects broader
   trends," "cementing its legacy." Move: show the fact; cut the
   meaning.
+- **Stretched figures** — a number moved to a group it doesn't
+  describe, or a correlation stated as a cause. The move goes both ways:
+  a satisfaction score from customers who renewed, quoted as what
+  customers think; and an all-customer average response time, quoted as
+  the time premium accounts get. "Customers who use the mobile app spend
+  more, so the app makes them spend more" states a cause from a figure
+  that never compared. Move: carry the population with the number every
+  time it appears, keep each number with the group it was measured on,
+  and claim a cause only when the source compared.
+- **Didactic framing** — "the real lesson here," "the lesson is the
+  same one," "what this teaches us," "the key takeaway," "we learned
+  what X costs." A writer
+  who adds the frame is announcing a moral the reader can already see,
+  most often right after volunteering a failure. Move: say what happened and
+  what changed, and let the reader draw the lesson.
+  `grep -inE "\b(the (real|quiet|deeper|bigger|true|same|hidden) lesson|the lesson here|the lesson is (that|the same)|the moral of|what this (teaches|taught)|we learned what|the (key |main |real )?takeaway)\b" draft.md`
 - **Paradox aphorisms** — a balanced, knowing formulation that sounds
   like insight and cannot be checked: "the missing item is the one
   nobody thinks to look for," "the hardest bugs are the ones you
@@ -323,6 +371,6 @@ is whether the author would say it.
 **Scope: edit-in-place only.** The percentage assumes a retained
 skeleton, so it means nothing under human-writing's default mode,
 where the draft is rewritten from its distilled essence and every
-sentence is new. Applying it there inverts its purpose — it would read
+sentence is new, or on a fresh draft, which has no skeleton to keep. Applying it there inverts its purpose — it would read
 as a ceiling to stay under. In rewrite mode this catalogue is a check
 on fresh prose, and the only target is that no signal survives.

@@ -145,7 +145,7 @@ ASK YOURSELF:
 - Is there mathematical logic to these proportions?
 
 RENNER WOULD SAY:
-"Ornament is crime. A truly modern design needs no decoration—
+"Ornament is crime. A modern design needs no decoration—
 the structure itself is beautiful. Start with the circle.
 Everything else follows."
 ```

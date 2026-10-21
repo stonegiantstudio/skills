@@ -14,7 +14,7 @@ The classic structure. Works for virtually any length.
 | ------------- | ---------------------------------- | ------------------------------------ |
 | **Attention** | Stop the scroll, interrupt pattern | Bold claim, question, shocking stat  |
 | **Interest**  | Make them want to know more        | Benefits, story, relevance           |
-| **Desire**    | Make them want it                  | Social proof, visualization, urgency |
+| **Desire**    | Make them want it                  | Social proof, visualization, urgency (when real) |
 | **Action**    | Tell them exactly what to do       | Clear CTA, remove friction           |
 
 ---
@@ -30,8 +30,8 @@ Best for problem-aware audiences. Simple and brutal.
 *Example:*
 
 > **Problem:** Your email list isn't growing.
-> **Agitate:** Every day without subscribers is money left on the table. While competitors build audiences, you're invisible.
-> **Solution:** [Product] adds 100+ subscribers per week on autopilot.
+> **Agitate:** You sent 14 newsletters this quarter, and your list grew by 9 people. [Use the reader's own numbers, or the pain your research recorded, never an invented one.]
+> **Solution:** [Product] added a median of [N] subscribers a week for customers like you [from your records].
 
 ---
 
@@ -48,7 +48,7 @@ Add: **Outcome:** Paint the picture of success after using the solution.
 1. **Picture:** Paint a vivid image of the outcome
 2. **Promise:** What you'll deliver
 3. **Prove:** Evidence, testimonials, data
-4. **Push:** CTA with urgency
+4. **Push:** CTA, with urgency when it is real
 
 ---
 
@@ -73,7 +73,7 @@ Every headline should have at least one, ideally all:
 | U                  | Description         | Example                                   |
 | ------------------ | ------------------- | ----------------------------------------- |
 | **Useful**         | Benefits the reader | "How to Save 3 Hours a Week"              |
-| **Urgent**         | Time-sensitive      | "Last Day: 50% Off Everything"            |
+| **Urgent**         | Time-sensitive      | "Last Day: 50% Off Everything" (only on the last day) |
 | **Unique**         | Different, novel    | "The Backwards Method to Learning Guitar" |
 | **Ultra-specific** | Concrete details    | "How I Made $11,847 in 30 Days"           |
 
@@ -143,7 +143,7 @@ John Caples tested thousands of headlines. These patterns consistently won:
 
 ### Power Words for Headlines
 
-**Urgency:** Now, Today, Hurry, Limited, Last chance, Deadline
+**Urgency:** Now, Today, Hurry, Limited, Last chance, Deadline (only with a real deadline or limit behind them)
 **Exclusivity:** Secret, Insider, Private, Members-only, Hidden
 **Value:** Free, Bonus, Save, Discount, Bargain, Value
 **Transformation:** Transform, Breakthrough, Revolutionary, Discover
@@ -184,7 +184,7 @@ Action-oriented, specific, low-friction:
 ### CTA Surrounding Copy
 
 - **Remove risk:** "Start your free trial—cancel anytime"
-- **Add urgency:** "Only 3 spots left at this price"
+- **Add urgency, when it is real:** "Only 3 spots left at this price" (only if three spots are left)
 - **Stack value:** "Get instant access to [X], [Y], and [Z]"
 - **Repeat benefit:** "Start getting [result] today"
 
@@ -229,8 +229,8 @@ Based on Gary Halbert and Eugene Schwartz principles:
 11. **Bonuses:** Added value
 12. **Price justification:** Why it's worth more
 13. **Guarantee:** Risk reversal
-14. **Scarcity/Urgency:** Why act now
+14. **Scarcity/Urgency:** Why act now (a real deadline, limit, or price change)
 15. **CTA:** Clear instruction to buy
-16. **P.S.:** Restate key benefit, urgency, or guarantee
+16. **P.S.:** Restate key benefit, real urgency, or guarantee
 
 *Note: P.S. lines are often read first—make them count.*

@@ -63,10 +63,13 @@ him).
 - **Ground every abstraction.** A thousand details add up to one
   impression (McPhee). "Comprehensive integration" says nothing; "it
   connects to Slack, Salesforce, and HubSpot; setup takes 15 minutes"
-  says everything.
-- **Volunteer one failure.** "After 200 implementations, three patterns
-  held; the first two attempts did not." Experience is specifics plus
-  what went wrong.
+  says everything. Every detail comes from the source: a plausible
+  detail you made up is a fabrication, not grounding.
+- **Volunteer one failure, when the source has one.** "After 200
+  implementations, three patterns held; the first two attempts did
+  not." Experience is specifics plus what went wrong. Tell the failure
+  as what happened and what changed, not as a lesson. If the source
+  records no failure, write none.
 - **Trust the reader.** Adjacent facts need no "furthermore";
   juxtaposition does the work, and the reader who infers the connection
   feels smart.
@@ -80,6 +83,25 @@ match it: sentence rhythm, characteristic word choices, punctuation
 habits, recurring tics. Calibrate to the author, never to a house
 default. Without a sample, aim for the plainest register the content
 allows.
+
+## Writing a fresh draft
+
+Before the first sentence, write the **provenance sheet**: every fact,
+number, name, date, quotation, and example the piece will use, one line
+each, with its source. Strike any line the source can't back, and put
+nothing in the draft that isn't on the sheet. That covers the
+connective tissue as well as the headline facts: a scene, a customer, a
+quoted question, and a promise about what comes next each need a source.
+A hypothetical framed as one ("suppose your team ships twice a week")
+does not. For work built from a record, grade each line documented,
+recalled, or inferred, as `business-feature-writing` describes.
+
+Then write from the Directives, and finish with the read-aloud test, the
+sweep in `references/ai-tells.md`, and the voice pass. The sweep includes
+the literal-question test and the false-agent pair test. Keep the pair
+test's clause list and deliver it with the draft: every clause whose
+subject is not a person, each with keep or rewrite beside it. If you have
+no list, you didn't run the test.
 
 ## Working on an existing draft
 
@@ -128,7 +150,7 @@ own, ask. One question costs less than a voice overwritten.
    they look — a qualifier someone added deliberately reads as
    removable right up until it is gone. Then fill the gaps: ask the
    author for the specifics the draft only gestures at, and cut every
-   claim nobody can substantiate. A rewrite invents nothing, so an
+   claim no source supports. A rewrite invents nothing, so an
    abstraction with no fact behind it has to leave rather than be
    restated in plainer words. If that empties the list, stop and say
    so — the draft had no content, and what the author needs is the
@@ -145,7 +167,8 @@ own, ask. One question costs less than a voice overwritten.
    is the failure this whole mode exists to avoid. While composing,
    vary sentence length and follow a long, clause-laden build with a
    short landing — rhythm is cheaper to build in than to retrofit.
-   First person where true, one anecdote, one thing that went wrong.
+   First person where true; one anecdote and one thing that went
+   wrong, if the essence list holds them.
 5. **Reconcile against the written list, item by item.** Walk the
    list and find each item in the finished draft. Memory is what lets
    items go missing — a draft reads complete whether or not it is.
@@ -159,7 +182,7 @@ own, ask. One question costs less than a voice overwritten.
    sweep. Here the sweep confirms; it does not construct, and its
    benchmark does not apply — see that file's Benchmark note. Run its
    literal-question test on every phrase that sounds finished, and its
-   false-agent pair test on every clause. A grep matches words rather
+   false-agent pair test on every clause, keeping its clause list. A grep matches words rather
    than shapes, and a fresh draft invents its own flourishes rather
    than inheriting the original's.
 8. **Voice pass (last).** Does the whole read as one specific person —
@@ -187,10 +210,11 @@ own, ask. One question costs less than a voice overwritten.
    its deletion test on every sentence that closes a paragraph or
    section — closers are where filler hides, in every register — its
    literal-question test on every phrase that sounds finished, and its
-   false-agent pair test on every clause.
+   false-agent pair test on every clause, keeping its clause list.
    Worked demonstration: `references/examples.md`.
-5. **Experience pass.** First person where true, one anecdote, one
-   thing that went wrong.
+5. **Experience pass.** First person where true; one anecdote and one
+   thing that went wrong, if the author or the source supplies them.
+   Never construct either.
 6. **Rhythm pass.** Vary sentence length; follow a long, clause-laden
    build with a short landing. Let commas and periods do the work; keep
    only the dash doing work they cannot.
